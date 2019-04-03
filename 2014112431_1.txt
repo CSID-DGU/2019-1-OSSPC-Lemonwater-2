@@ -1,3 +1,5 @@
 hello world i am jae shiik
 nice to meet you
 
+Jaeshik branch에 commit하고 master에도 올리겠습니다.
+2014112431은 master branch에 안 올렸음.
