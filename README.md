@@ -1,25 +1,26 @@
-# Cantata 조
+# Lemonwater 조
 
-## 2018-1학기 OSSP
+## 2019-1학기 OSSP
 
 
 
 ## 팀원
 
-- 2013111999 김성준
-- 2014112062 양준현
-- 2014112032 최동혁
+- 2013111294 광고홍보학과 이영재
+- 2013110423 수학과 이인모
+- 2014112431 수학과 박재식
 
 
 
 ## Description
 
-* 동국대학교 컴퓨터공학과 공개SW프로젝트 2018-1 학기 프로젝트 원격저장소.
+* 동국대학교 융합소프트웨어공학과 오픈소스소프트웨어프로젝트 2019-1 학기 프로젝트 원격저장소.
   * 리눅스 SDL을 이용한 Pacman Game
   * 소스코드 출처
     * Pacman_original  : <https://github.com/TroyShaw/Pacman>  
     * Pacman_2017_ver : https://github.com/CSID-DGU/2017-2-OSSP-Awkward-3
-
+    * Pacman_2018_ver : https://github.com/CSID-DGU/2018-1-OSSP-Cantata-2
+    
 
 
 ## 협업 홈페이지
