@@ -11,8 +11,10 @@ static bool muted;
 
 static Mix_Music *music;
 //static Mix_Chunk *effects[NUM_EFFECTS];
-
+//Lemonwater 플레이어가 죽었을 때와 플레이어가 fruit를 먹었을 때 소리 구현. 
 static Mix_Chunk *levelStart;
+static Mix_Chunk *pacmanDeath; 
+static Mix_Chunk *fruitEat;
 static int levelStartChanel;
 
 void load_sounds(void)
@@ -36,7 +38,10 @@ void load_sounds(void)
 		//effects[i] = Mix_LoadWAV(EFFECT_FILES[i]);
 	//}
 
+	//Lemonwater pacmanDeath와 fruitEat chunk를 wav파일에 연결
 	levelStart = Mix_LoadWAV("sound/pacintro.wav");
+	pacmanDeath = Mix_LoadWAV("sound/death.wav");
+	fruitEat = Mix_LoadWAV("sound/Dumpster.wav");
 
 	set_sound_volume(0.5);
 	set_sound_muted(false);
@@ -84,6 +89,8 @@ bool is_sound_muted(void)
 	return muted;
 }
 
+
+//Lemonwater PacmanDeathSound와 fruitEatSound case일 경우 해당 chunk를 재생
 void play_sound(SoundEffect effectName)
 {
 	Mix_Chunk *chunk;
@@ -93,7 +100,8 @@ void play_sound(SoundEffect effectName)
 	{
 		case LevelStartSound:  chunk = levelStart; channel = &levelStartChanel; break;
 		case WakawakaSound:    chunk = levelStart; channel = &levelStartChanel; break;
-		case PacmanDeathSound: chunk = levelStart; channel = &levelStartChanel; break;
+		case PacmanDeathSound: chunk = pacmanDeath; channel = &levelStartChanel; break; //Lemonwater
+		case fruitEatSound:    chunk = fruitEat; channel = &levelStartChanel; break;//Lemonwater
 	}
 
 	*channel = Mix_PlayChannel(-1, chunk, 0);
@@ -103,7 +111,7 @@ void play_music(void)
 {
 
 }
-
+//Lemonwater PacmanDeathSound와 fruitEatSound case의 소리를 중단
 void stop_sound(SoundEffect effectName)
 {
 	int channel;
@@ -113,6 +121,7 @@ void stop_sound(SoundEffect effectName)
 		case LevelStartSound:  channel = levelStartChanel; break;
 		case WakawakaSound:    channel = levelStartChanel; break;
 		case PacmanDeathSound: channel = levelStartChanel; break;
+		case fruitEatSound:    channel = levelStartChanel; break;
 		default: printf("badsound\naborting\n"); exit(1); //TODO: fix this up
 	}
 

@@ -7,7 +7,7 @@
 #include <SDL/SDL.h>
 
 #include "fps.h"
-
+//Lemonwater Ice object 점수 추가는 보류
 int object_points(Object object)
 {
 	switch (object)
@@ -39,6 +39,7 @@ Object object_for_level(int level)
 */
 
 //#5 Yang : 6.object 출현 방식 변경
+//Lemonwater Ice object case 3번으로 랜덤출현 추가
 Object random_object()
 {
 	int random = rand()%NUM_OBJECT;
@@ -47,6 +48,7 @@ Object random_object()
 	case 1: return Life;
 	//#26 Yang: 1.godmode
 	case 2: return God;
+	case 3: return Ice;
 	default : return Ghostslow;
 	}
 }

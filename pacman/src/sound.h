@@ -3,14 +3,17 @@
 #include <stdbool.h>
 
 //The number of sound effects.
-#define NUM_EFFECTS 3
+//Lemonwater sound effect Ice의 경우를 추가하여 NUM_EFFECTS 4
+#define NUM_EFFECTS 4
 
 //The different sound effects we can use.
+//Lemonwater fruitEatSound를 열거형에 추가
 typedef enum
 {
 	LevelStartSound,
 	WakawakaSound,
-	PacmanDeathSound
+	PacmanDeathSound,
+	fruitEatSound
 } SoundEffect;
 
 //Initializes and loads all sounds. Must be called before playing any sounds.

@@ -482,7 +482,6 @@ static void enter_state(PacmanGame *game, GameState state)
 	{
 		case GameBeginState:
 			play_sound(LevelStartSound);
-
 			break;
 		case LevelBeginState:
 
@@ -490,9 +489,15 @@ static void enter_state(PacmanGame *game, GameState state)
 		case GamePlayState:
 			break;
 		case WinState:
-
 			break;
-		case DeathState:case DeathState2: case ReviveState1:case ReviveState2:
+
+		//Lemonwater 기존의 DeathState1, DeathState2가 시작할 때 play_sound함수를 삽입하여 효과음 재생
+		case DeathState:		
+			play_sound(PacmanDeathSound);
+		case DeathState2: 
+			play_sound(PacmanDeathSound);
+		case ReviveState1:
+		case ReviveState2:
 		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 			break;
 		case GameoverState:
@@ -746,9 +751,9 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		}
 
 	//check for collisions
-
+	//Lemonwater 5가지 fruit에 대해서 각각 player가 먹었을 시 사운드 재생
 	if (f[0]->fruitMode == Displaying && collides_obj(&pac->body, f[0]->x, f[0]->y))
-	{
+	{	play_sound(fruitEatSound);
 		f[0]->fruitMode = Displayed;
 		f[0]->eaten = true;
 		f[0]->eatenAt = ticks_game();
@@ -756,28 +761,28 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 	}
 
 	if (f[1]->fruitMode == Displaying && collides_obj(&pac->body, f[1]->x, f[1]->y))
-	{
+	{	play_sound(fruitEatSound);
 		f[1]->fruitMode = Displayed;
 		f[1]->eaten = true;
 		f[1]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[1]->fruit);
 	}
 	if (f[2]->fruitMode == Displaying && collides_obj(&pac->body, f[2]->x, f[2]->y))
-	{
+	{	play_sound(fruitEatSound);
 		f[2]->fruitMode = Displayed;
 		f[2]->eaten = true;
 		f[2]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[2]->fruit);
 	}
 	if (f[3]->fruitMode == Displaying && collides_obj(&pac->body, f[3]->x, f[3]->y))
-	{
+	{	play_sound(fruitEatSound);
 		f[3]->fruitMode = Displayed;
 		f[3]->eaten = true;
 		f[3]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[3]->fruit);
 	}
 	if (f[4]->fruitMode == Displaying && collides_obj(&pac->body, f[4]->x, f[4]->y))
-	{
+	{	play_sound(fruitEatSound);
 		f[4]->fruitMode = Displayed;
 		f[4]->eaten = true;
 		f[4]->eatenAt = ticks_game();
@@ -787,11 +792,13 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 }
 
 //#5 Yang : 프로세스 오브젝트 함수 추가
+//Lemonwater 새로운 오브젝트 추가 ex) Ice : getSlow object를 변형한 것으로 몬스터의 속도를 2초 동안 0으로 만든다 
+//Lemonwater *o[3] => *o[4], velocity = 0, pelletsEaten >=
 static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process_object에 playernum 변수 추가
 {
 	int pelletsEaten = game->pelletHolder.totalNum - game->pelletHolder.numLeft;
-	GameObject *o[3];
-	for(int i=0;i<3;i++){
+	GameObject *o[4];
+	for(int i=0;i<4;i++){
 		o[i]=&game->gameObject[0][i];
 	}
 
@@ -810,12 +817,20 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[2]->objectMode = Displaying_obj;
 		regen_object(o[2]);
 	}
-	unsigned int odt[3];
-	for(int i=0;i<3;i++) odt[i] = ticks_game()-o[i]->startedAt;
+	else if (pelletsEaten >= 200 && o[3]->objectMode == NotDisplaying_obj)
+	{
+		o[3]->objectMode = Displaying_obj;
+		regen_object(o[3]);
+	}
+
+
+	unsigned int odt[4];
+	for(int i=0;i<4;i++) odt[i] = ticks_game()-o[i]->startedAt;
 
 
 	Pacman *pac = &game->pacman[playernum];
 
+	//Lemonwater display 시간 조절
 	if (o[0]->objectMode == Displaying_obj)
 	{
 		if (odt[0] > o[0]->displayTime) o[0]->objectMode = Displayed_obj;
@@ -827,7 +842,14 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	{
 		if (odt[2] > o[2]->displayTime) o[2]->objectMode = Displayed_obj;
 	}
+	
+	if (o[3]->objectMode == Displaying_obj)
+	{
+		if (odt[3] > o[3]->displayTime) o[3]->objectMode = Displayed_obj; 
+	}
 
+
+	//Lemonwater 플레이어와 object가 collision이 생길 경우 displaying에서 displayed로 바뀐다.
 	if (o[0]->objectMode == Displaying_obj && collides_obj(&pac->body, o[0]->x, o[0]->y))
 	{
 		o[0]->objectMode = Displayed_obj;
@@ -849,7 +871,17 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[2]->eatenAt = ticks_game();
 		game_object_function(o[2],game,playernum);
 	}
+	if (o[3]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
+	{
+		o[3]->objectMode = Displayed_obj;
+		o[3]->eaten = true;
+		o[3]->eatenAt = ticks_game();
+		game_object_function(o[3],game,playernum);
+	} 
+
+
 	//#5 Yang : 4. object 기능 구현
+	//Lemonwater Ice object 기능 추가
 	unsigned int oet[3];
 	for (int i=0;i<3;i++) oet[i] = ticks_game()-o[i]->eatenAt;
 
@@ -865,6 +897,12 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	{
 		if (oet[2] > 5000) {game_object_function_end(o[2],game,playernum);		o[2]->eaten = false;}
 	}
+	if (o[3]->eaten)
+	{
+		if (oet[3] > 5000) {game_object_function_end(o[3],game,playernum);		o[3]->eaten = false;}
+	}
+
+
 }
 static void process_pellets(PacmanGame *game,int player_num)
 {//#8 Kim 3. 그냥 배열넣는부부에 player_num 추가해줌으로써 이거 두번호출하고 0, 1 한번씩 호출 하게함.
@@ -1084,6 +1122,7 @@ static bool resolve_telesquare(PhysicsBody *body, int flag)//#
 }
 
 //#5 Yang : 4.각 Object 효과 구현
+//Lemonwater Ice object 효과 구현 : getSlow의 속도를 0으로 설정
 void game_object_function(GameObject *gameObject, PacmanGame *game, int playernum)//#5 Yang : 5. playernum 추가
 {
 	switch(gameObject->object)
@@ -1105,9 +1144,21 @@ void game_object_function(GameObject *gameObject, PacmanGame *game, int playernu
 		game->pacman[playernum].body.velocity = 160;
 		game->pacman[playernum].boostOn = true;
 		return;
+
+	case Ice:
+		for(int i=0;i<4;i++){
+			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=0;
+			else game->ghosts[0][i].body.velocity=0;
+		}
+		return;
+
+
 	default: return;
 	}
 }
+
+
+//Lemonwater Ice가 끝날 경우 속도가 currentLevel의 normal speed로 되돌아온다.
 void game_object_function_end(GameObject *gameObject, PacmanGame *game, int playernum) //#5 Yang : 5. playernum 추가
 {
 	switch(gameObject->object)
@@ -1125,6 +1176,14 @@ void game_object_function_end(GameObject *gameObject, PacmanGame *game, int play
 			game->pacman[playernum].body.velocity = 80;
 			game->pacman[playernum].boostOn = false;
 			return;
+
+	case Ice:
+
+		for(int i=0;i<4;i++){
+			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=ghost_speed_normal(game->currentLevel);
+			else game->ghosts[0][i].body.velocity= ghost_speed_normal(game->currentLevel);
+		}
+	
 	default : return;
 	}
 

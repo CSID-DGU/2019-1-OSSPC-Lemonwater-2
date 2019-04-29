@@ -3,14 +3,15 @@
 #include <stdbool.h>
 #include "board.h"
 #include "main.h"
-
-#define NUM_OBJECT 3
+//object개수를 Ice 추가로 NUM_OBJECT 4
+#define NUM_OBJECT 4
 
 typedef enum
 {
 	Ghostslow,
 	Life,
-	God//#15 Yang : 1.생명 증가 object 추가
+	God,//#15 Yang : 1.생명 증가 object 추가
+	Ice
 }Object;
 
 //Different modes a fruit can be in while in-game

@@ -123,9 +123,10 @@ SDL_Surface *keyImage;
 //object images
 SDL_Surface *ghostslowImage;
 //#15 Yang : 1.라이프 추가
+//Lemonwater Ice object 이미지 추가, image 폴더에 Ice.png
 SDL_Surface *lifeImage;
 SDL_Surface *godImage;
-
+SDL_Surface *IceImage;
 
 void load_board_images(void);
 void load_pacman_images(void);
