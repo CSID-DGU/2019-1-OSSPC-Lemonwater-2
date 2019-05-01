@@ -484,9 +484,11 @@ static void enter_state(PacmanGame *game, GameState state)
 			play_sound(LevelStartSound);
 			break;
 		case LevelBeginState:
-
+			stop_sound(LevelStartSound);			
+			play_sound(NextStageSound);
 			break;
 		case GamePlayState:
+			play_sound(LevelStartSound);
 			break;
 		case WinState:
 			break;
@@ -753,7 +755,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 	//check for collisions
 	//Lemonwater 5가지 fruit에 대해서 각각 player가 먹었을 시 사운드 재생
 	if (f[0]->fruitMode == Displaying && collides_obj(&pac->body, f[0]->x, f[0]->y))
-	{	play_sound(fruitEatSound);
+	{	play_sound(objectEatSound);
 		f[0]->fruitMode = Displayed;
 		f[0]->eaten = true;
 		f[0]->eatenAt = ticks_game();
@@ -761,28 +763,28 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 	}
 
 	if (f[1]->fruitMode == Displaying && collides_obj(&pac->body, f[1]->x, f[1]->y))
-	{	play_sound(fruitEatSound);
+	{	play_sound(objectEatSound);
 		f[1]->fruitMode = Displayed;
 		f[1]->eaten = true;
 		f[1]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[1]->fruit);
 	}
 	if (f[2]->fruitMode == Displaying && collides_obj(&pac->body, f[2]->x, f[2]->y))
-	{	play_sound(fruitEatSound);
+	{	play_sound(objectEatSound);
 		f[2]->fruitMode = Displayed;
 		f[2]->eaten = true;
 		f[2]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[2]->fruit);
 	}
 	if (f[3]->fruitMode == Displaying && collides_obj(&pac->body, f[3]->x, f[3]->y))
-	{	play_sound(fruitEatSound);
+	{	play_sound(objectEatSound);
 		f[3]->fruitMode = Displayed;
 		f[3]->eaten = true;
 		f[3]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[3]->fruit);
 	}
 	if (f[4]->fruitMode == Displaying && collides_obj(&pac->body, f[4]->x, f[4]->y))
-	{	play_sound(fruitEatSound);
+	{	play_sound(objectEatSound);
 		f[4]->fruitMode = Displayed;
 		f[4]->eaten = true;
 		f[4]->eatenAt = ticks_game();
@@ -849,9 +851,10 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	}
 
 
-	//Lemonwater 플레이어와 object가 collision이 생길 경우 displaying에서 displayed로 바뀐다.
+	//Lemonwater 플레이어와 object가 collision이 생길 경우 displaying에서 displayed로 바뀐다. 소리구
 	if (o[0]->objectMode == Displaying_obj && collides_obj(&pac->body, o[0]->x, o[0]->y))
 	{
+		play_sound(objectEatSound);
 		o[0]->objectMode = Displayed_obj;
 		o[0]->eaten = true;
 		o[0]->eatenAt = ticks_game();
@@ -859,6 +862,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	}
 	if (o[1]->objectMode == Displaying_obj && collides_obj(&pac->body, o[1]->x, o[1]->y))
 	{
+		play_sound(objectEatSound);		
 		o[1]->objectMode = Displayed_obj;
 		o[1]->eaten = true;
 		o[1]->eatenAt = ticks_game();
@@ -866,6 +870,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	}
 	if (o[2]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
 	{
+		play_sound(objectEatSound);
 		o[2]->objectMode = Displayed_obj;
 		o[2]->eaten = true;
 		o[2]->eatenAt = ticks_game();
@@ -873,6 +878,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	}
 	if (o[3]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
 	{
+		play_sound(objectEatSound);
 		o[3]->objectMode = Displayed_obj;
 		o[3]->eaten = true;
 		o[3]->eatenAt = ticks_game();
