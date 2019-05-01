@@ -10,6 +10,7 @@
 #include "renderer.h"
 #include "server.h"
 #include "client.h"
+#include "sound.h"
 
 //time till ghost-rows start appearing
 #define GHOST_START 500
@@ -76,7 +77,7 @@ void menu_render(MenuSystem *menuSystem)
 static void draw_vanity_screen(MenuSystem *menuSystem)
 {
 	unsigned int dt = SDL_GetTicks() - menuSystem->ticksSinceModeChange;
-
+	play_sound(LobbySound); // Lemonwater 메인 로비 음악 구현. 참고
 	draw_player_info();
 	draw_vanity_charnickname();
 

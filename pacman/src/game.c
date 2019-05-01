@@ -481,6 +481,7 @@ static void enter_state(PacmanGame *game, GameState state)
 	switch (state)
 	{
 		case GameBeginState:
+			stop_sound(LobbySound);
 			play_sound(LevelStartSound);
 			break;
 		case LevelBeginState:
@@ -488,21 +489,25 @@ static void enter_state(PacmanGame *game, GameState state)
 			play_sound(NextStageSound);
 			break;
 		case GamePlayState:
+			stop_sound(NextStageSound);
 			play_sound(LevelStartSound);
 			break;
 		case WinState:
 			break;
 
 		//Lemonwater 기존의 DeathState1, DeathState2가 시작할 때 play_sound함수를 삽입하여 효과음 재생
-		case DeathState:		
+		case DeathState:	
+			stop_sound(LevelStartSound);
 			play_sound(PacmanDeathSound);
 		case DeathState2: 
+			stop_sound(LevelStartSound);
 			play_sound(PacmanDeathSound);
 		case ReviveState1:
 		case ReviveState2:
 		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 			break;
 		case GameoverState:
+			play_sound(gameoverSound);
 			break;
 	}
 
