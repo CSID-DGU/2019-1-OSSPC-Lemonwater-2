@@ -63,7 +63,7 @@ int main(void)
 	resource_init();
 	game_init(0);
 
-	main_loop();
+	main_loop(); //Lemonwater - 이 부분 같습니다. 메인함수가 반복하면서 계속 상태받으면서 그려주는 부분. 나중에 스레드 만들 때, 이부분에 반복문 넣어주고 sleep()함수 넣어주면서 나머지 메뉴창 실행하게 하면 될 것 같습니다. 
 
 	clean_up();
 
