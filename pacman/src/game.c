@@ -507,7 +507,7 @@ static void enter_state(PacmanGame *game, GameState state)
 		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 			break;
 		case GameoverState:
-			play_sound(gameoverSound);
+			play_sound(GameoverSound);
 			break;
 	}
 
