@@ -91,9 +91,9 @@ static void draw_vanity_screen(MenuSystem *menuSystem)
 	}
 	//#13 Kim : 일단 이부분좀 빠르게 지바꿔놓을까 생각중
 	//if (dt > 3000) draw_vanity_pellet_info(false);
-	if(dt>3000)draw_playMode(menuSystem->playMode);
-	if (dt > 4000) draw_vanity_corporate_info();
-	if (dt > 5000) draw_vanity_animation(dt - 5000);
+	if(dt>3000)	draw_playMode(menuSystem->playMode);
+	if (dt > 4000) 	draw_vanity_corporate_info();
+	if (dt > 5000) 	draw_vanity_animation(dt - 5000);
 
 
 }

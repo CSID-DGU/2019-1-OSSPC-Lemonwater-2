@@ -8,4 +8,4 @@ Debug/game/src!menu.c.o: src/menu.c src/menu.h src/game.h src/board.h \
  SDL/SDL_timer.h SDL/SDL_version.h SDL/SDL_image.h SDL/SDL.h src/fruit.h \
  src/ghost.h src/direction.h src/pacman.h src/physics.h src/pellet.h \
  src/object.h SDL/SDL_keysym.h src/input.h src/renderer.h src/text.h \
- src/server.h src/client.h
+ src/server.h src/client.h src/sound.h

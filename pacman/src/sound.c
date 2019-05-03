@@ -21,6 +21,8 @@ static Mix_Chunk *gameOver;
 static Mix_Chunk *nextStage;
 
 static int levelStartChanel;
+static int eatChanel;
+static int gameOverChanel;
 
 void load_sounds(void)
 {
@@ -109,8 +111,8 @@ void play_sound(SoundEffect effectName)
 		case LevelStartSound:  chunk = levelStart; channel = &levelStartChanel; break;
 		case WakawakaSound:    chunk = levelStart; channel = &levelStartChanel; break;
 		case PacmanDeathSound: chunk = pacmanDeath; channel = &levelStartChanel; break;
-		case objectEatSound:   chunk = objectEat; channel = &levelStartChanel; break;
-		case GameoverSound:    chunk = gameOver; channel = &levelStartChanel; break;
+		case objectEatSound:   chunk = objectEat; channel = &eatChanel; break;
+		case GameoverSound:    chunk = gameOver; channel = &gameOverChanel; break;
 		case LobbySound:       chunk = lobby; channel = &levelStartChanel; break;
 		case NextStageSound:   chunk = nextStage; channel = &levelStartChanel; break;
 	}
@@ -132,8 +134,8 @@ void stop_sound(SoundEffect effectName)
 		case LevelStartSound:  channel = levelStartChanel; break;
 		case WakawakaSound:    channel = levelStartChanel; break;
 		case PacmanDeathSound: channel = levelStartChanel; break;
-		case objectEatSound:    channel = levelStartChanel; break;
-		case GameoverSound:    channel = levelStartChanel; break;
+		case objectEatSound:    channel = eatChanel; break;
+		case GameoverSound:    channel = gameOverChanel; break;
 		case LobbySound:    channel = levelStartChanel; break;
 		case NextStageSound : channel = levelStartChanel; break;
 		default: printf("badsound\naborting\n"); exit(1); //TODO: fix this up

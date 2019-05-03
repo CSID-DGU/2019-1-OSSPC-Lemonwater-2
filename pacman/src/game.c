@@ -36,7 +36,7 @@ void game_tick(PacmanGame *game)
 {
 	unsigned dt = ticks_game() - game->ticksSinceModeChange;
 
-	switch (game->gameState)
+	switch (game->gameState) //gameState 열거형에서 바뀜.
 	{
 		case GameBeginState:
 			// plays the sound, has the "player 1" image, has the "READY!" thing
@@ -211,7 +211,7 @@ void game_render(PacmanGame *game)
 			break;
 		case LevelBeginState:
 			draw_game_ready();
-
+			
 			//we also draw pacman and ghosts (they are idle currently though)
 			draw_pacman_static(&game->pacman[0],0);// #8 Kim : 1.
 			if(game->playMode!=Single)// #13 Kim : 1. play Mode 에 따라서 추가
@@ -250,7 +250,12 @@ void game_render(PacmanGame *game)
 
 			for(int i=0;i<5;i++){
 				if (game->gameFruit[0][i].fruitMode == Displaying) draw_fruit_game(game->currentLevel, &game->gameFruit[0][i]);
-				if (game->gameFruit[0][i].eaten && ticks_game() - game->gameFruit[0][i].eatenAt < 2000) draw_fruit_pts(&game->gameFruit[0][i]);
+				if (game->gameFruit[0][i].eaten && ticks_game() - game->gameFruit[0][i].eatenAt < 2000) 
+				{
+				draw_fruit_pts(&game->gameFruit[0][i]);
+				}
+
+
 			}
 
 			// #5 Yang : 3.object 표시
@@ -493,19 +498,22 @@ static void enter_state(PacmanGame *game, GameState state)
 			play_sound(LevelStartSound);
 			break;
 		case WinState:
+			stop_sound(LevelStartSound);
 			break;
 
 		//Lemonwater 기존의 DeathState1, DeathState2가 시작할 때 play_sound함수를 삽입하여 효과음 재생
 		case DeathState:	
 			stop_sound(LevelStartSound);
 			play_sound(PacmanDeathSound);
+			break;
 		case DeathState2: 
 			stop_sound(LevelStartSound);
 			play_sound(PacmanDeathSound);
-		case ReviveState1:
-		case ReviveState2:
-		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 			break;
+		case ReviveState1:
+			break;
+		case ReviveState2:
+			break;		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 		case GameoverState:
 			play_sound(GameoverSound);
 			break;
@@ -765,6 +773,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		f[0]->eaten = true;
 		f[0]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[0]->fruit);
+		
 	}
 
 	if (f[1]->fruitMode == Displaying && collides_obj(&pac->body, f[1]->x, f[1]->y))
@@ -773,6 +782,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		f[1]->eaten = true;
 		f[1]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[1]->fruit);
+		
 	}
 	if (f[2]->fruitMode == Displaying && collides_obj(&pac->body, f[2]->x, f[2]->y))
 	{	play_sound(objectEatSound);
@@ -780,6 +790,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		f[2]->eaten = true;
 		f[2]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[2]->fruit);
+		
 	}
 	if (f[3]->fruitMode == Displaying && collides_obj(&pac->body, f[3]->x, f[3]->y))
 	{	play_sound(objectEatSound);
@@ -787,6 +798,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		f[3]->eaten = true;
 		f[3]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[3]->fruit);
+		
 	}
 	if (f[4]->fruitMode == Displaying && collides_obj(&pac->body, f[4]->x, f[4]->y))
 	{	play_sound(objectEatSound);
@@ -794,6 +806,7 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 		f[4]->eaten = true;
 		f[4]->eatenAt = ticks_game();
 		pac->score += fruit_points(f[4]->fruit);
+		
 	}
 
 }
@@ -864,6 +877,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[0]->eaten = true;
 		o[0]->eatenAt = ticks_game();
 		game_object_function(o[0],game, playernum);
+		
 	}
 	if (o[1]->objectMode == Displaying_obj && collides_obj(&pac->body, o[1]->x, o[1]->y))
 	{
@@ -872,6 +886,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[1]->eaten = true;
 		o[1]->eatenAt = ticks_game();
 		game_object_function(o[1],game,playernum);
+		
 	}
 	if (o[2]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
 	{
@@ -880,6 +895,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[2]->eaten = true;
 		o[2]->eatenAt = ticks_game();
 		game_object_function(o[2],game,playernum);
+		
 	}
 	if (o[3]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
 	{
@@ -888,6 +904,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[3]->eaten = true;
 		o[3]->eatenAt = ticks_game();
 		game_object_function(o[3],game,playernum);
+		
 	} 
 
 
