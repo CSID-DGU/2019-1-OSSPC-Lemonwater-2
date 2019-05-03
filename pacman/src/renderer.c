@@ -15,6 +15,8 @@
 void draw_online_mode(int *s_c_num ,char* tmp);//#19 Kim : 2.menu.c 에있는거 열로 옮겼음
 void draw_input_string(const char tmp[],int x,int y);//#19 Kim : 2. 클라이언트 기다리는거 화면 추가. 이름을 맞게 바꿔줌
 void draw_multi_mode(int *s_c_num);
+void draw_help_mode(int *s_c_num); //Lemonwater 5.4 add 'help'
+void draw_settings_mode(int *s_c_num); //Lemonwater 5.4 add 'settings'
 //draws an image at a board coordinate
 void draw_image_coord(SDL_Surface *surface, int x, int y);
 void draw_image_coord_offset(SDL_Surface *surface, int x, int y, int xOffset, int yOffset);
@@ -60,25 +62,37 @@ void draw_vanity_ghostline(GhostDisplayRow *row, int y, bool drawDescription, bo
 void draw_playMode(PlayMode playMode)//#13 : 2.메뉴 뷰 테스트중 일단 pellet 인포 지우고 처리해보자
 {
 	set_text_color(WhiteText); // #13 Dong : 2. Menu 화면에서 각 모드선택지 마다 빨간색으로 되도록 바꿈
-	draw_text_coord(get_screen(), "SINGLE", 10, 22);
-	draw_text_coord(get_screen(), "2 PLAYER", 10, 24);
-	draw_text_coord(get_screen(), "ONLINE", 10, 26);
+	draw_text_coord(get_screen(), "SINGLE", 10, 20);
+	draw_text_coord(get_screen(), "2 PLAYER", 10, 22);
+	draw_text_coord(get_screen(), "ONLINE", 10, 24);
+        draw_text_coord(get_screen(), "HELP", 10, 26);                //Lemonwater 5.4 add 'help'
+        draw_text_coord(get_screen(), "SETTINGS", 10, 28);            //Lemonwater 5.4 add 'settings'
 	switch(playMode)
 	{
 	case 0:
 		set_text_color(RedText);	// #13 Dong : 2.
-		draw_text_coord(get_screen(), "#", 8, 22);
-		draw_text_coord(get_screen(), "SINGLE", 10, 22);
+		draw_text_coord(get_screen(), "#", 8, 20);
+		draw_text_coord(get_screen(), "SINGLE", 10, 20);
 		break;
 	case 1:
 		set_text_color(RedText);	// #13 Dong : 2.
-		draw_text_coord(get_screen(), "#", 8, 24);
-		draw_text_coord(get_screen(), "2 PLAYER", 10, 24);
+		draw_text_coord(get_screen(), "#", 8, 22);
+		draw_text_coord(get_screen(), "2 PLAYER", 10, 22);
 		break;
 	case 2:
 		set_text_color(RedText);	// #13 Dong : 2.
+		draw_text_coord(get_screen(), "#", 8, 24);
+		draw_text_coord(get_screen(), "ONLINE", 10, 24);
+		break;
+        case 3:
+		set_text_color(RedText);	//Lemonwater 5.4 add 'help'
 		draw_text_coord(get_screen(), "#", 8, 26);
-		draw_text_coord(get_screen(), "ONLINE", 10, 26);
+		draw_text_coord(get_screen(), "HELP", 10, 26);
+		break;
+        case 4:
+		set_text_color(RedText);	//Lemonwater 5.4 add 'settings'
+		draw_text_coord(get_screen(), "#", 8, 28);
+		draw_text_coord(get_screen(), "SETTINGS", 10, 28);
 		break;
 	default :break;
 
@@ -714,7 +728,44 @@ void draw_board_flash(Board *board)
 		}
 	}
 }
-
+void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help
+{
+	set_text_color(WhiteText);
+	draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+	draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+	switch(*s_c_num)
+	{
+	case 0:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 8);
+		draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+		break;
+	case 1:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 13);
+		draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+		break;
+	}
+}
+void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
+{
+	set_text_color(WhiteText);
+	draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+	draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+	switch(*s_c_num)
+	{
+	case 0:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 8);
+		draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+		break;
+	case 1:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 13);
+		draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+		break;
+	}
+}
 void draw_multi_mode(int *s_c_num) // # 9 Dong : 확장맵 테스트를 위한 메뉴 렌더
 {
 	set_text_color(WhiteText);

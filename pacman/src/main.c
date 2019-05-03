@@ -95,8 +95,8 @@ static void internal_tick(void)
 
 		if(pacmanGame.playMode==Single && up_down ==-1)//Single 이면서 up_down 이 -1 ( 즉 맨 위인데 다시 위로가기면 그대로 유지)
 			pacmanGame.playMode=Single;
-		else if (pacmanGame.playMode==Online&&up_down==1)//Online 이면서 up_down 이 1 (즉 맨 아래인데 다시 아래로가면 그대로 유지)
-			pacmanGame.playMode = Online;
+		else if (pacmanGame.playMode==settings&&up_down==1)//Online 이면서 up_down 이 1 (즉 맨 아래인데 다시 아래로가면 그대로 유지)
+			pacmanGame.playMode=settings;
 		else
 			pacmanGame.playMode+=up_down;//그 외는 그안에서 왔다갔다 하도록 함.
 
@@ -115,7 +115,14 @@ static void internal_tick(void)
 		{
 			state = Joinmulti;
 		}
-
+		else if(menuSystem.action == GoToHelp)  //Lemonwater 5.4 add 'help'
+		{
+			state = Joinmulti;
+		}
+		else if(menuSystem.action == GoToSettings)  //Lemonwater 5.4 add 'settings'
+		{
+			state = Joinmulti;
+		}
 		break;
 	case Game:
 		if(menuSystem.playMode==Online_Server)

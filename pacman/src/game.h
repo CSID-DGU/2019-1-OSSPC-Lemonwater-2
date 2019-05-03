@@ -36,9 +36,11 @@ typedef enum{
 	Single,
 	Multi,
 	Online,
+        help,      //Lemonwater 5.4 add 'help'
+        settings,  //Lemonwater 5.4 add 'settings'
 	Online_Server,
 	Online_Client,
-	Multi_TA,
+	Multi_TA
 }PlayMode;
 typedef struct {
 	GameState gameState;

@@ -55,6 +55,10 @@ int menu_tick(MenuSystem *menuSystem)
 			menuSystem->action = GoToJoin;// #19 Kim : 1. 여기서 저게 온라인게임으로 되미녀 엑션 바뀌
 		else if (menuSystem -> playMode == Multi)
 			menuSystem->action = GoToMulti;
+                else if (menuSystem -> playMode == help) //Lemonwater 5.4 add 'help'
+			menuSystem->action = GoToHelp;
+                else if (menuSystem -> playMode == settings) //Lemonwater 5.4 add 'settings'
+			menuSystem->action = GoToSettings;
 		else
 			menuSystem->action = GoToGame;
 		return 0;
