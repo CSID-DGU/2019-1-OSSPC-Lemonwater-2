@@ -9,7 +9,7 @@
 #include "window.h"
 #include "ghost.h"
 //#include "game.h"
-
+//
 
 //
 void draw_online_mode(int *s_c_num ,char* tmp);//#19 Kim : 2.menu.c 에있는거 열로 옮겼음

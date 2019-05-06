@@ -128,6 +128,13 @@ SDL_Surface *lifeImage;
 SDL_Surface *godImage;
 SDL_Surface *IceImage;
 
+
+
+//
+// help image 추가
+//
+SDL_Surface *help1;
+
 void load_board_images(void);
 void load_pacman_images(void);
 void load_ghost_images(void);
@@ -446,12 +453,15 @@ void load_object_images(void)
 	ghostslowImage = load_image(DIR OBJECT_DIR "ghostslow.png");
 	lifeImage = load_image(DIR OBJECT_DIR "heart.png");
 	godImage = load_image(DIR OBJECT_DIR "god.png");
+	IceImage = load_image(DIR OBJECT_DIR "Ice.png");
+	
 }
 void dispose_object_images(void)
 {
 	SDL_FreeSurface(ghostslowImage);
 	SDL_FreeSurface(lifeImage);
 	SDL_FreeSurface(godImage);
+	SDL_FreeSurface(IceImage);
 }
 
 void load_misc_images(void)
@@ -861,6 +871,7 @@ SDL_Surface* get_object_image(Object object)
 		case Ghostslow:     return ghostslowImage;
 		case Life: 		   return lifeImage; //#15 Yang : 1.생명추가 object 추가
 		case God: 				return godImage; //#26 Yang : 1.godmode
+		case Ice:			return IceImage;
 	}
 
 	printf("incorrect enum value\naborting\n");

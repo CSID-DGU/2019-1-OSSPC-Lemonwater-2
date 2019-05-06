@@ -15,7 +15,7 @@
 #include "text.h"
 #include "window.h"
 #include "server.h"
-#include "client.h"
+#include "client.h"//
 
 //Initializes all resources.
 static void resource_init(void);
@@ -221,6 +221,9 @@ static void internal_render(void)
 		}
 
 		break;
+	//case Help:
+
+
 	}
 	flip_screen();
 }
