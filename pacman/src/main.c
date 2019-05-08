@@ -66,10 +66,9 @@ int main(void)
 	resource_init();
 	game_init(0);
 
-	main_loop(); //Lemonwater - 이 부분 같습니다. 메인함수가 반복하면서 계속 상태받으면서 그려주는 부분. 나중에 스레드 만들 때, 이부분에 반복문 넣어주고 sleep()함수 넣어주면서 나머지 메뉴창 실행하게 하면 될 것 같습니다. 
-
+	main_loop(); //Lemonwater - 이 부분 같습니다. 메인함수가 반복하면서 계속 상태받으면서 그려주는 부분. 
+				//나중에 스레드 만들 때, sleep()함수 넣어주면서 나머지 메뉴창 실행하게 하면 될 것 같습니다. 
 	clean_up();
-
         return 0;
 }
 
@@ -118,9 +117,9 @@ static void internal_tick(void)
 		{
 			state = Joinmulti;
 		}
-		else if(menuSystem.action == GoToHelp)  //Lemonwater 5.4 add 'Helpstate' 열거형 3번
+		else if(menuSystem.action == GoToHelp)  //Lemonwater 5.4 add 'HelpState' main.h 열거형 3번
 		{
-			state = Help__;
+			state = HelpState;
 		}
 		else if(menuSystem.action == GoToSettings)  //Lemonwater 5.4 add 'settings'
 		{
@@ -224,19 +223,13 @@ static void internal_render(void)
 		}
 
 		break;
-	case Help__:  //Lemonwater 5.7 add 'help' render
-		
-			 /*if (help_render(&menuSystem)==0
-			 || help_render(&menuSystem)==1 
-			 || help_render(&menuSystem)==2)
-             {state = Help__;} 필요없음*/
+	case HelpState:  //Lemonwater 5.7 internal_tick에서 들어온 HelpState
+		if(help_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 되서 help1.png가 창에 올라온다.
+		 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
+        break;
 
-			 if(help_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 된다.
-			 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
-             break;
-
-    /*case Settings:
-         break;*/
+    //case Settings:
+      
 	}
 	flip_screen();
 }

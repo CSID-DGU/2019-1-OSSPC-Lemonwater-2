@@ -55,14 +55,12 @@ int menu_tick(MenuSystem *menuSystem)
 		else if(menuSystem->playMode==Online)						//시간이 얼마나 지났는가 확인하는건데 이게 5000미만일 떄 엔터를 눌르면 올려주는거임
 			menuSystem->action = GoToJoin;// #19 Kim : 1. 여기서 저게 온라인게임으로 되미녀 엑션 바뀌
 		else if (menuSystem -> playMode == Multi)
-			menuSystem->action = GoToMulti;
-        
+			menuSystem->action = GoToMulti;		
 		
-		else if (menuSystem -> playMode == Help) //Lemonwater 5.4 add 'help'
+		else if (menuSystem -> playMode == Help) //Lemonwater 5.4 add 'help'. 위에 startNew가 참이면 tick값을 받아 game.h의 playMode가 Help인 상태일 시 menuSystem->action에 GoToHelp를 대입
 			menuSystem->action = GoToHelp;
         else if (menuSystem -> playMode == Settings) //Lemonwater 5.4 add 'settings'
 			menuSystem->action = GoToSettings;
-		
 		
 		else
 			menuSystem->action = GoToGame;
@@ -225,28 +223,9 @@ int online_mode_render(MenuSystem *menuSystem)// #19 Kim : 2. 여기서 그려�
 // Lemonwater 5.7 add help images
 int help_render(MenuSystem *menuSystem)
 {
-    int get=getKey();
+    int get=getKey(); //lemonwater 5.8 키 입력 받기
     
-	
-	/*if(menuSystem->action==Help1image) {
-		menuSystem->playMode = Help;
-        return Help1image;
-    }
-    else if(menuSystem->action==Help2image) {
-		menuSystem->playMode = Help;
-        return Help2image;        
-    }
-    else if(menuSystem->action==Help3image) {
-		menuSystem->playMode = Help;
-        return Help3image;        
-    }   상태만 바꿔주므로 필요없는 코드*/
-
-
-	//첫 창 띄우는 함수 여기에 추가
-	//menuSystem->action
-	//lemonwater s_c_num은 원래 0
-
-	if(get==SDLK_BACKSPACE)//help1, help2, help3 어디에서든 backspace받을 시 main menu로 돌아간다.
+	if(get==SDLK_BACKSPACE)//lemonwater 5.8 help1, help2, help3 어디에서든 backspace받을 시 main menu로 돌아간다.
 		{
 			menuSystem->action = Nothing;
 			return ReturnMenu;
@@ -254,6 +233,7 @@ int help_render(MenuSystem *menuSystem)
 
 
 	//lemonwater s_c_num은 원래 0, 현재 help1창
+	
 	if(get==SDLK_RIGHT&&s_c_num==0) //help1->help2
 	{
 		s_c_num = 1;

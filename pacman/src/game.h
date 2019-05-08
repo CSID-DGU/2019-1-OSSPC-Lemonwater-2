@@ -36,7 +36,7 @@ typedef enum{
 	Single,
 	Multi,
 	Online,
-        Help,      //Lemonwater 5.4 add 'help'
+        Help,      //Lemonwater 5.4 add 'help' main.c의 inter_render함수에서 받을 state의 열거형
         Settings,  //Lemonwater 5.4 add 'settings'
 	Online_Server,
 	Online_Client,

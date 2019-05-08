@@ -38,6 +38,9 @@
 #define NUMS_DIR "nums/"
 #define SPEC_DIR "special/"
 
+#define HELP_DIR "help/"  //lemonwater 5.8 help폴더 디렉토리 추가
+
+
 //loads an image from filename and returns it as an SDL_Surface
 SDL_Surface *load_image(const char *filename);
 
@@ -164,7 +167,7 @@ void load_images(void)
 	load_char_images();
 	load_fruit_images();
 	load_object_images();
-	load_help_images();
+	load_help_images(); //lemonwater 5.8 모든 이미지를 로딩할 때 help이미지 3가지도 추가한다.
 }
 
 void dispose_images(void)
@@ -175,8 +178,9 @@ void dispose_images(void)
 	dispose_char_images();
 	dispose_fruit_images();
 	dispose_object_images();
-	dispose_help_images();
+	dispose_help_images(); //lemonwater 5.8 모든 이미지를 소거할 때 help이미지 3가지도 소거한다.
 }
+
 
 void load_diags(SDL_Surface *images[4], const char *file)
 {
@@ -587,9 +591,9 @@ SDL_Surface* help3_image(void)
 // Lemonwater 5.7 add help images
 void load_help_images(void)
 {
-    help1image = load_image(DIR "help1.png");
-    help2image = load_image(DIR "help2.png");
-    help3image = load_image(DIR "help3.png");
+    help1image = load_image(DIR HELP_DIR "help1.png");
+    help2image = load_image(DIR HELP_DIR "help2.png");
+    help3image = load_image(DIR HELP_DIR "help3.png");
 }
 void dispose_help_images(void)
 {

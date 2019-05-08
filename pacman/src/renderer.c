@@ -65,8 +65,8 @@ void draw_playMode(PlayMode playMode)//#13 : 2.메뉴 뷰 테스트중 일단 pe
 	draw_text_coord(get_screen(), "SINGLE", 10, 20);
 	draw_text_coord(get_screen(), "2 PLAYER", 10, 22);
 	draw_text_coord(get_screen(), "ONLINE", 10, 24);
-        draw_text_coord(get_screen(), "HELP", 10, 26);                //Lemonwater 5.4 add 'help'
-        draw_text_coord(get_screen(), "SETTINGS", 10, 28);            //Lemonwater 5.4 add 'settings'
+    draw_text_coord(get_screen(), "HELP", 10, 26);       //Lemonwater 5.4 add 'help' 초기 메인화면에 help선택지 추가
+    draw_text_coord(get_screen(), "SETTINGS", 10, 28);   //Lemonwater 5.4 add 'settings' 초기 메인화면에 settings선택지 추가
 	switch(playMode)
 	{
 	case 0:
@@ -728,7 +728,7 @@ void draw_board_flash(Board *board)
 		}
 	}
 }
-void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help
+void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,3 이미지를 구현해주는 함수
 {
     SDL_Surface *image;
 	switch(*s_c_num)
