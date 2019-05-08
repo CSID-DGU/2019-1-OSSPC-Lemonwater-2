@@ -131,9 +131,11 @@ SDL_Surface *IceImage;
 
 
 //
-// help image 추가
+// Lemonwater 5.7 help image 추가
 //
-SDL_Surface *help1;
+SDL_Surface *help1image;
+SDL_Surface *help2image;
+SDL_Surface *help3image;
 
 void load_board_images(void);
 void load_pacman_images(void);
@@ -142,6 +144,7 @@ void load_misc_images(void);
 void load_char_images(void);
 void load_fruit_images(void);
 void load_object_images(void);
+void load_help_images(void);
 
 void dispose_board_images(void);
 void dispose_pacman_images(void);
@@ -150,6 +153,7 @@ void dispose_misc_images(void);
 void dispose_char_images(void);
 void dispose_fruit_images(void);
 void dispose_object_images(void);
+void dispose_help_images(void);
 
 void load_images(void)
 {
@@ -160,6 +164,7 @@ void load_images(void)
 	load_char_images();
 	load_fruit_images();
 	load_object_images();
+	load_help_images();
 }
 
 void dispose_images(void)
@@ -170,6 +175,7 @@ void dispose_images(void)
 	dispose_char_images();
 	dispose_fruit_images();
 	dispose_object_images();
+	dispose_help_images();
 }
 
 void load_diags(SDL_Surface *images[4], const char *file)
@@ -561,6 +567,39 @@ void dispose_char_images(void)
 	SDL_FreeSurface(specImages[7]); // # 13 Dong : 메뉴화면 선택 화살표모양 추가
 }
 
+
+// Lemonwater 5.7 add help images
+SDL_Surface* help1_image(void)
+{
+    return help1image;
+}
+SDL_Surface* help2_image(void)
+{
+    return help2image;
+}
+SDL_Surface* help3_image(void)
+{
+    return help3image;
+}
+
+
+
+// Lemonwater 5.7 add help images
+void load_help_images(void)
+{
+    help1image = load_image(DIR "help1.png");
+    help2image = load_image(DIR "help2.png");
+    help3image = load_image(DIR "help3.png");
+}
+void dispose_help_images(void)
+{
+    SDL_FreeSurface(help1image);
+    SDL_FreeSurface(help2image);
+    SDL_FreeSurface(help3image);
+}
+
+
+
 SDL_Surface *load_image(const char *filename)
 {
 	printf("loading image: %s\n", filename);
@@ -905,3 +944,4 @@ SDL_Surface* get_ghost_score_image(int i)
 
 	return ghostPoints[i];
 }
+

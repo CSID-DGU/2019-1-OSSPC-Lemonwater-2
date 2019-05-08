@@ -15,8 +15,6 @@
 #define NUM_NUM_IMAGES 10
 #define NUM_SPEC_IMAGES 8 // # 13 Dong : 갯수 수정
 
-void load_images(void);
-void dispose_images(void);
 
 SDL_Surface* double_corner_image(DiagDirection direction);
 SDL_Surface* single_corner_image(DiagDirection direction);
@@ -66,3 +64,8 @@ SDL_Surface* get_object_image(Object object);
 
 SDL_Surface* get_ghost_score_image(int i);
 SDL_Surface* get_fruit_score_image(Fruit fruit);
+
+//Lemonwater 5.7 add help images
+SDL_Surface* help1_image(void);
+SDL_Surface* help2_image(void);
+SDL_Surface* help3_image(void);

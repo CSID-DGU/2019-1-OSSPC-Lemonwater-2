@@ -14,6 +14,9 @@ typedef enum
 	ReturnMenu, // #35 make 룸에서 백스페이스 키시 이액션
         GoToHelp, //Lemonwater 5.4 add 'help'
         GoToSettings, //Lemonwater 5.4 add 'settings'
+        Help1image,   //Lemonwater 5.7 add help images
+        Help2image,   //Lemonwater 5.7 add help images
+        Help3image    //Lemonwater 5.7 add help images
 } MenuAction;
 
 //Defines the menu system.
@@ -28,7 +31,7 @@ typedef struct
 int menu_tick(MenuSystem *menuSystem);
 int multi_mode_render(MenuSystem *menuSystem); // # 9 Dong : 확장맵을 위한 구현
 int online_mode_render(MenuSystem *menuSystem);// #20 Kim : 1. int 로 반환형 바꾸가
-
+int help_render(MenuSystem *menuSystem); //lemonwater 5.8
 
 //Renders the menu system in its current state.
 void menu_render(MenuSystem *menuSystem);

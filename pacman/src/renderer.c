@@ -730,20 +730,21 @@ void draw_board_flash(Board *board)
 }
 void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help
 {
-	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
-	draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+    SDL_Surface *image;
 	switch(*s_c_num)
 	{
 	case 0:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 8);
-		draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+		image = help1_image();
+		apply_surface(10, 8, image);
 		break;
 	case 1:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 13);
-		draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+		image = help2_image();
+		apply_surface(10, 8, image);
+		break;
+        
+	case 2:
+		image = help3_image();
+		apply_surface(10, 8, image);
 		break;
 	}
 }

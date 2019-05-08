@@ -16,6 +16,9 @@
 #include "window.h"
 #include "server.h"
 #include "client.h"//
+#include "menu.h"
+#include "renderer.h"
+
 
 //Initializes all resources.
 static void resource_init(void);
@@ -67,7 +70,7 @@ int main(void)
 
 	clean_up();
 
-	return 0;
+        return 0;
 }
 
 static void main_loop(void)
@@ -95,8 +98,8 @@ static void internal_tick(void)
 
 		if(pacmanGame.playMode==Single && up_down ==-1)//Single 이면서 up_down 이 -1 ( 즉 맨 위인데 다시 위로가기면 그대로 유지)
 			pacmanGame.playMode=Single;
-		else if (pacmanGame.playMode==settings&&up_down==1)//Online 이면서 up_down 이 1 (즉 맨 아래인데 다시 아래로가면 그대로 유지)
-			pacmanGame.playMode=settings;
+		else if (pacmanGame.playMode==Settings&&up_down==1)//Online 이면서 up_down 이 1 (즉 맨 아래인데 다시 아래로가면 그대로 유지)
+			pacmanGame.playMode=Settings;
 		else
 			pacmanGame.playMode+=up_down;//그 외는 그안에서 왔다갔다 하도록 함.
 
@@ -115,9 +118,9 @@ static void internal_tick(void)
 		{
 			state = Joinmulti;
 		}
-		else if(menuSystem.action == GoToHelp)  //Lemonwater 5.4 add 'help'
+		else if(menuSystem.action == GoToHelp)  //Lemonwater 5.4 add 'Helpstate' 열거형 3번
 		{
-			state = Joinmulti;
+			state = Help__;
 		}
 		else if(menuSystem.action == GoToSettings)  //Lemonwater 5.4 add 'settings'
 		{
@@ -221,9 +224,20 @@ static void internal_render(void)
 		}
 
 		break;
-	//case Help:
+	case Help__:  //Lemonwater 5.7 add 'help' render
+		
+			 if (help_render(&menuSystem)==0
+			 || help_render(&menuSystem)==1 
+			 || help_render(&menuSystem)==2)
+             {state = Help__;}
 
-
+			 if(help_render(&menuSystem)==ReturnMenu)
+			 	{pacmanGame.playMode = menuSystem.playMode=Single;
+				state=Menu;
+				 }
+             break;
+    /*case Settings:
+         break;*/
 	}
 	flip_screen();
 }

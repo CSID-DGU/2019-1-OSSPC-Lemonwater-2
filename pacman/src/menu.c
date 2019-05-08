@@ -51,14 +51,19 @@ int menu_tick(MenuSystem *menuSystem)
 	{
 		if (5000>(SDL_GetTicks() - menuSystem->ticksSinceModeChange))//#35 Kim : 이부분 설명 하자면
 			menuSystem->ticksSinceModeChange=SDL_GetTicks()-5000;//  현재의틱 하고 애가 들어갈떄의 틱하고 비교해서
+		
 		else if(menuSystem->playMode==Online)						//시간이 얼마나 지났는가 확인하는건데 이게 5000미만일 떄 엔터를 눌르면 올려주는거임
 			menuSystem->action = GoToJoin;// #19 Kim : 1. 여기서 저게 온라인게임으로 되미녀 엑션 바뀌
 		else if (menuSystem -> playMode == Multi)
 			menuSystem->action = GoToMulti;
-                else if (menuSystem -> playMode == help) //Lemonwater 5.4 add 'help'
+        
+		
+		else if (menuSystem -> playMode == Help) //Lemonwater 5.4 add 'help'
 			menuSystem->action = GoToHelp;
-                else if (menuSystem -> playMode == settings) //Lemonwater 5.4 add 'settings'
+        else if (menuSystem -> playMode == Settings) //Lemonwater 5.4 add 'settings'
 			menuSystem->action = GoToSettings;
+		
+		
 		else
 			menuSystem->action = GoToGame;
 		return 0;
@@ -115,6 +120,10 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 		return SDLK_UP;
 	else if(key_released(SDLK_DOWN))
 		return SDLK_DOWN;
+    else if(key_released(SDLK_LEFT))
+		return SDLK_LEFT;
+	else if(key_released(SDLK_RIGHT))
+		return SDLK_RIGHT;
 	else if(key_released(SDLK_KP_ENTER)||key_released(SDLK_RETURN))
 		return SDLK_KP_ENTER;// #19 Kim : 2. 엔터가 아니라 SDLK_RETURN 인듯. 엔터치면 ㅇㅅㅇ
 	else if(key_released(SDLK_PERIOD))
@@ -213,8 +222,62 @@ int online_mode_render(MenuSystem *menuSystem)// #19 Kim : 2. 여기서 그려�
 	draw_online_mode(&s_c_num,tmp);
 	return 1;
 }
+// Lemonwater 5.7 add help images
+int help_render(MenuSystem *menuSystem)
+{
+    int get=getKey();
+    if(menuSystem->action==Help1image) {
+		menuSystem->playMode = Help;
+        return Help1image;
+    }
+    else if(menuSystem->action==Help2image) {
+		menuSystem->playMode = Help;
+        return Help2image;        
+    }
+    else if(menuSystem->action==Help3image) {
+		menuSystem->playMode = Help;
+        return Help3image;        
+    }
+
+	//첫 창 띄우는 함수 여기에 추가
+	//menuSystem->action
+	//lemonwater s_c_num은 원래 0
+	if(get==SDLK_BACKSPACE)//help1, help2, help3 어디에서든 backspace받을 시 main menu로 돌아간다.
+		{
+			menuSystem->action = Nothing;
+			return ReturnMenu;
+		}
 
 
+	//lemonwater s_c_num은 원래 0, 현재 help1창
+	if(get==SDLK_RIGHT&&s_c_num==0) //help1->help2
+	{
+		s_c_num = 1;
+		
+	}
+	else if(get==SDLK_LEFT&&s_c_num==1)//help2->help1
+	{
+		s_c_num = 0;
+	}
+
+	else if(get==SDLK_RIGHT&&s_c_num==1)//help2->help3
+	{
+		s_c_num = 2;
+	}
+
+	else if(get==SDLK_LEFT&&s_c_num==2)//help3->help2
+	{
+		s_c_num = 1;
+	}
+
+	
+    draw_help_mode(&s_c_num);
+    return 0;
+}
+//void settings_render(void)
+//{
+
+//}
 static void draw_info_screen(void)
 {
 	draw_player_info();
