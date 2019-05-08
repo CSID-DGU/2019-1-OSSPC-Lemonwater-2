@@ -226,16 +226,15 @@ static void internal_render(void)
 		break;
 	case Help__:  //Lemonwater 5.7 add 'help' render
 		
-			 if (help_render(&menuSystem)==0
+			 /*if (help_render(&menuSystem)==0
 			 || help_render(&menuSystem)==1 
 			 || help_render(&menuSystem)==2)
-             {state = Help__;}
+             {state = Help__;} 필요없음*/
 
-			 if(help_render(&menuSystem)==ReturnMenu)
-			 	{pacmanGame.playMode = menuSystem.playMode=Single;
-				state=Menu;
-				 }
+			 if(help_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 된다.
+			 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
              break;
+
     /*case Settings:
          break;*/
 	}

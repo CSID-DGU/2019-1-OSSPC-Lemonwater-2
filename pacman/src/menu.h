@@ -12,11 +12,12 @@ typedef enum
 	WaitClient,// #19 Kim : 2. 방만들기 했을 때 클라이언트 기다리기
 	JoinServer, // #25 join room 선택시 이액션
 	ReturnMenu, // #35 make 룸에서 백스페이스 키시 이액션
-        GoToHelp, //Lemonwater 5.4 add 'help'
-        GoToSettings, //Lemonwater 5.4 add 'settings'
-        Help1image,   //Lemonwater 5.7 add help images
-        Help2image,   //Lemonwater 5.7 add help images
-        Help3image    //Lemonwater 5.7 add help images
+
+    GoToHelp, //Lemonwater 5.4 add 'help'
+    GoToSettings, //Lemonwater 5.4 add 'settings'
+    Help1image,   //Lemonwater 5.7 add help images
+    Help2image,   //Lemonwater 5.7 add help images
+    Help3image    //Lemonwater 5.7 add help images
 } MenuAction;
 
 //Defines the menu system.

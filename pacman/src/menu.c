@@ -226,7 +226,9 @@ int online_mode_render(MenuSystem *menuSystem)// #19 Kim : 2. 여기서 그려�
 int help_render(MenuSystem *menuSystem)
 {
     int get=getKey();
-    if(menuSystem->action==Help1image) {
+    
+	
+	/*if(menuSystem->action==Help1image) {
 		menuSystem->playMode = Help;
         return Help1image;
     }
@@ -237,11 +239,13 @@ int help_render(MenuSystem *menuSystem)
     else if(menuSystem->action==Help3image) {
 		menuSystem->playMode = Help;
         return Help3image;        
-    }
+    }   상태만 바꿔주므로 필요없는 코드*/
+
 
 	//첫 창 띄우는 함수 여기에 추가
 	//menuSystem->action
 	//lemonwater s_c_num은 원래 0
+
 	if(get==SDLK_BACKSPACE)//help1, help2, help3 어디에서든 backspace받을 시 main menu로 돌아간다.
 		{
 			menuSystem->action = Nothing;
@@ -270,7 +274,6 @@ int help_render(MenuSystem *menuSystem)
 		s_c_num = 1;
 	}
 
-	
     draw_help_mode(&s_c_num);
     return 0;
 }
