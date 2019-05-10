@@ -748,25 +748,68 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
 		break;
 	}
 }
+
+
 void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
 {
 	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
-	draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+	draw_text_coord(get_screen(), "1P UP", 10, 8);
+	draw_text_coord(get_screen(), "1P DOWN", 10, 10);
+	draw_text_coord(get_screen(), "1P LEFT", 10, 12);
+	draw_text_coord(get_screen(), "1P RIGHT", 10, 14);
+	draw_text_coord(get_screen(), "2P UP", 10, 16);
+	draw_text_coord(get_screen(), "2P DOWN", 10, 18);
+	draw_text_coord(get_screen(), "2P LEFT", 10, 20);
+	draw_text_coord(get_screen(), "2P RIGHT", 10, 22);
+
 	switch(*s_c_num)
 	{
 	case 0:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 8);
-		draw_text_coord(get_screen(), "SCORE MODE", 10, 8);
+		draw_text_coord(get_screen(), "1P UP", 10, 8);
 		break;
 	case 1:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 13);
-		draw_text_coord(get_screen(), "TIME ATTACK", 10, 13);
+		draw_text_coord(get_screen(), "#", 8, 10);
+		draw_text_coord(get_screen(), "1P DOWN", 10, 10);
+		break;
+	case 2:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 12);
+		draw_text_coord(get_screen(), "1P LEFT", 10, 12);
+		break;
+	
+	case 3:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 14);
+		draw_text_coord(get_screen(), "1P RIGHT", 10, 14);
+		break;
+	
+	case 4:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 16);
+		draw_text_coord(get_screen(), "2P UP", 10, 16);
+		break;
+	
+	case 5:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 18);
+		draw_text_coord(get_screen(), "2P DOWN", 10, 18);
+		break;
+	case 6:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 20);
+		draw_text_coord(get_screen(), "2P LEFT", 10, 20);
+		break;
+	case 7:
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 8, 22);
+		draw_text_coord(get_screen(), "2P RIGHT", 10, 22);
 		break;
 	}
 }
+
 void draw_multi_mode(int *s_c_num) // # 9 Dong : 확장맵 테스트를 위한 메뉴 렌더
 {
 	set_text_color(WhiteText);

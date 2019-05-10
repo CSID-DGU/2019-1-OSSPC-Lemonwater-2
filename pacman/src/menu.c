@@ -257,8 +257,51 @@ int help_render(MenuSystem *menuSystem)
     draw_help_mode(&s_c_num);
     return 0;
 }
-//void settings_render(void)
-//{
+
+//
+//lemonwater key_setting창
+
+int settings_render(MenuSystem *menuSystem)
+{
+	int get= getKey();
+
+	if(get==SDLK_BACKSPACE) //lemonwater 5.8 메인메뉴로 돌아가기
+		{
+			menuSystem->action = Nothing;
+			return ReturnMenu;
+		}
+
+	/*if(menuSystem->action == ScoreMode)
+	{
+		//1P_UP에서 enter를
+		//bool함수에서 SDLK_UP을 원하는 키로 바꾼다.
+		return 2;
+	}
+	else if(menuSystem->action == TimeAttackMode)
+	{
+		menuSystem->playMode = Multi_TA;
+		return 3;*/
+
+	if(get==SDLK_DOWN&&s_c_num==0) {s_c_num = 1;}
+	else if(get==SDLK_DOWN&&s_c_num==1){s_c_num = 2;}
+	else if(get==SDLK_DOWN&&s_c_num==2){s_c_num = 3;}
+	else if(get==SDLK_DOWN&&s_c_num==3){s_c_num = 4;}
+	else if(get==SDLK_DOWN&&s_c_num==4){s_c_num = 5;}
+	else if(get==SDLK_DOWN&&s_c_num==5){s_c_num = 6;}
+	else if(get==SDLK_DOWN&&s_c_num==6){s_c_num = 7;}
+	else if(get==SDLK_UP&&s_c_num==1){s_c_num = 0;}
+	else if(get==SDLK_UP&&s_c_num==2){s_c_num = 1;}
+	else if(get==SDLK_UP&&s_c_num==3){s_c_num = 2;}
+	else if(get==SDLK_UP&&s_c_num==4){s_c_num = 3;}
+	else if(get==SDLK_UP&&s_c_num==5){s_c_num = 4;}
+	else if(get==SDLK_UP&&s_c_num==6){s_c_num = 5;}
+	else if(get==SDLK_UP&&s_c_num==7){s_c_num = 6;}
+
+	draw_settings_mode(&s_c_num);
+	return 0;
+}
+
+
 
 //}
 static void draw_info_screen(void)

@@ -29,7 +29,7 @@ int menu_tick(MenuSystem *menuSystem);
 int multi_mode_render(MenuSystem *menuSystem); // # 9 Dong : 확장맵을 위한 구현
 int online_mode_render(MenuSystem *menuSystem);// #20 Kim : 1. int 로 반환형 바꾸가
 int help_render(MenuSystem *menuSystem); //lemonwater 5.8 help_render함수 헤더 추가
-
+int settings_render(MenuSystem *menuSystem);
 //Renders the menu system in its current state.
 void menu_render(MenuSystem *menuSystem);
 void menu_init(MenuSystem *menuSystem);

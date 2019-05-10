@@ -121,3 +121,4 @@ void draw_online_mode(int *s_c_num ,char* tmp);//#19 Kim : 2. menu.c에있는거
 void draw_input_string(const char tmp[],int x,int y);//#19 Kim : 2. 클라이언트 기다리는거 화면 추가.
 void draw_multi_mode(int *s_c_num);
 void draw_help_mode(int *s_c_num); //lemonwater 5.8 헤더 추가
+void draw_settings_mode(int *s_c_num);

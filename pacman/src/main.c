@@ -123,7 +123,7 @@ static void internal_tick(void)
 		}
 		else if(menuSystem.action == GoToSettings)  //Lemonwater 5.4 add 'settings'
 		{
-			state = Joinmulti;
+			state = SettingsState;
 		}
 		break;
 	case Game:
@@ -228,7 +228,11 @@ static void internal_render(void)
 		 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
         break;
 
-    //case Settings:
+    	case SettingsState:
+		if(settings_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 된다.
+			 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
+        
+        break;
       
 	}
 	flip_screen();
