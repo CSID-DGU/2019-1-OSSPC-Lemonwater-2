@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdbool.h>
+#include <stdlib.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
@@ -15,7 +16,7 @@
 #include "text.h"
 #include "window.h"
 #include "server.h"
-#include "client.h"//
+#include "client.h"
 #include "menu.h"
 #include "renderer.h"
 
@@ -228,7 +229,7 @@ static void internal_render(void)
 		 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
         break;
 
-    	case SettingsState:
+    case SettingsState:
 		if(settings_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 된다.
 			 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
         

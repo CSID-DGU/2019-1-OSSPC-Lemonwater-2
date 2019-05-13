@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "imageloader.h": "c",
+        "text.h": "c"
+    }
+}

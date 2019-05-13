@@ -1,5 +1,5 @@
 #include "menu.h"
-
+#include "stdlib.h"
 #include <stdbool.h>
 
 #include <SDL/SDL_keysym.h>
@@ -107,11 +107,18 @@ static void draw_vanity_screen(MenuSystem *menuSystem)
 
 int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 {
-	for(int i = 48 ; i <=57 ; i ++)
+	for(int i = 48 ; i <=57 ; i ++) //lemonwater 5.10 ip주소 받기
 	{
 		if(key_released(i))
 			return i;
 	}
+
+	for(int i = 97 ; i <=122 ; i ++) //lemonwater 5.10 대문자 알파벳이어서 -32를 해줘야 한다.
+	{
+		if(key_released(i))
+			return i;
+	}
+
 	if(key_released(SDLK_PERIOD))
 		return '.';
 	else if(key_released(SDLK_UP))
@@ -130,6 +137,8 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 		return SDLK_BACKSPACE;
 	return 0;
 }
+
+
 
 int multi_mode_render(MenuSystem *menuSystem)// # 9 Dong : 확장맵 테스트를 위한 추가
 {
@@ -271,33 +280,31 @@ int settings_render(MenuSystem *menuSystem)
 			return ReturnMenu;
 		}
 
-	/*if(menuSystem->action == ScoreMode)
-	{
-		//1P_UP에서 enter를
-		//bool함수에서 SDLK_UP을 원하는 키로 바꾼다.
-		return 2;
-	}
-	else if(menuSystem->action == TimeAttackMode)
-	{
-		menuSystem->playMode = Multi_TA;
-		return 3;*/
-
-	if(get==SDLK_DOWN&&s_c_num==0) {s_c_num = 1;}
-	else if(get==SDLK_DOWN&&s_c_num==1){s_c_num = 2;}
-	else if(get==SDLK_DOWN&&s_c_num==2){s_c_num = 3;}
-	else if(get==SDLK_DOWN&&s_c_num==3){s_c_num = 4;}
-	else if(get==SDLK_DOWN&&s_c_num==4){s_c_num = 5;}
-	else if(get==SDLK_DOWN&&s_c_num==5){s_c_num = 6;}
-	else if(get==SDLK_DOWN&&s_c_num==6){s_c_num = 7;}
-	else if(get==SDLK_UP&&s_c_num==1){s_c_num = 0;}
-	else if(get==SDLK_UP&&s_c_num==2){s_c_num = 1;}
-	else if(get==SDLK_UP&&s_c_num==3){s_c_num = 2;}
-	else if(get==SDLK_UP&&s_c_num==4){s_c_num = 3;}
-	else if(get==SDLK_UP&&s_c_num==5){s_c_num = 4;}
-	else if(get==SDLK_UP&&s_c_num==6){s_c_num = 5;}
-	else if(get==SDLK_UP&&s_c_num==7){s_c_num = 6;}
+	switch(get) {
+            case SDLK_DOWN:
+                for (int i=0;i<7;i++) {
+                    if (s_c_num==i) {s_c_num=i+1;break;}
+                }
+            break;
+            case SDLK_UP:
+                for (int i=0;i<7;i++) {
+                    if (s_c_num==i+1) {s_c_num=i;break;}
+                }
+            break;
+            case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
+                for (int i=0;i<8;i++) {
+                    if (s_c_num==i) {s_c_num=i+8;break;}
+                }
+            break;
+        }
 
 	draw_settings_mode(&s_c_num);
+	
+	if (get==SDLK_a)	{
+				char string[1];
+				string[0] = get-32;
+				draw_text_coord(get_screen(), string, 18, 8);
+	}
 	return 0;
 }
 
