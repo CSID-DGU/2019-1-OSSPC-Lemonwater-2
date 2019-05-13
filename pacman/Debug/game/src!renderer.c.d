@@ -8,4 +8,4 @@ Debug/game/src!renderer.c.o: src/renderer.c src/renderer.h src/board.h \
  SDL/SDL_timer.h SDL/SDL_version.h SDL/SDL_image.h SDL/SDL.h src/fruit.h \
  src/ghost.h src/direction.h src/pacman.h src/physics.h src/pellet.h \
  src/text.h src/object.h src/game.h src/animation.h src/imageloader.h \
- src/window.h
+ src/window.h src/input.h

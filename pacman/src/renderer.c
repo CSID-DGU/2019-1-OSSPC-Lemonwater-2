@@ -8,6 +8,7 @@
 #include "text.h"
 #include "window.h"
 #include "ghost.h"
+#include "input.h"
 //#include "game.h"
 //
 
@@ -25,8 +26,12 @@ void draw_playMode(PlayMode playMode);//#13 : 2.메뉴 뷰 테스트중 일단 p
 //Needed because some items are stored in board (x,y) coords and need to be rendered at an offset
 #define Y_OFFSET 3
 static int offset = 3 * 16;
+
 static char sdlk_1p[4][10]={"UP","DOWN","LEFT","RIGHT"};
-static char sdlk_2p[4][10]={"UP","DOWN","LEFT","RIGHT"};
+static char sdlk_2p[4][10]={"w","s","a","d"};
+
+
+
 void draw_image_coord(SDL_Surface *surface, int x, int y)
 {
 	draw_image_coord_offset(surface, x, y, 0, 0);
@@ -753,15 +758,20 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
 
 void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
 {
+	int *aa=Change_keys_array1();  //Lemonwater 5.13 input.c에 있는 Change_keys_1 입력받기
+	int *bb=Change_keys_array2();  //Lemonwater 5.13 input.c에 있는 Change_keys_2 입력받기
+
+
+
 	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "1P UP KEY", 6, 8);     draw_text_coord(get_screen(), sdlk_1p[0] , 18, 8);
-	draw_text_coord(get_screen(), "1P DOWN KEY", 6, 10);  draw_text_coord(get_screen(), sdlk_1p[1] , 18, 10);
-	draw_text_coord(get_screen(), "1P LEFT KEY", 6, 12);  draw_text_coord(get_screen(), sdlk_1p[2] , 18, 12);
-	draw_text_coord(get_screen(), "1P RIGHT KEY", 6, 14); draw_text_coord(get_screen(), sdlk_1p[3] , 18, 14);
-	draw_text_coord(get_screen(), "2P UP KEY", 6, 16);    draw_text_coord(get_screen(), sdlk_2p[0] , 18, 16);
-	draw_text_coord(get_screen(), "2P DOWN KEY", 6, 18);  draw_text_coord(get_screen(), sdlk_2p[1] , 18, 18);
-	draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);  draw_text_coord(get_screen(), sdlk_2p[2] , 18, 20);
-	draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22); draw_text_coord(get_screen(), sdlk_2p[3] , 18, 22);
+	draw_text_coord(get_screen(), "1P UP KEY", 6, 8);     draw_text_coord(get_screen(), aa[0], 18, 8);
+	draw_text_coord(get_screen(), "1P DOWN KEY", 6, 10);  draw_text_coord(get_screen(), aa[1] , 18, 10);
+	draw_text_coord(get_screen(), "1P LEFT KEY", 6, 12);  draw_text_coord(get_screen(), aa[2] , 18, 12);
+	draw_text_coord(get_screen(), "1P RIGHT KEY", 6, 14); draw_text_coord(get_screen(), aa[3] , 18, 14);
+	draw_text_coord(get_screen(), "2P UP KEY", 6, 16);    draw_text_coord(get_screen(), bb[0] , 18, 16);
+	draw_text_coord(get_screen(), "2P DOWN KEY", 6, 18);  draw_text_coord(get_screen(), bb[1] , 18, 18);
+	draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);  draw_text_coord(get_screen(), bb[2] , 18, 20);
+	draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22); draw_text_coord(get_screen(), bb[3] , 18, 22);
 
 	switch(*s_c_num)
 	{
@@ -804,7 +814,7 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
 		draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);
 		break;
 	case 7:
-		set_text_color(RedText);
+		set_text_color(RedText);draw_text_coord;
 		draw_text_coord(get_screen(), "#", 4, 22);
 		draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22);
 		break;
@@ -812,114 +822,94 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 8);
 		draw_text_coord(get_screen(), "1P UP KEY ", 6, 8);
-                draw_text_coord(get_screen(), sdlk_1p[0] , 18, 8);
+				char string[1];
+				string[0] = aa[0]-32;
+                draw_text_coord(get_screen(), string, 18, 8);
 		break;
 	case 9:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 10);
 		draw_text_coord(get_screen(), "1P DOWN", 10, 10);
-                draw_text_coord(get_screen(), sdlk_1p[1] , 18, 10);
+			    draw_text_coord(get_screen(), "G", 18, 10);
 		break;
 	case 10:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 12);
 		draw_text_coord(get_screen(), "1P LEFT", 10, 12);
-                draw_text_coord(get_screen(), sdlk_1p[2] , 18, 12);
+                draw_text_coord(get_screen(), "A" , 18, 12);
 		break;
 	
 	case 11:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 14);
 		draw_text_coord(get_screen(), "1P RIGHT", 10, 14);
-                draw_text_coord(get_screen(), sdlk_1p[3] , 18, 14);
+                draw_text_coord(get_screen(), "B" , 18, 14);
 		break;
 	
 	case 12:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 16);
 		draw_text_coord(get_screen(), "2P UP", 10, 16);
-                draw_text_coord(get_screen(), sdlk_2p[0] , 18, 16);
+                draw_text_coord(get_screen(), "C" , 18, 16);
 		break;
 	
 	case 13:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 18);
 		draw_text_coord(get_screen(), "2P DOWN", 10, 18);
-                draw_text_coord(get_screen(), sdlk_2p[1] , 18, 18);
+                draw_text_coord(get_screen(), "D" , 18, 18);
 		break;
 	case 14:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 20);
 		draw_text_coord(get_screen(), "2P LEFT", 10, 20);
-                draw_text_coord(get_screen(), sdlk_2p[2] , 18, 20);
+                draw_text_coord(get_screen(), "E" , 18, 20);
 		break;
 	case 15:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 8, 22);
 		draw_text_coord(get_screen(), "2P RIGHT", 10, 22);
-                draw_text_coord(get_screen(), sdlk_1p[3] , 18, 22);
+                draw_text_coord(get_screen(), "F" , 18, 22);
 		break;
 	}
-	
-	
-	
-	/*set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "1P UP ", 10, 8);
-	draw_text_coord(get_screen(), "1P DOWN ", 10, 10);
-	draw_text_coord(get_screen(), "1P LEFT ", 10, 12);
-	draw_text_coord(get_screen(), "1P RIGHT", 10, 14);
-	draw_text_coord(get_screen(), "2P UP", 10, 16);
-	draw_text_coord(get_screen(), "2P DOWN", 10, 18);
-	draw_text_coord(get_screen(), "2P LEFT", 10, 20);
-	draw_text_coord(get_screen(), "2P RIGHT", 10, 22);
-
-	switch(*s_c_num)
-	{
-	case 0:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 8);
-		draw_text_coord(get_screen(), "1P UP", 10, 8);
-		break;
-	case 1:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 10);
-		draw_text_coord(get_screen(), "1P DOWN", 10, 10);
-		break;
-	case 2:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 12);
-		draw_text_coord(get_screen(), "1P LEFT", 10, 12);
-		break;
-	
-	case 3:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 14);
-		draw_text_coord(get_screen(), "1P RIGHT", 10, 14);
-		break;
-	
-	case 4:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 16);
-		draw_text_coord(get_screen(), "2P UP", 10, 16);
-		break;
-	
-	case 5:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 18);
-		draw_text_coord(get_screen(), "2P DOWN", 10, 18);
-		break;
-	case 6:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 20);
-		draw_text_coord(get_screen(), "2P LEFT", 10, 20);
-		break;
-	case 7:
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 8, 22);
-		draw_text_coord(get_screen(), "2P RIGHT", 10, 22);
-		break;
-	}*/
 }
+
+void draw_change_keys(SDL_Surface *surface, int key, int x, int y)
+{
+	char string[1];
+	string[0] = key;
+	if(key>='a' && key<='z')
+		draw_text_coord(surface,key-32,x,y);
+	else if(key>=48 && key<=57)
+		draw_text_coord(surface, key, x, y);
+	else if(key==",")
+		draw_text_coord(surface,"COMMA",x,y);
+	else if(key==".")
+		draw_text_coord(surface,"DOT",x,y);
+	else if(key=="/")
+		draw_text_coord(surface,"SLASH",x,y);
+	else if(key==";")
+		draw_text_coord(surface,"SEMI COLON",x,y);
+	else if(key=="'")
+		draw_text_coord(surface,"APOSTROPHE",x,y);
+	else if(key=="[")
+		draw_text_coord(surface,"SQUARE BRACKET L",x,y);
+	else if(key=="]")
+		draw_text_coord(surface,"SQUARE BRACKET R",x,y);
+	else if(key=="-")
+		draw_text_coord(surface,"SUBTRACTION",x,y);
+	else if(key=="=")
+		draw_text_coord(surface,"EQUAL",x,y);
+	else if(key=="\\")
+		draw_text_coord(surface,"BACKSLASH",x,y);
+	else {
+		draw_text_coord(surface, "INVALID ENTRY", 4,2);
+	
+	}
+	
+
+}
+
 
 void draw_multi_mode(int *s_c_num) // # 9 Dong : 확장맵 테스트를 위한 메뉴 렌더
 {
