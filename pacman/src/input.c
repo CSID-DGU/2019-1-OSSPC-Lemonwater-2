@@ -23,6 +23,11 @@ static unsigned int curKeyFrame = 1;
 void get_key(client_key *key);
 void insert_key(client_key *key);
 
+static unsigned int Change_keys_1[4] = {SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT}; //lemonwater 5.13 키배열
+static unsigned int Change_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
+
+
+
 void keyevents_finished(void)
 {
 	curKeyFrame++;
@@ -52,20 +57,20 @@ bool dir_key_held(Direction direction,int player_num)
 	{
 		switch (direction)
 		{
-		case Up:    return keysHeld[SDLK_UP];
-		case Down:  return keysHeld[SDLK_DOWN];
-		case Left:  return keysHeld[SDLK_LEFT];
-		case Right: return keysHeld[SDLK_RIGHT];
+		case Up:    return keysHeld[Change_keys_1[0]]; //SDLK_UP 고정된 값,  SDLK_a
+		case Down:  return keysHeld[Change_keys_1[1]];
+		case Left:  return keysHeld[Change_keys_1[2]];
+		case Right: return keysHeld[Change_keys_1[3]];
 		}
 	}
 	else
 	{
 		switch (direction)
 		{
-		case Up:    return keysHeld[SDLK_w];
-		case Down:  return keysHeld[SDLK_s];
-		case Left:  return keysHeld[SDLK_a];
-		case Right: return keysHeld[SDLK_d];
+		case Up:    return keysHeld[Change_keys_2[0]];
+		case Down:  return keysHeld[Change_keys_2[1]];
+		case Left:  return keysHeld[Change_keys_2[2]];
+		case Right: return keysHeld[Change_keys_2[3]];
 		}
 	}
 

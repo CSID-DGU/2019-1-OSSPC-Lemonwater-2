@@ -808,7 +808,7 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
 		draw_text_coord(get_screen(), "#", 4, 22);
 		draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22);
 		break;
-        case 8:
+    case 8:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 8);
 		draw_text_coord(get_screen(), "1P UP KEY ", 6, 8);

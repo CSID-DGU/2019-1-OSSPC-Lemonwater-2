@@ -292,15 +292,16 @@ int settings_render(MenuSystem *menuSystem)
                 }
             break;
             case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
-                for (int i=0;i<8;i++) {
-                    if (s_c_num==i) {s_c_num=i+8;break;}
-                }
+                for (int i=0;i<16;i++) {
+                    if (s_c_num>=0 && s_c_num<8) {s_c_num=s_c_num+8;break;} //lemonwater 5.13 enter쳐서 돌아오기
+					else if (s_c_num>=8 && s_c_num<16) {s_c_num = s_c_num-8; break;}
+				}
             break;
         }
 
 	draw_settings_mode(&s_c_num);
 	
-	if (get==SDLK_a)	{
+	if ((get>=SDLK_a) && (get<=SDLK_z))	{
 				char string[1];
 				string[0] = get-32;
 				draw_text_coord(get_screen(), string, 18, 8);

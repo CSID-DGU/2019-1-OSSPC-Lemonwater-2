@@ -63,6 +63,7 @@ static int Pragma = 0;
 
 int main(void)
 {
+
 	recvPac = (PacmanGame*)malloc(sizeof(PacmanGame));
 	resource_init();
 	game_init(0);

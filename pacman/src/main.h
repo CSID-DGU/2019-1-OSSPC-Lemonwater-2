@@ -2,6 +2,8 @@
 
 //28 across, 36 down, 16 pixels each square.
 #define SCREEN_TITLE "Tphakumahn"
+//#define SCREEN_WIDTH 896
+//#define SCREEN_HEIGHT 1142
 #define SCREEN_WIDTH 448
 #define SCREEN_HEIGHT 576
 
