@@ -26,25 +26,18 @@ void insert_key(client_key *key);
 
 
 unsigned int Change_keys_1[4] = {SDLK_y, SDLK_h, SDLK_g, SDLK_j}; //lemonwater 5.13 키배열
-static unsigned int Change_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
+
+unsigned int Change_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
 
 
-int* Change_keys_array1(void) //lemonwater 5.13 키배열을 받는 함수..renderer.c에서 사용
+int Change_keys_array1(int i) //lemonwater 5.13 키배열을 받는 함수..renderer.c에서 사용
 {	
-	/*int Change_keys[4];
-	for (int i=0; i<4; i++) {
-		Change_keys[i]=Change_keys_1[i];
-	}*/
-	return Change_keys_1;
+	return Change_keys_1[i];
 }
 
-int * Change_keys_array2(void)
+int Change_keys_array2(int i)
 {
-	/*int Change_keys[4];
-	for (int i=0; i<4; i++) {
-		Change_keys[i]=Change_keys_2[i];
-	}*/
-	return Change_keys_2;
+	return Change_keys_2[i];
 }	
 
 

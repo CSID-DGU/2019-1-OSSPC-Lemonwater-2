@@ -227,15 +227,21 @@ static void internal_render(void)
 		break;
 	case HelpState:  //Lemonwater 5.7 internal_tick에서 들어온 HelpState
 		if(help_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 되서 help1.png가 창에 올라온다.
-		 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
-        break;
+	 	{
+			pacmanGame.playMode = menuSystem.playMode=Single;
+			state=Menu;
+		}
+	
+	        break;
 
     case SettingsState:
 		if(settings_render(&menuSystem)==ReturnMenu) //비교하기 위해 함수가 일단 실행이 된다.
-			 	{pacmanGame.playMode = menuSystem.playMode=Single;	state=Menu;	}
+		{
+			pacmanGame.playMode = menuSystem.playMode=Single;
+			state=Menu;	
+		}
         
         break;
-      
 	}
 	flip_screen();
 }
