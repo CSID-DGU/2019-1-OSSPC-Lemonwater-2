@@ -788,8 +788,10 @@ void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 
 		draw_text_coord(surface,"EQUAL",x,y);
 	else if(key==92)
 		draw_text_coord(surface,"BACKSLASH",x,y);
+	else if(key==271)
+		draw_text_coord(surface,"ENTER",x,y);
 	else {
-		draw_text_coord(surface, "INVALID ENTRY", x,y);
+		draw_text_coord(surface, "INVALID", x,y);
 	}
 }
 
