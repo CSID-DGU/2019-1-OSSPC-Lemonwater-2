@@ -50,6 +50,8 @@ bool Client_dir_key_held(Direction direction);
 //원래는 로컬에서 할 때는 같은 함수에서 if문으로 player num 떄려박아넣었는데.
 //여기서 key를 따로 해줘야 server에서 wasd 로 조정했을때 2p가 움직여버리는 일이 안일어남
 
-int Change_keys_array1(int i);
+int Change_keys_array1(int i); //lemonwater 5.15 바뀐배열을 전달해주는 함
 int Change_keys_array2(int i);
+
+void get_Change_Key(int i,int s_c_num); //lemonwater 5.15 키배열을 바꿔주는 함수
 

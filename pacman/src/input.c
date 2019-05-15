@@ -41,7 +41,13 @@ int Change_keys_array2(int i)
 }	
 
 
-
+void get_Change_Key(int i,int s_c_num)
+{
+	if(s_c_num>=8 && s_c_num<=11)
+		Change_keys_1[s_c_num-8] = i;
+	else if(s_c_num>=12 && s_c_num <16)
+		Change_keys_2[s_c_num-12] = i;
+}
 
 void keyevents_finished(void)
 {

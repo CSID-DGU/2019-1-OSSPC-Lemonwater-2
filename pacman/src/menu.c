@@ -10,6 +10,7 @@
 #include "server.h"
 #include "client.h"
 #include "sound.h"
+#include "input.h"
 
 //time till ghost-rows start appearing
 #define GHOST_START 500
@@ -294,11 +295,13 @@ int settings_render(MenuSystem *menuSystem)
                 for (int i=0;i<16;i++) {
                     if (s_c_num>=0 && s_c_num<8)
 			{
+				
 				s_c_num=s_c_num+8;
 				break;
 			} //lemonwater 5.13 enter쳐서 돌아오기
         	    else if (s_c_num>=8 && s_c_num<16) 
 			{
+				get_Change_Key(get,s_c_num);
 				s_c_num = s_c_num-8;
 				break;
 			}
