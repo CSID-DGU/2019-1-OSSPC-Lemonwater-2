@@ -329,12 +329,12 @@ int settings_render(MenuSystem *menuSystem)
             case SDLK_DOWN:
                     if (s_c_num>=0 && s_c_num<8) {s_c_num=s_c_num+1;}
 		    else if (s_c_num>=8 && s_c_num<16) {get_Change_Key(get,s_c_num);}
-		//lemonwater 5.16 키입력상태일 경우, 위아래 방향키가 이미 반복문 안에서 돌고 있어서 경우를 나눠주어 다시 설정해줍니다.
+		//lemonwater 5.16 위아래 방향키가 이미 조건으로 쓰이고 있어서, 키 입력상태를 나눠주어 따로 설정해줍니다.
             break;
             case SDLK_UP:
                     if (s_c_num>=0 && s_c_num<8) {s_c_num=s_c_num-1;}
 		    else if (s_c_num>=8 && s_c_num<16) {get_Change_Key(get,s_c_num);}
-		//lemonwater 5.16 키입력상태일 경우, 위아래 방향키가 이미 반복문 안에서 돌고 있어서 경우를 나눠주어 다시 설정해줍니다.
+		//lemonwater 5.16 위아래 방향키가 이미 조건으로 쓰이고 있어서, 키 입력상태를 나눠주어 따로 설정해줍니다.
             break;
             case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
                     if (s_c_num>=0 && s_c_num<8)
@@ -345,7 +345,7 @@ int settings_render(MenuSystem *menuSystem)
 			s_c_num = s_c_num-8;
 			}
 	    default : //lemonwater 5.16 나머지 키가 입력되는 경우를 의미합니다.
-		get_Change_Key(get,s_c_num);
+		get_Change_Key(get,s_c_num); //lemonwater 5.16 키를 바꿔줍니다.
 		break;
 
 	    break;
