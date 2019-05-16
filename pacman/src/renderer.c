@@ -770,13 +770,13 @@ void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 
 	else if(key>=SDLK_0 && key<=SDLK_9) //0-9
 		draw_text_coord(surface, string, x, y);
 
-	else if(key>=SDLK_UP) //lemonwater 5.16 기본방향키
+	else if(key==SDLK_UP) //lemonwater 5.16 기본방향키
 		draw_text_coord(surface, "UP", x, y);
-	else if(key>=SDLK_DOWN) 
+	else if(key==SDLK_DOWN) 
 		draw_text_coord(surface, "DOWN", x, y);
-	else if(key>=SDLK_LEFT) 
+	else if(key==SDLK_LEFT) 
 		draw_text_coord(surface, "LEFT", x, y);
-	else if(key>=SDLK_RIGHT) 
+	else if(key==SDLK_RIGHT) 
 		draw_text_coord(surface, "RIGHT", x, y);
 
 

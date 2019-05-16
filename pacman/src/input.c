@@ -23,10 +23,7 @@ static unsigned int curKeyFrame = 1;
 void get_key(client_key *key);
 void insert_key(client_key *key);
 
-
-
-unsigned int player_keys_1[4] = {SDLK_y, SDLK_h, SDLK_g, SDLK_j}; //lemonwater 5.13 키배열
-
+unsigned int player_keys_1[4] = {SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT}; //lemonwater 5.13 키배열
 unsigned int player_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
 
 
