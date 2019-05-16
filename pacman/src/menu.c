@@ -105,7 +105,8 @@ static void draw_vanity_screen(MenuSystem *menuSystem)
 
 }
 
-int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
+int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리 
+//lemonwater 5.16 키값을 여기서 다 받아줍니다. 따라서 받고싶은 키가 있다면 여기서 설정해줍니다.
 {
 	for(int i = 48 ; i <=57 ; i ++) //lemonwater 5.10 ip주소 받기
 	{
@@ -119,16 +120,46 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 			return i;
 	}
 
-	if(key_released(SDLK_PERIOD))
+	if(key_released(SDLK_KP0)) //lemonwater 5.15 keypad 0 - 10
+		return SDLK_KP0;
+	else if(key_released(SDLK_KP1)) 
+		return SDLK_KP1;
+	else if(key_released(SDLK_KP2)) 
+		return SDLK_KP2;
+	else if(key_released(SDLK_KP3)) 
+		return SDLK_KP3;
+	else if(key_released(SDLK_KP4)) 
+		return SDLK_KP4;
+	else if(key_released(SDLK_KP5)) 
+		return SDLK_KP5;
+	else if(key_released(SDLK_KP6)) 
+		return SDLK_KP6;
+	else if(key_released(SDLK_KP7)) 
+		return SDLK_KP7;
+	else if(key_released(SDLK_KP8)) 
+		return SDLK_KP8;
+	else if(key_released(SDLK_KP9)) 
+		return SDLK_KP9;
+	
+
+	else if(key_released(SDLK_PERIOD))
 		return '.';
-	else if(key_released(SDLK_UP))
+	else if(key_released(SDLK_COMMA))
+		return ',';
+	else if(key_released(SDLK_SLASH))
+		return '/';
+
+
+	else if(key_released(SDLK_UP)) //방향키
 		return SDLK_UP;
 	else if(key_released(SDLK_DOWN))
 		return SDLK_DOWN;
-    else if(key_released(SDLK_LEFT))
+        else if(key_released(SDLK_LEFT))
 		return SDLK_LEFT;
 	else if(key_released(SDLK_RIGHT))
 		return SDLK_RIGHT;
+
+
 	else if(key_released(SDLK_KP_ENTER)||key_released(SDLK_RETURN))
 		return SDLK_KP_ENTER;// #19 Kim : 2. 엔터가 아니라 SDLK_RETURN 인듯. 엔터치면 ㅇㅅㅇ
 	else if(key_released(SDLK_PERIOD))
@@ -272,13 +303,14 @@ int help_render(MenuSystem *menuSystem)
 
 int settings_render(MenuSystem *menuSystem)
 {
-	int get= getKey();
-
+	int get= getKey();//lemonwater 5.16 프로그램이 무한히 반복되면서 키값을 받습니다. 이 때, 아무것도 눌러지지 않은 상태는 0입니다.
+	
 	if(get==SDLK_BACKSPACE) //lemonwater 5.8 메인메뉴로 돌아가기
 		{
 			menuSystem->action = Nothing;
 			return ReturnMenu;
 		}
+
 
 	switch(get) {
             case SDLK_DOWN:
@@ -293,21 +325,20 @@ int settings_render(MenuSystem *menuSystem)
             break;
             case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
                     if (s_c_num>=0 && s_c_num<8)
-			{
 			s_c_num=s_c_num+8;
-			break;
-			} //lemonwater 5.13 enter쳐서 돌아오기
+						//lemonwater 5.13 enter쳐서 돌아오기
         	    else if (s_c_num>=8 && s_c_num<16) 
 			{
 			s_c_num = s_c_num-8;
-			break;
 			}
-	    break;
-	    default :
+	    default : //lemonwater 5.16 나머지 키가 입력되는 경우를 의미합니다.
 		get_Change_Key(get,s_c_num);
 		break;
+
+	    break;
         }
 
+	
 	draw_settings_mode(&s_c_num);
 
 	return 0;

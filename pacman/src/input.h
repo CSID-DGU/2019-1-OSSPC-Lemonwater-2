@@ -53,5 +53,5 @@ bool Client_dir_key_held(Direction direction);
 int Change_keys_array1(int i); //lemonwater 5.15 바뀐배열을 전달해주는 함
 int Change_keys_array2(int i);
 
-void get_Change_Key(int i,int s_c_num); //lemonwater 5.15 키배열을 바꿔주는 함수
+void get_Change_Key(int key,int s_c_num); //lemonwater 5.15 키배열을 바꿔주는 함수
 

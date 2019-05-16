@@ -27,10 +27,6 @@ void draw_playMode(PlayMode playMode);//#13 : 2.메뉴 뷰 테스트중 일단 p
 #define Y_OFFSET 3
 static int offset = 3 * 16;
 
-static char sdlk_1p[4][10]={"UP","DOWN","LEFT","RIGHT"};
-static char sdlk_2p[4][10]={"w","s","a","d"};
-
-
 
 void draw_image_coord(SDL_Surface *surface, int x, int y)
 {
@@ -760,170 +756,179 @@ void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 
 	char string[2];
 	string[0] = key; string[1] = '\0';
 
-	if(key>=97 && key<=122) //a-z
+	if(key>=SDLK_a && key<=SDLK_z) //a-z
 	{	
 		string[0] = string[0]-32;
 		draw_text_coord(surface,string,x,y);	
 	}
+
+	else if(key==0) //lemonwater 5.16 키입력이 아무것도 입력되지 않는 상태. test용//lemonwater5.16 keypad 0-9
+		draw_text_coord(surface,"NP",x,y);
 	
-	else if(key>=48 && key<=57) //0-9
+	else if(key>=SDLK_0 && key<=SDLK_9) //0-9
 		draw_text_coord(surface, string, x, y);
-	else if(key==44)
+
+	else if(key==SDLK_KP0) 
+		draw_text_coord(surface,"KP0",x,y);
+	else if(key==SDLK_KP1) 
+		draw_text_coord(surface,"KP1",x,y);
+	else if(key==SDLK_KP2) 
+		draw_text_coord(surface,"KP2",x,y);
+	else if(key==SDLK_KP3) 
+		draw_text_coord(surface,"KP3",x,y);
+	else if(key==SDLK_KP4) 
+		draw_text_coord(surface,"KP4",x,y);
+	else if(key==SDLK_KP5) 
+		draw_text_coord(surface,"KP5",x,y);
+	else if(key==SDLK_KP6) 
+		draw_text_coord(surface,"KP6",x,y);
+	else if(key==SDLK_KP7) 
+		draw_text_coord(surface,"KP7",x,y);
+	else if(key==SDLK_KP8) 
+		draw_text_coord(surface,"KP8",x,y);
+	else if(key==SDLK_KP9) 
+		draw_text_coord(surface,"KP9",x,y);	
+
+
+	else if(key==SDLK_COMMA)
 		draw_text_coord(surface,"COMMA",x,y);
-	else if(key==46) 
+	else if(key==SDLK_PERIOD) 
 		draw_text_coord(surface,"PERIOD",x,y);
-	else if(key==47) 
+	else if(key==SDLK_SLASH) 
 		draw_text_coord(surface,"SLASH",x,y);
-	else if(key==59) 
+	else if(key==SDLK_SEMICOLON) 
 		draw_text_coord(surface,"SEMI COLON",x,y);
-	else if(key==39) 
+	else if(key==SDLK_QUOTE) 
 		draw_text_coord(surface,"QUOTE",x,y);
-	else if(key==91)
-		draw_text_coord(surface,"SQUARE BRACKET L",x,y);
-	else if(key==93)
-		draw_text_coord(surface,"SQUARE BRACKET R",x,y);
-	else if(key==45)
+	else if(key==SDLK_LEFTBRACKET)
+		draw_text_coord(surface,"LEFT BRACKET",x,y);
+	else if(key==SDLK_RIGHTBRACKET)
+		draw_text_coord(surface,"RIGHT BRACkET",x,y);
+	else if(key==SDLK_MINUS)
 		draw_text_coord(surface,"MINUS",x,y);
-	else if(key==61)
+	else if(key==SDLK_EQUALS)
 		draw_text_coord(surface,"EQUAL",x,y);
-	else if(key==92)
+	else if(key==SDLK_BACKSLASH)
 		draw_text_coord(surface,"BACKSLASH",x,y);
-	else if(key==271)
+	else if(key==SDLK_KP_ENTER)
 		draw_text_coord(surface,"ENTER",x,y);
-	else {
+	else 
 		draw_text_coord(surface, "INVALID", x,y);
-	}
+	
 }
 
 
-void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings
+void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자 위치 변경. 도움말 추가
 {
-	/*char player1_key_up[2];
-	char player1_key_down[2];
-	char player1_key_left[2];
-	char player1_key_right[2];
-
-	char player2_key_up[2];
-	char player2_key_down[2];
-	char player2_key_left[2];
-	char player2_key_right[2]; // 문자를 문장으로 받아줄 배열 선언
-
-	player1_key_up[0] = Change_keys_array1(0)-32; player1_key_up[1] = '\0';
-	player1_key_down[0] = Change_keys_array1(1)-32; player1_key_down[1] = '\0';
-	player1_key_left[0] = Change_keys_array1(2)-32; player1_key_left[1] = '\0';
-	player1_key_right[0] = Change_keys_array1(3)-32; player1_key_right[1] = '\0';
-	player2_key_up[0] = Change_keys_array2(0)-32; player2_key_up[1] = '\0';
-	player2_key_down[0] = Change_keys_array2(1)-32; player2_key_down[1] = '\0';
-	player2_key_left[0] = Change_keys_array2(2)-32; player2_key_left[1] = '\0';
-	player2_key_right[0] = Change_keys_array2(3)-32; player2_key_right[1] = '\0';*/
-
-	
-
 	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "1P UP KEY", 6, 8);     draw_change_keys(get_screen(), Change_keys_array1(0) ,18,8); 
-	draw_text_coord(get_screen(), "1P DOWN KEY", 6, 10);  draw_change_keys(get_screen(), Change_keys_array1(1) ,18,10); 
-	draw_text_coord(get_screen(), "1P LEFT KEY", 6, 12);  draw_change_keys(get_screen(), Change_keys_array1(2) ,18,12); 
-	draw_text_coord(get_screen(), "1P RIGHT KEY", 6, 14); draw_change_keys(get_screen(), Change_keys_array1(3) ,18,14); 
-	draw_text_coord(get_screen(), "2P UP KEY", 6, 16);    draw_change_keys(get_screen(), Change_keys_array2(0) ,18,16); 
-	draw_text_coord(get_screen(), "2P DOWN KEY", 6, 18);  draw_change_keys(get_screen(), Change_keys_array2(1) ,18,18); 
-	draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);  draw_change_keys(get_screen(), Change_keys_array2(2) ,18,20); 
-	draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22); draw_change_keys(get_screen(), Change_keys_array2(3) ,18,22); 
+
+	draw_text_coord(get_screen(), "1. PRESS ENTER", 1, 5);
+	draw_text_coord(get_screen(), "2. PRESS THE KEY TO CHANGE", 1, 8);
+
+	draw_text_coord(get_screen(), "1P UP KEY", 5, 12);     draw_change_keys(get_screen(), Change_keys_array1(0) ,20,12); 
+	draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);  draw_change_keys(get_screen(), Change_keys_array1(1) ,20,14); 
+	draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);  draw_change_keys(get_screen(), Change_keys_array1(2) ,20,16); 
+	draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18); draw_change_keys(get_screen(), Change_keys_array1(3) ,20,18); 
+	draw_text_coord(get_screen(), "2P UP KEY", 5, 20);    draw_change_keys(get_screen(), Change_keys_array2(0) ,20,20); 
+	draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);  draw_change_keys(get_screen(), Change_keys_array2(1) ,20,22); 
+	draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);  draw_change_keys(get_screen(), Change_keys_array2(2) ,20,24); 
+	draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26); draw_change_keys(get_screen(), Change_keys_array2(3) ,20,26); 
 
 	switch(*s_c_num)
 	{
 	case 0:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 8);
-		draw_text_coord(get_screen(), "1P UP KEY", 6, 8);
+		draw_text_coord(get_screen(), "#", 4, 12);
+		draw_text_coord(get_screen(), "1P UP KEY", 5, 12);
 		break;
 	case 1:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 10);
-		draw_text_coord(get_screen(), "1P DOWN KEY", 6, 10);
+		draw_text_coord(get_screen(), "#", 4, 14);
+		draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);
 		break;
 	case 2:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 12);
-		draw_text_coord(get_screen(), "1P LEFT KEY", 6, 12);
+		draw_text_coord(get_screen(), "#", 4, 16);
+		draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);
 		break;
 	
 	case 3:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 14);
-		draw_text_coord(get_screen(), "1P RIGHT KEY", 6, 14);
+		draw_text_coord(get_screen(), "#", 4, 18);
+		draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18);
 		break;
 	
 	case 4:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 16);
-		draw_text_coord(get_screen(), "2P UP KEY", 6, 16);
+		draw_text_coord(get_screen(), "#", 4, 20);
+		draw_text_coord(get_screen(), "2P UP KEY", 5, 20);
 		break;
 	
 	case 5:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 18);
-		draw_text_coord(get_screen(), "2P DOWN KEY", 6, 18);
+		draw_text_coord(get_screen(), "#", 4, 22);
+		draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);
 		break;
 	case 6:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 20);
-		draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);
+		draw_text_coord(get_screen(), "#", 4, 24);
+		draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);
 		break;
 	case 7:
-		set_text_color(RedText);draw_text_coord;
-		draw_text_coord(get_screen(), "#", 4, 22);
-		draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22);
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "#", 4, 26);
+		draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26);
 		break;
        case 8:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 8);
-		draw_text_coord(get_screen(), "1P UP KEY ", 6, 8);
-                draw_change_keys(get_screen(), Change_keys_array1(0) ,18,8);
+		draw_text_coord(get_screen(), "#", 4, 12);
+		draw_text_coord(get_screen(), "1P UP KEY ", 5, 12);
+                draw_change_keys(get_screen(), Change_keys_array1(0) ,20,12);
 		break;
 	case 9:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 10);
-		draw_text_coord(get_screen(), "1P DOWN KEY", 6, 10);
-		draw_change_keys(get_screen(), Change_keys_array1(1) ,18,10);
+		draw_text_coord(get_screen(), "#", 4, 14);
+		draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);
+		draw_change_keys(get_screen(), Change_keys_array1(1) ,20,14);
 		break;
 	case 10:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 12);
-		draw_text_coord(get_screen(), "1P LEFT KEY", 6, 12);
-                draw_change_keys(get_screen(), Change_keys_array1(2) ,18,12);
+		draw_text_coord(get_screen(), "#", 4, 16);
+		draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);
+                draw_change_keys(get_screen(), Change_keys_array1(2) ,20,16);
 		break;
 	
 	case 11:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 14);
-		draw_text_coord(get_screen(), "1P RIGHT KEY", 6, 14);
-                draw_change_keys(get_screen(), Change_keys_array1(3) ,18,14);
+		draw_text_coord(get_screen(), "#", 4, 18);
+		draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18);
+                draw_change_keys(get_screen(), Change_keys_array1(3) ,20,18);
 		break;
 	
 	case 12:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 16);
-		draw_text_coord(get_screen(), "2P UP KEY", 6, 16);
-                draw_change_keys(get_screen(), Change_keys_array2(0) ,18,16);
+		draw_text_coord(get_screen(), "#", 4, 20);
+		draw_text_coord(get_screen(), "2P UP KEY", 5, 20);
+                draw_change_keys(get_screen(), Change_keys_array2(0) ,20,20);
 		break;
 	
 	case 13:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 18);
-		draw_text_coord(get_screen(), "2P DOWN KEY", 6, 18);
-                draw_change_keys(get_screen(), Change_keys_array2(1) ,18,18);
+		draw_text_coord(get_screen(), "#", 4, 22);
+		draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);
+                draw_change_keys(get_screen(), Change_keys_array2(1) ,20,22);
 		break;
 	case 14:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 20);
-		draw_text_coord(get_screen(), "2P LEFT KEY", 6, 20);
-                draw_change_keys(get_screen(), Change_keys_array2(2) ,18,20);
+		draw_text_coord(get_screen(), "#", 4, 24);
+		draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);
+                draw_change_keys(get_screen(), Change_keys_array2(2) ,20,24);
 		break;
 	case 15:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 4, 22);
-		draw_text_coord(get_screen(), "2P RIGHT KEY", 6, 22);
-                draw_change_keys(get_screen(), Change_keys_array2(3) ,18,22);
+		draw_text_coord(get_screen(), "#", 4, 26);
+		draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26);
+                draw_change_keys(get_screen(), Change_keys_array2(3) ,20,26);
 		break;
 	}
 }
