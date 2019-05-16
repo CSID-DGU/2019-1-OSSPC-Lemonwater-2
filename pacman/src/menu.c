@@ -114,13 +114,13 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 			return i;
 	}
 
-	for(int i = 97 ; i <=122 ; i ++) //lemonwater 5.10 대문자 알파벳이어서 -32를 해줘야 한다.
+	for(int i = 97 ; i <=122 ; i ++) //lemonwater 5.10 알파벳. 대문자는 생략.
 	{
 		if(key_released(i))
 			return i;
 	}
 
-	if(key_released(SDLK_KP0)) //lemonwater 5.15 keypad 0 - 10
+	if(key_released(SDLK_KP0)) //lemonwater 5.16 keypad 0 - 10
 		return SDLK_KP0;
 	else if(key_released(SDLK_KP1)) 
 		return SDLK_KP1;
@@ -142,12 +142,26 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 		return SDLK_KP9;
 	
 
-	else if(key_released(SDLK_PERIOD))
+	else if(key_released(SDLK_PERIOD)) //lemonwater 5.16 기타 입력키
 		return '.';
 	else if(key_released(SDLK_COMMA))
 		return ',';
 	else if(key_released(SDLK_SLASH))
 		return '/';
+	else if(key_released(SDLK_QUOTE))
+		return '\'';
+	else if(key_released(SDLK_LEFTBRACKET))
+		return '[';
+	else if(key_released(SDLK_RIGHTBRACKET))
+		return ']';
+	else if(key_released(SDLK_SEMICOLON))
+		return ';';
+	else if(key_released(SDLK_BACKSLASH))
+		return '\\';
+	else if(key_released(SDLK_EQUALS))
+		return '=';
+	else if(key_released(SDLK_MINUS))
+		return '-';
 
 
 	else if(key_released(SDLK_UP)) //방향키
@@ -162,11 +176,10 @@ int getKey(void)// #19 Kim : 1. 여기서 키값 받아서 와따가따리
 
 	else if(key_released(SDLK_KP_ENTER)||key_released(SDLK_RETURN))
 		return SDLK_KP_ENTER;// #19 Kim : 2. 엔터가 아니라 SDLK_RETURN 인듯. 엔터치면 ㅇㅅㅇ
-	else if(key_released(SDLK_PERIOD))
-		return SDLK_PERIOD;
 	else if(key_released(SDLK_BACKSPACE))//#25 ip 칠때 지워지도록.
 		return SDLK_BACKSPACE;
-	return 0;
+	else	
+		return 0;
 }
 
 

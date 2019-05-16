@@ -25,19 +25,19 @@ void insert_key(client_key *key);
 
 
 
-unsigned int Change_keys_1[4] = {SDLK_y, SDLK_h, SDLK_g, SDLK_j}; //lemonwater 5.13 키배열
+unsigned int player_keys_1[4] = {SDLK_y, SDLK_h, SDLK_g, SDLK_j}; //lemonwater 5.13 키배열
 
-unsigned int Change_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
+unsigned int player_keys_2[4] = {SDLK_w, SDLK_s, SDLK_a, SDLK_d};
 
 
-int Change_keys_array1(int i) //lemonwater 5.13 키배열을 받는 함수..renderer.c에서 사용
+int Player_keys_array1(int i) //lemonwater 5.13 키배열을 받는 함수..renderer.c에서 사용
 {	
-	return Change_keys_1[i];
+	return player_keys_1[i];
 }
 
-int Change_keys_array2(int i)
+int Player_keys_array2(int i)
 {
-	return Change_keys_2[i];
+	return player_keys_2[i];
 }	
 
 
@@ -47,11 +47,11 @@ void get_Change_Key(int key,int s_c_num) //lemonwater 5.15 키값을 받아서 �
 	{
 		if(s_c_num>=8 && s_c_num<=11) //lemonwater 5.16 엔터값을 눌러 키를 변환할 수 있는 상태에서만 받을 수 있도록 조건을 둠. 1p
 		{
-		Change_keys_1[s_c_num-8] = key;
+		player_keys_1[s_c_num-8] = key;
 		}
 		else if(s_c_num>=12 && s_c_num <16) //lemonwater 5.16 2p
 		{
-		Change_keys_2[s_c_num-12] = key;
+		player_keys_2[s_c_num-12] = key;
 		}
    	 }
 }
@@ -85,20 +85,20 @@ bool dir_key_held(Direction direction,int player_num)
 	{
 		switch (direction)
 		{
-		case Up:    return keysHeld[Change_keys_1[0]]; //lemonwater 5.13 키 설정
-		case Down:  return keysHeld[Change_keys_1[1]];
-		case Left:  return keysHeld[Change_keys_1[2]];
-		case Right: return keysHeld[Change_keys_1[3]];
+		case Up:    return keysHeld[player_keys_1[0]]; //lemonwater 5.13 키 설정
+		case Down:  return keysHeld[player_keys_1[1]];
+		case Left:  return keysHeld[player_keys_1[2]];
+		case Right: return keysHeld[player_keys_1[3]];
 		}
 	}
 	else
 	{
 		switch (direction)
 		{
-		case Up:    return keysHeld[Change_keys_2[0]];
-		case Down:  return keysHeld[Change_keys_2[1]];
-		case Left:  return keysHeld[Change_keys_2[2]];
-		case Right: return keysHeld[Change_keys_2[3]];
+		case Up:    return keysHeld[player_keys_2[0]];
+		case Down:  return keysHeld[player_keys_2[1]];
+		case Left:  return keysHeld[player_keys_2[2]];
+		case Right: return keysHeld[player_keys_2[3]];
 		}
 	}
 
@@ -202,10 +202,10 @@ static int frame_for_direction(Direction dir) //lemonwater 5.13 키 설정
 {
 	switch (dir)
 	{
-	case Up:    return max(keysPressedFrame[Change_keys_1[0]], keysPressedFrame[Change_keys_2[0]]);
-	case Down:  return max(keysPressedFrame[Change_keys_1[1]], keysPressedFrame[Change_keys_2[1]]);
-	case Left:  return max(keysPressedFrame[Change_keys_1[2]], keysPressedFrame[Change_keys_2[2]]);
-	case Right: return max(keysPressedFrame[Change_keys_1[3]], keysPressedFrame[Change_keys_2[3]]);
+	case Up:    return max(keysPressedFrame[player_keys_1[0]], keysPressedFrame[player_keys_2[0]]);
+	case Down:  return max(keysPressedFrame[player_keys_1[1]], keysPressedFrame[player_keys_2[1]]);
+	case Left:  return max(keysPressedFrame[player_keys_1[2]], keysPressedFrame[player_keys_2[2]]);
+	case Right: return max(keysPressedFrame[player_keys_1[3]], keysPressedFrame[player_keys_2[3]]);
 	}
 
 	printf("should never reach here\n");

@@ -751,24 +751,36 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
 	}
 }
 
-void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 05.15 문자에 해당되는 아스키코드 값을 입력해야함.
+void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 5.15 문자에 해당되는 아스키코드 값을 입력해야함.
 {
 	char string[2];
 	string[0] = key; string[1] = '\0';
 
 	if(key>=SDLK_a && key<=SDLK_z) //a-z
 	{	
-		string[0] = string[0]-32;
+		string[0] = string[0]-32; //화면상 출력은 대문자이므로, 아스키코드 값 32를 빼줍니다.
 		draw_text_coord(surface,string,x,y);	
 	}
 
-	else if(key==0) //lemonwater 5.16 키입력이 아무것도 입력되지 않는 상태. test용//lemonwater5.16 keypad 0-9
+
+	else if(key==0) //lemonwater 5.16 키입력이 아무것도 입력되지 않는 상태. test용
 		draw_text_coord(surface,"NP",x,y);
 	
+
 	else if(key>=SDLK_0 && key<=SDLK_9) //0-9
 		draw_text_coord(surface, string, x, y);
 
-	else if(key==SDLK_KP0) 
+	else if(key>=SDLK_UP) //lemonwater 5.16 기본방향키
+		draw_text_coord(surface, "UP", x, y);
+	else if(key>=SDLK_DOWN) 
+		draw_text_coord(surface, "DOWN", x, y);
+	else if(key>=SDLK_LEFT) 
+		draw_text_coord(surface, "LEFT", x, y);
+	else if(key>=SDLK_RIGHT) 
+		draw_text_coord(surface, "RIGHT", x, y);
+
+
+	else if(key==SDLK_KP0) // lemonwater 5.16 keypad 0 - 9
 		draw_text_coord(surface,"KP0",x,y);
 	else if(key==SDLK_KP1) 
 		draw_text_coord(surface,"KP1",x,y);
@@ -790,7 +802,7 @@ void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 
 		draw_text_coord(surface,"KP9",x,y);	
 
 
-	else if(key==SDLK_COMMA)
+	else if(key==SDLK_COMMA) // lemonwater 5.16 기타문자
 		draw_text_coord(surface,"COMMA",x,y);
 	else if(key==SDLK_PERIOD) 
 		draw_text_coord(surface,"PERIOD",x,y);
@@ -803,7 +815,7 @@ void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 
 	else if(key==SDLK_LEFTBRACKET)
 		draw_text_coord(surface,"LEFT BRACKET",x,y);
 	else if(key==SDLK_RIGHTBRACKET)
-		draw_text_coord(surface,"RIGHT BRACkET",x,y);
+		draw_text_coord(surface,"RIGHT BRACKET",x,y);
 	else if(key==SDLK_MINUS)
 		draw_text_coord(surface,"MINUS",x,y);
 	else if(key==SDLK_EQUALS)
@@ -825,14 +837,14 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 	draw_text_coord(get_screen(), "1. PRESS ENTER", 1, 5);
 	draw_text_coord(get_screen(), "2. PRESS THE KEY TO CHANGE", 1, 8);
 
-	draw_text_coord(get_screen(), "1P UP KEY", 5, 12);     draw_change_keys(get_screen(), Change_keys_array1(0) ,20,12); 
-	draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);  draw_change_keys(get_screen(), Change_keys_array1(1) ,20,14); 
-	draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);  draw_change_keys(get_screen(), Change_keys_array1(2) ,20,16); 
-	draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18); draw_change_keys(get_screen(), Change_keys_array1(3) ,20,18); 
-	draw_text_coord(get_screen(), "2P UP KEY", 5, 20);    draw_change_keys(get_screen(), Change_keys_array2(0) ,20,20); 
-	draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);  draw_change_keys(get_screen(), Change_keys_array2(1) ,20,22); 
-	draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);  draw_change_keys(get_screen(), Change_keys_array2(2) ,20,24); 
-	draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26); draw_change_keys(get_screen(), Change_keys_array2(3) ,20,26); 
+	draw_text_coord(get_screen(), "1P UP KEY", 5, 12);     draw_change_keys(get_screen(), Player_keys_array1(0) ,20,12); 
+	draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);  draw_change_keys(get_screen(), Player_keys_array1(1) ,20,14); 
+	draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);  draw_change_keys(get_screen(), Player_keys_array1(2) ,20,16); 
+	draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18); draw_change_keys(get_screen(), Player_keys_array1(3) ,20,18); 
+	draw_text_coord(get_screen(), "2P UP KEY", 5, 20);    draw_change_keys(get_screen(), Player_keys_array2(0) ,20,20); 
+	draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);  draw_change_keys(get_screen(), Player_keys_array2(1) ,20,22); 
+	draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);  draw_change_keys(get_screen(), Player_keys_array2(2) ,20,24); 
+	draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26); draw_change_keys(get_screen(), Player_keys_array2(3) ,20,26); 
 
 	switch(*s_c_num)
 	{
@@ -883,52 +895,52 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 12);
 		draw_text_coord(get_screen(), "1P UP KEY ", 5, 12);
-                draw_change_keys(get_screen(), Change_keys_array1(0) ,20,12);
+                draw_change_keys(get_screen(), Player_keys_array1(0) ,20,12);
 		break;
 	case 9:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 14);
 		draw_text_coord(get_screen(), "1P DOWN KEY", 5, 14);
-		draw_change_keys(get_screen(), Change_keys_array1(1) ,20,14);
+		draw_change_keys(get_screen(), Player_keys_array1(1) ,20,14);
 		break;
 	case 10:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 16);
 		draw_text_coord(get_screen(), "1P LEFT KEY", 5, 16);
-                draw_change_keys(get_screen(), Change_keys_array1(2) ,20,16);
+                draw_change_keys(get_screen(), Player_keys_array1(2) ,20,16);
 		break;
 	
 	case 11:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 18);
 		draw_text_coord(get_screen(), "1P RIGHT KEY", 5, 18);
-                draw_change_keys(get_screen(), Change_keys_array1(3) ,20,18);
+                draw_change_keys(get_screen(), Player_keys_array1(3) ,20,18);
 		break;
 	
 	case 12:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 20);
 		draw_text_coord(get_screen(), "2P UP KEY", 5, 20);
-                draw_change_keys(get_screen(), Change_keys_array2(0) ,20,20);
+                draw_change_keys(get_screen(), Player_keys_array2(0) ,20,20);
 		break;
 	
 	case 13:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 22);
 		draw_text_coord(get_screen(), "2P DOWN KEY", 5, 22);
-                draw_change_keys(get_screen(), Change_keys_array2(1) ,20,22);
+                draw_change_keys(get_screen(), Player_keys_array2(1) ,20,22);
 		break;
 	case 14:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 24);
 		draw_text_coord(get_screen(), "2P LEFT KEY", 5, 24);
-                draw_change_keys(get_screen(), Change_keys_array2(2) ,20,24);
+                draw_change_keys(get_screen(), Player_keys_array2(2) ,20,24);
 		break;
 	case 15:
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "#", 4, 26);
 		draw_text_coord(get_screen(), "2P RIGHT KEY", 5, 26);
-                draw_change_keys(get_screen(), Change_keys_array2(3) ,20,26);
+                draw_change_keys(get_screen(), Player_keys_array2(3) ,20,26);
 		break;
 	}
 }
