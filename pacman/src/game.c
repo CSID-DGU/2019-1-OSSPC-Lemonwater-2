@@ -135,7 +135,7 @@ void game_tick(PacmanGame *game)
 		case GamePlayState:
 
 			//TODO: remove this hacks
-			if (key_held(SDLK_k)) enter_state(game, WinState);
+			if (key_held(SDLK_F1)) enter_state(game, WinState);
 
 			else if (allPelletsEaten) enter_state(game, WinState);
 			else if (collidedWithGhost) enter_state(game, DeathState);//#14 일단 이때. 열로 들어가는데... 현제 스테이트는 GamePlayState고..

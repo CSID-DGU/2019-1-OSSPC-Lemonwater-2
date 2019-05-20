@@ -279,7 +279,8 @@ int help_render(MenuSystem *menuSystem)
     int get=getKey(); //lemonwater 5.8 키 입력 받기
     
 	if(get==SDLK_BACKSPACE)//lemonwater 5.8 help1, help2, help3 어디에서든 backspace받을 시 main menu로 돌아간다.
-		{
+		{	
+			s_c_num = 0; //lemonwater 5.17 초기화
 			menuSystem->action = Nothing;
 			return ReturnMenu;
 		}
@@ -320,6 +321,7 @@ int settings_render(MenuSystem *menuSystem)
 	
 	if(get==SDLK_BACKSPACE) //lemonwater 5.8 메인메뉴로 돌아가기
 		{
+			s_c_num = 0; //lemonwater 5.17 초기화
 			menuSystem->action = Nothing;
 			return ReturnMenu;
 		}
@@ -327,14 +329,16 @@ int settings_render(MenuSystem *menuSystem)
 
 	switch(get) {
             case SDLK_DOWN:
-                    if (s_c_num>=0 && s_c_num<8) {s_c_num=s_c_num+1;}
+                    if (s_c_num>=0 && s_c_num<7) {s_c_num=s_c_num+1;}
 		    else if (s_c_num>=8 && s_c_num<16) {get_Change_Key(get,s_c_num);}
 		//lemonwater 5.16 위아래 방향키가 이미 조건으로 쓰이고 있어서, 키 입력상태를 나눠주어 따로 설정해줍니다.
+		 
             break;
             case SDLK_UP:
-                    if (s_c_num>=0 && s_c_num<8) {s_c_num=s_c_num-1;}
+                    if (s_c_num>=1 && s_c_num<8) {s_c_num=s_c_num-1;}
 		    else if (s_c_num>=8 && s_c_num<16) {get_Change_Key(get,s_c_num);}
 		//lemonwater 5.16 위아래 방향키가 이미 조건으로 쓰이고 있어서, 키 입력상태를 나눠주어 따로 설정해줍니다.
+		    
             break;
             case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
                     if (s_c_num>=0 && s_c_num<8)
@@ -344,14 +348,12 @@ int settings_render(MenuSystem *menuSystem)
 			{
 			s_c_num = s_c_num-8;
 			}
+			break;
 	    default : //lemonwater 5.16 나머지 키가 입력되는 경우를 의미합니다.
 		get_Change_Key(get,s_c_num); //lemonwater 5.16 키를 바꿔줍니다.
 		break;
-
-	    break;
         }
 
-	
 	draw_settings_mode(&s_c_num);
 
 	return 0;

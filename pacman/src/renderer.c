@@ -834,8 +834,8 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 {
 	set_text_color(WhiteText);
 
-	draw_text_coord(get_screen(), "1. PRESS ENTER", 1, 3);
-	draw_text_coord(get_screen(), "2. PRESS THE KEY TO CHANGE", 1, 6);
+	draw_text_coord(get_screen(), "1.PRESS ENTER", 1, 5);
+	draw_text_coord(get_screen(), "2.PRESS THE KEY TO CHANGE", 1, 7);
 
 	draw_text_coord(get_screen(), "1P UP KEY", 4, 12);     draw_change_keys(get_screen(), Player_keys_array1(0) ,18,12); 
 	draw_text_coord(get_screen(), "1P DOWN KEY", 4, 14);  draw_change_keys(get_screen(), Player_keys_array1(1) ,18,14); 
@@ -845,8 +845,9 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 	draw_text_coord(get_screen(), "2P DOWN KEY", 4, 24);  draw_change_keys(get_screen(), Player_keys_array2(1) ,18,24); 
 	draw_text_coord(get_screen(), "2P LEFT KEY", 4, 26);  draw_change_keys(get_screen(), Player_keys_array2(2) ,18,26); 
 	draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 28); draw_change_keys(get_screen(), Player_keys_array2(3) ,18,28); 
-
-	draw_text_coord(get_screen(), "PRESS BACKSPACE TO MENU", 4, 33);
+	
+	set_text_color(PinkText);
+	draw_text_coord(get_screen(), "PRESS BACKSPACE TO MENU", 3, 33);
 
 	switch(*s_c_num)
 	{
