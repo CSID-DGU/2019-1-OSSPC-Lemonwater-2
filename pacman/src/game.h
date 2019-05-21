@@ -17,7 +17,7 @@ typedef enum {
 	GameoverState,
 	ReviveState1,//#14 Kim : 이거 추가해서 ...해보자..그..뭐ㅓㅑ...
 	ReviveState2,
-	DeathState2
+	DeathState2,
 
 } GameState;
 
@@ -36,8 +36,8 @@ typedef enum{
 	Single,
 	Multi,
 	Online,
-        Help,      //Lemonwater 5.4 add 'help' main.c의 inter_render함수에서 받을 state의 열거형
-        Settings,  //Lemonwater 5.4 add 'settings'
+    Help,      //Lemonwater 5.4 add 'help' main.c의 inter_render함수에서 받을 state의 열거형
+    Settings,  //Lemonwater 5.4 add 'settings'
 	Online_Server,
 	Online_Client,
 	Multi_TA

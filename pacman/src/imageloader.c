@@ -39,7 +39,7 @@
 #define SPEC_DIR "special/"
 
 #define HELP_DIR "help/"  //lemonwater 5.8 help폴더 디렉토리 추가
-
+#define PAUSE_DIR "pause/"  //lemonwater 5.20 menu폴더 디렉토리 추가
 
 //loads an image from filename and returns it as an SDL_Surface
 SDL_Surface *load_image(const char *filename);
@@ -140,6 +140,9 @@ SDL_Surface *help1image;
 SDL_Surface *help2image;
 SDL_Surface *help3image;
 
+SDL_Surface *pauseimage;
+
+
 void load_board_images(void);
 void load_pacman_images(void);
 void load_ghost_images(void);
@@ -148,6 +151,7 @@ void load_char_images(void);
 void load_fruit_images(void);
 void load_object_images(void);
 void load_help_images(void);
+void load_pause_images(void);
 
 void dispose_board_images(void);
 void dispose_pacman_images(void);
@@ -157,6 +161,8 @@ void dispose_char_images(void);
 void dispose_fruit_images(void);
 void dispose_object_images(void);
 void dispose_help_images(void);
+void dispose_pause_images(void);
+
 
 void load_images(void)
 {
@@ -168,6 +174,7 @@ void load_images(void)
 	load_fruit_images();
 	load_object_images();
 	load_help_images(); //lemonwater 5.8 모든 이미지를 로딩할 때 help이미지 3가지도 추가한다.
+	load_pause_images();
 }
 
 void dispose_images(void)
@@ -178,7 +185,8 @@ void dispose_images(void)
 	dispose_char_images();
 	dispose_fruit_images();
 	dispose_object_images();
-	dispose_help_images(); //lemonwater 5.8 모든 이미지를 소거할 때 help이미지 3가지도 소거한다.
+	dispose_pause_images(); //lemonwater 5.8 모든 이미지를 소거할 때 help이미지 3가지도 소거한다.
+	
 }
 
 
@@ -585,6 +593,11 @@ SDL_Surface* help3_image(void)
 {
     return help3image;
 }
+//lemonwater 5.20 add pause image
+SDL_Surface* pause_image(void)
+{
+    return pauseimage;
+}
 
 
 
@@ -601,6 +614,18 @@ void dispose_help_images(void)
     SDL_FreeSurface(help2image);
     SDL_FreeSurface(help3image);
 }
+
+//lemonwater 5.20 add pause image
+
+void load_pause_images(void)
+{
+	pauseimage = load_image(DIR PAUSE_DIR "pause.png");
+}
+void dispose_pause_images(void)
+{
+    SDL_FreeSurface(pauseimage);
+}
+
 
 
 

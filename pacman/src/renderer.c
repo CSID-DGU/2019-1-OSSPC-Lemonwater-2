@@ -18,6 +18,8 @@ void draw_input_string(const char tmp[],int x,int y);//#19 Kim : 2. 클라이언
 void draw_multi_mode(int *s_c_num);
 void draw_help_mode(int *s_c_num); //Lemonwater 5.4 add 'help'
 void draw_settings_mode(int *s_c_num); //Lemonwater 5.4 add 'settings'
+void draw_pause(void);
+
 //draws an image at a board coordinate
 void draw_image_coord(SDL_Surface *surface, int x, int y);
 void draw_image_coord_offset(SDL_Surface *surface, int x, int y, int xOffset, int yOffset);
@@ -751,6 +753,14 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
 	}
 }
 
+void draw_pause(void) 
+{
+	SDL_Surface *image;
+	image = pause_image();
+	apply_surface(10,8,image);
+}
+
+
 void draw_change_keys(SDL_Surface *surface, int key, int x, int y) //lemonwater 5.15 문자에 해당되는 아스키코드 값을 입력해야함.
 {
 	char string[2];
@@ -947,6 +957,7 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 		break;
 	}
 }
+
 
 
 

@@ -85,6 +85,7 @@ static void main_loop(void)
 		internal_render();
 
 		fps_sleep();
+		
 	}
 }
 

@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "imageloader.h": "c",
-        "text.h": "c"
+        "text.h": "c",
+        "sdl.h": "c",
+        "stdbool.h": "c"
     }
 }

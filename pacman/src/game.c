@@ -50,28 +50,24 @@ void game_tick(PacmanGame *game)
 			// everyone can move and this is the standard 'play' game mode
 			//#8 2. player 두개로 늘림
 			process_player(game,0);
-			if(game->playMode!=Single)// #13 Kim : 1. play Mode 에 따라서 추가
-				process_player(game,1);
-
-
+			if(game->playMode!=Single) process_player(game,1); // #13 Kim : 1. play Mode 에 따라서 추가
+	
 			process_ghosts(game,0);
-			if(game->playMode==Multi_TA)
-				process_ghosts(game,1);
+			
+			if(game->playMode==Multi_TA) process_ghosts(game,1);
 
 			process_fruit(game,0);
 			process_object(game,0);
-
-			//#8 3. collusion pellet check 2개로
-			process_pellets(game,0);
+			process_pellets(game,0); //#8 3. collision pellet check 2개로
 
 			if(game->playMode!=Single){// #13 Kim : 1. play Mode 에 따라서 추가
 				process_pellets(game,1);
 				process_object(game,1);//#5 Yang : 5. 2p일 때 변수추
 				process_fruit(game,1);
 			}
-			if (game->pacman[0].score > game->highscore ) game->highscore = game->pacman[0].score;// #8 Kim : 1.
+			if (game->pacman[0].score > game->highscore ) game->highscore = game->pacman[0].score;// #8 Kim : 1. p1이 최고점수면 highscore에 새긴다.
 			if(game->playMode!=Single)// #13 Kim : 1. play Mode 에 따라서 추가
-				if (game->pacman[1].score > game->highscore ) game->highscore = game->pacman[1].score;// #8 Kim : 2. 만약 p2가 최고점수면 ㅇㅇ
+				if (game->pacman[1].score > game->highscore ) game->highscore = game->pacman[1].score;// #8 Kim : 2. 만약 p2가 최고점수면 highscore에 새긴다.
 
 			break;
 		case WinState:
@@ -132,14 +128,20 @@ void game_tick(PacmanGame *game)
 			if (dt > 1800) enter_state(game, GamePlayState);
 			//game->pacman[0].godMode = false;// #8 Kim : 1. 흠..
 			break;
-		case GamePlayState:
+		case GamePlayState: //lemonwater 5.
 
 			//TODO: remove this hacks
-			if (key_held(SDLK_F1)) enter_state(game, WinState);
-
+			if (key_held(SDLK_SPACE)) 
+			{
+				game_render(game);
+				sleep(10);
+			
+				//draw_pause();
+				//1.sleep을 무한대로 걸고 사진을 팝업시킨다. 2.원하는 키를 입력받으면서 sleep함수를 중단시킨다.
+			}
 			else if (allPelletsEaten) enter_state(game, WinState);
 			else if (collidedWithGhost) enter_state(game, DeathState);//#14 일단 이때. 열로 들어가는데... 현제 스테이트는 GamePlayState고..
-			if(game->playMode!=Single&&collidedWithGhost2)enter_state(game,DeathState2);//#14 Kim : 2. 2p가 죽었을때는 DeathState2로 간다.
+			if(game->playMode!=Single&&collidedWithGhost2) enter_state(game,DeathState2);//#14 Kim : 2. 2p가 죽었을때는 DeathState2로 간다.
 
 			break;
 		case WinState:
@@ -218,6 +220,7 @@ void game_render(PacmanGame *game)
 				draw_pacman_static(&game->pacman[1],1);// #8 Kim : 2. pacman 2도 그려보자~~
 			//#28 Yang : 1.난이도 조절 ghost 수 조절
 			for(int i = 0; i < ghost_number(game->currentLevel); i++) draw_ghost(&game->ghosts[0][i]);
+			
 			if(game->playMode==Multi_TA)
 				for(int i=0;i<ghost_number(game->currentLevel);i++) draw_ghost(&game->ghosts[1][i]);
 			draw_large_pellets(&game->pelletHolder, false);
@@ -244,6 +247,11 @@ void game_render(PacmanGame *game)
 			break;
 		case GamePlayState:
 
+			if (key_held(SDLK_SPACE)) {
+				draw_pause();
+			}
+
+
 			if(ticks_game()%100==0)game->time--;
 			draw_large_pellets(&game->pelletHolder, true);
 			draw_board(&game->board);
@@ -254,8 +262,6 @@ void game_render(PacmanGame *game)
 				{
 				draw_fruit_pts(&game->gameFruit[0][i]);
 				}
-
-
 			}
 
 			// #5 Yang : 3.object 표시
@@ -264,6 +270,7 @@ void game_render(PacmanGame *game)
 			}
 			// #8 Kim : 1.
 			draw_pacman(&game->pacman[0],0);
+
 			// #8 Kim : 2.
 			if(game->playMode!=Single)// #13 Kim : 1. play Mode 에 따라서 추가
 				draw_pacman(&game->pacman[1],1);
@@ -273,27 +280,32 @@ void game_render(PacmanGame *game)
 				for (int i = 0; i < ghost_number(game->currentLevel); i++) {
 					if(game->ghosts[0][i].isDead == 1) {
 						draw_eyes(&game->ghosts[0][i]);
-					} else
+					} 
+					else
 						draw_ghost(&game->ghosts[0][i]);
 					//if(game->playMode==Multi_TA) draw_ghost(&game->ghosts[1][i]);
 				}
 
 			}
+			
 			else {
+				
 				if(godChange == false) {
 					game->pacman[0].originDt = ticks_game();
 					godChange = true;
 				}
 				godDt = ticks_game() - game->pacman[0].originDt;
+				
 				for (int i = 0; i < ghost_number(game->currentLevel); i++) {
 					if(game->ghosts[0][i].isDead == 1) {
 						draw_eyes(&game->ghosts[0][i]);
-					} else if(draw_scared_ghost(&game->ghosts[0][i], godDt)){
+					} 
+					else if(draw_scared_ghost(&game->ghosts[0][i], godDt)){
 						// nothing
 						if(game->ghosts[0][i].isDead == 2) {
-							draw_ghost(&game->ghosts[0][i]);
-						}
-					} else {
+							draw_ghost(&game->ghosts[0][i]);}
+					} 
+					else {
 						game->pacman[0].godMode = false;
 						godChange = false;
 						if(game->ghosts[0][i].isDead == 2)
@@ -301,6 +313,7 @@ void game_render(PacmanGame *game)
 					}
 				}
 			}
+			
 			if(game->playMode==Multi_TA){
 				if(game->pacman[1].godMode == false) {
 					for (int i = 0; i < ghost_number(game->currentLevel); i++) {
@@ -446,7 +459,9 @@ static void enter_state(PacmanGame *game, GameState state)
 			if(game->playMode!=Single)
 			{
 				game->gameState=GameoverState;
-			}else{
+			}
+			
+			else{
 			game->currentLevel++;
 			game->gameState = LevelBeginState;
 			level_init(game);
@@ -485,15 +500,15 @@ static void enter_state(PacmanGame *game, GameState state)
 	//process entering a state
 	switch (state)
 	{
-		case GameBeginState:
+		case GameBeginState: //게임 시작
 			stop_sound(LobbySound);
 			play_sound(LevelStartSound);
 			break;
-		case LevelBeginState:
+		case LevelBeginState: //게임 시작 후 스테이지에 돌입했다는 소리
 			stop_sound(LevelStartSound);			
 			play_sound(NextStageSound);
 			break;
-		case GamePlayState:
+		case GamePlayState: //죽음이나 승리 후 다시 게임 중 스테이트 소리
 			stop_sound(NextStageSound);
 			play_sound(LevelStartSound);
 			break;
