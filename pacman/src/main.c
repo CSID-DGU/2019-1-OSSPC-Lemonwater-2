@@ -215,7 +215,7 @@ static void internal_render(void)
 			startgame_init();
 			game_tick(&pacmanGame);
 		}
-		else if(multi_mode_render(&menuSystem) == 3)
+		/*else if(multi_mode_render(&menuSystem) == 3)
 		{
 			pacmanGame.playMode = menuSystem.playMode;
 			resource_init_Multi();
@@ -223,7 +223,7 @@ static void internal_render(void)
 			startgame_init();
 			game_tick(&pacmanGame);
 			state = Game;
-		}
+		}*/
 
 		break;
 	case HelpState:  //Lemonwater 5.7 internal_tick에서 들어온 HelpState

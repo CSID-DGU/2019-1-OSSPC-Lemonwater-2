@@ -18,6 +18,7 @@ typedef enum {
 	ReviveState1,//#14 Kim : 이거 추가해서 ...해보자..그..뭐ㅓㅑ...
 	ReviveState2,
 	DeathState2,
+	ContinueState // lemonwater 5.24 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
 
 } GameState;
 

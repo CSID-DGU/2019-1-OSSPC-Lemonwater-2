@@ -188,12 +188,12 @@ int multi_mode_render(MenuSystem *menuSystem)// # 9 Dong : 확장맵 테스트�
 {
 	int get= getKey();
 
-	if(menuSystem->action == ScoreMode)
-	{
+	//if(menuSystem->action == ScoreMode)
+	
 		menuSystem->playMode = Multi;
 		return 2;
-	}
-	else if(menuSystem->action == TimeAttackMode)
+	
+	/*else if(menuSystem->action == TimeAttackMode)
 	{
 		menuSystem->playMode = Multi_TA;
 		return 3;
@@ -219,7 +219,7 @@ int multi_mode_render(MenuSystem *menuSystem)// # 9 Dong : 확장맵 테스트�
 		}
 	}
 	draw_multi_mode(&s_c_num);
-	return 1;
+	return 1;*/
 }
 
 int online_mode_render(MenuSystem *menuSystem)// #19 Kim : 2. 여기서 그려줌

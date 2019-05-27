@@ -184,17 +184,25 @@ void game_render(PacmanGame *game)
 	// 1up + score, highscore, base b록oard, lives, small pellets, fruit indicators
 	draw_common_oneup(true, game->pacman[0].score);// #8 Kim : 1.
 	if(game->playMode==Multi_TA) draw_common_twoup(true, game->pacman[1].score,0);//#37 Yang: 2P UI 추가 - 점수 나오도록
+
 	else if(game->playMode!=Single)draw_common_twoup(true,game->pacman[1].score,1);
 	if(game->playMode!=Multi_TA)draw_common_highscore(game->highscore);
-	if(game->playMode==Multi_TA&&(game->time-ticks_game()+game->get_ticks)/1000>0) draw_game_time((game->time-ticks_game()+game->get_ticks)/1000);
+	
+	/*if(game->playMode==Multi_TA&&(game->time-ticks_game()+game->get_ticks)/1000>0) 
+	draw_game_time((game->time-ticks_game()+game->get_ticks)/1000);*/
+	
+	if(game->playMode==Multi&&(game->time-ticks_game()+game->get_ticks)/1000>0) 
+	draw_game_time((game->time-ticks_game()+game->get_ticks)/1000);
+
+	//lemonwater 5.24 score mode 시간추가
 	//if(game->playMode==Multi_TA&&(game->time-ticks_game()+game->get_ticks)/1000<=0) draw_game_time(0);
 	//#37 Yang :2P UI 추가 생명 나오도
-	if(game->playMode==Multi_TA) draw_pacman_lives(game->pacman[0].livesLeft,game->pacman[1].livesLeft,0);
-	else if(game->playMode!=Single)draw_pacman_lives(game->pacman[0].livesLeft,game->pacman[1].livesLeft,1);
-	else draw_pacman_lives(game->pacman[0].livesLeft,0,0);// #8 Kim : 1. 2p도 추가해줘야할듯!
+	if(game->playMode==Multi_TA) draw_pacman_lives(game->pacman[0].livesLeft, game->pacman[1].livesLeft, 0);
+	else if(game->playMode!=Single)draw_pacman_lives(game->pacman[0].livesLeft, game->pacman[1].livesLeft, 1);
+	else draw_pacman_lives(game->pacman[0].livesLeft, 0 , 0);// #8 Kim : 1. 2p도 추가해줘야할듯!
 
 	draw_small_pellets(&game->pelletHolder);
-	if(game->playMode!=Multi)draw_fruit_indicators(game->currentLevel);
+	if(game->playMode!=Multi) draw_fruit_indicators(game->currentLevel);
 
 	//in gameover state big pellets don't render
 	//in gamebegin + levelbegin big pellets don't flash
@@ -205,7 +213,7 @@ void game_render(PacmanGame *game)
 		case GameBeginState:
 			draw_game_playerone_start();
 			draw_game_ready();
-			game->time=11000;
+			game->time=10000; //lemonwater 5.24 시간 연장..시작하자마자 시간이 가지 않게 1000 추가
 			game->get_ticks=ticks_game();
 
 			draw_large_pellets(&game->pelletHolder, false);
@@ -314,7 +322,7 @@ void game_render(PacmanGame *game)
 				}
 			}
 			
-			if(game->playMode==Multi_TA){
+			if(game->playMode==Multi){ //lemonwater 5.24 Multi일 경우로 바꿈
 				if(game->pacman[1].godMode == false) {
 					for (int i = 0; i < ghost_number(game->currentLevel); i++) {
 						if(game->ghosts[1][i].isDead == 1) {
@@ -418,28 +426,37 @@ void game_render(PacmanGame *game)
 
 		case GameoverState:
 			//#31 Yang : 점수로 승부판정모드 - 일단 멀티모드 자체를 점수 높으면 이기는 걸로 수정
-			if(game->playMode!=Single){
-				if(game->pacman[0].score>game->pacman[1].score&&game->pacman[0].livesLeft)
-					if(game->playMode==Multi_TA) draw_game_playerone_win(1);
-					else draw_game_playerone_win(0);
-				else if(game->pacman[0].score<game->pacman[1].score&&game->pacman[1].livesLeft){
-					if(game->playMode==Multi_TA) draw_game_playertwo_win(1);
-					else draw_game_playertwo_win(0);
-				}
-				else if(game->pacman[0].livesLeft==0) {
-					if(game->playMode==Multi_TA) draw_game_playertwo_win(1);
-					else draw_game_playertwo_win(0);
-				}
-				else {
-					if(game->playMode==Multi_TA) draw_game_playerone_win(1);
-					else draw_game_playerone_win(0);
-				}
+			if(game->playMode!=Single)
+			{
+				if (game->pacman[0].livesLeft && game->pacman[1].livesLeft )
+					{
+					if (game->pacman[0].score > game->pacman[1].score) draw_game_playerone_win();
+					else if (game->pacman[0].score < game->pacman[1].score) draw_game_playertwo_win();
+					}
+				else if (game->pacman[0].livesLeft==0) draw_game_playertwo_win();
+				else if (game->pacman[1].livesLeft==0) draw_game_playerone_win();
 				break;
+				
+				
+				/*if((game->pacman[0].score > game->pacman[1].score) && (game->pacman[0].livesLeft))
+					draw_game_playerone_win();
+				
+				else if(game->pacman[0].score < game->pacman[1].score && game->pacman[1].livesLeft)
+					draw_game_playertwo_win();
+								
+				else if(game->pacman[0].livesLeft==0) 
+					draw_game_playertwo_win();
+									
+				else
+					draw_game_playerone_win();*/
+							
+				
 			}
 			draw_game_gameover();
 			draw_board(&game->board);
 			draw_credits(num_credits());
 			break;
+
 	}
 }
 
@@ -471,7 +488,7 @@ static void enter_state(PacmanGame *game, GameState state)
 			// Player died and is starting a new game, subtract a life
 			if (state == LevelBeginState)
 			{
-				game->pacman[0].livesLeft--;
+				game->pacman[0].livesLeft--; //후치감소연산자
 				pacdeath_init(game,0);// #14 Kim : 2. 이거 한번 시도해보자 이거 주석처리하고 아래에서 처리해보자
 			}
 			else if(state==ReviveState1)// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음

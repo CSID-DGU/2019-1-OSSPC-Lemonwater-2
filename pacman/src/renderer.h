@@ -60,8 +60,8 @@ void draw_game_ready(void);
 void draw_game_gameover(void);
 void draw_game_time(int time);
 //#30 Yang :winner 표시 뷰
-void draw_game_playerone_win(int flag);
-void draw_game_playertwo_win(int flag);
+void draw_game_playerone_win(void);
+void draw_game_playertwo_win(void);
 //
 // Fruit renderering
 //

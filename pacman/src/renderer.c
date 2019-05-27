@@ -216,22 +216,22 @@ void draw_common_twoup(bool flashing, int score, int flag)
 void draw_common_highscore(int highscore)
 {
 	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "HIGH SCORE", 9, 0);
+	//draw_text_coord(get_screen(), "HIGH SCORE", 9, 0);
 
 	//game doesn't render highscore if it is 0 for some reason. Emulate this behaviour
 	if (highscore == 0) return;
 
 	char scoreStr[256];
 	sprintf(scoreStr, "%01i", highscore);
-	draw_text_coord(get_screen(), scoreStr, 16 - int_length(highscore), 1);
+	//draw_text_coord(get_screen(), scoreStr, 16 - int_length(highscore), 1);
 }
 void draw_game_time(int time)
 {
 	set_text_color(WhiteText);
-	draw_text_coord(get_screen(), "TIME", 27, 0);
+	draw_text_coord(get_screen(), "TIME", 12, 0);
 	char timeStr[256];
 	sprintf(timeStr, "%01i", time);
-	draw_text_coord(get_screen(), timeStr, 30 - int_length(time), 1);
+	draw_text_coord(get_screen(), timeStr, 15 - int_length(time), 1);
 }
 
 void draw_credits(int numCredits)
@@ -279,27 +279,19 @@ void draw_game_gameover(void)
 	draw_text_coord(get_screen(), "GAME  OVER", 9, 20);
 }
 //#30 Yang :winner 표시 뷰
-void draw_game_playerone_win(int flag)
+void draw_game_playerone_win(void)
 {
-	if(!flag){
+
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "PLAYER 1 WIN!", 7, 20);
-	}
-	else{
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "PLAYER 1 WIN!", 22, 20);
-	}
+	
 }
-void draw_game_playertwo_win(int flag)
+void draw_game_playertwo_win(void)
 {
-	if(!flag){
+
 		set_text_color(RedText);
 		draw_text_coord(get_screen(), "PLAYER 2 WIN!", 7, 20);
-	}
-	else{
-		set_text_color(RedText);
-		draw_text_coord(get_screen(), "PLAYER 2 WIN!", 22, 20);
-	}
+	
 }
 //
 //
