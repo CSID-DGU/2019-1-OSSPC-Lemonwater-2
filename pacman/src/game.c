@@ -139,6 +139,7 @@ void game_tick(PacmanGame *game)
 				//draw_pause();
 				//1.sleep을 무한대로 걸고 사진을 팝업시킨다. 2.원하는 키를 입력받으면서 sleep함수를 중단시킨다.
 			}
+			else if (key_held(SDLK_F1)) enter_state(game, WinState);
 			else if (allPelletsEaten) enter_state(game, WinState);
 			else if (collidedWithGhost) enter_state(game, DeathState);//#14 일단 이때. 열로 들어가는데... 현제 스테이트는 GamePlayState고..
 			if(game->playMode!=Single&&collidedWithGhost2) enter_state(game,DeathState2);//#14 Kim : 2. 2p가 죽었을때는 DeathState2로 간다.
