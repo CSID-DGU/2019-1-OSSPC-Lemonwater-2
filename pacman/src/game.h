@@ -18,7 +18,7 @@ typedef enum {
 	ReviveState1,//#14 Kim : 이거 추가해서 ...해보자..그..뭐ㅓㅑ...
 	ReviveState2,
 	DeathState2,
-	ContinueState // lemonwater 5.24 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
+	PauseState // lemonwater 5.24 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
 
 } GameState;
 
@@ -50,14 +50,18 @@ typedef struct {
 	Pacman pacman[2]; // #8 Kim : 1.플레이어수 늘려주기 위해서 배열로 바꿈  Pacman pacman -> pacman[2];
 	Ghost ghosts[2][4];
 	Board board;
+
 	PelletHolder pelletHolder;
+	
 	GameFruit gameFruit[2][5];
 	//GameFruit gameFruit1, gameFruit2, gameFruit3, gameFruit4, gameFruit5;
 	GameObject gameObject[2][5];
 	//GameObject gameObject1, gameObject2, gameObject3, gameObject4, gameObject5;
 	int highscore;
 	int currentLevel;
+	
 	PlayMode playMode;
+	
 	int time;
 	int get_ticks;
 } PacmanGame;

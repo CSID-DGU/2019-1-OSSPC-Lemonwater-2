@@ -272,9 +272,9 @@ void game_init2(int level) // # 9 Dong : 레벨별 맵 연동
 
 void game_init(int level) // # 9 Dong : 레벨별 맵 연동
 {
-	const char *Map_list[5] = {"maps/encodedboard","maps/encodedboard1","maps/encodedboard2","maps/encodedboard3","maps/encodedboard4"};// #9 Dong : 레벨별 맵연동을 위한 추가
+	const char *Map_list[7] = {"maps/encodedboard","maps/encodedboard1","maps/encodedboard2","maps/encodedboard3","maps/encodedboard4","maps/encodedboard5","maps/encodedboard6"};// #9 Dong : 레벨별 맵연동을 위한 추가 // Lemonwater 5.29 add two new maps
 	int temp = 0;
-	temp = (level % 5); //Lemonwater - 레벨이 1부터 시작하므로 배열의 두번째 맵부터 로드.
+	temp = (level % 7); //Lemonwater - 레벨이 1부터 시작하므로 배열의 두번째 맵부터 로드.
 	//Load the board here. We only need to do it once
 
 	load_board(&pacmanGame.board, &pacmanGame.pelletHolder,Map_list[temp]); // #9 Dong : 레벨별 맵연동을 위한 추가

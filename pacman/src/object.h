@@ -4,14 +4,16 @@
 #include "board.h"
 #include "main.h"
 //object개수를 Ice 추가로 NUM_OBJECT 4
-#define NUM_OBJECT 4
+//lemonwater 5.29 Thunder 추가로 NUM_OBJECT 5
+#define NUM_OBJECT 5
 
 typedef enum
 {
 	Ghostslow,
 	Life,
 	God,//#15 Yang : 1.생명 증가 object 추가
-	Ice
+	Ice,
+	Thunder
 }Object;
 
 //Different modes a fruit can be in while in-game

@@ -30,7 +30,9 @@ static void enter_state(PacmanGame *game, GameState state); //transitions to/ fr
 // #13 Kim : 1. 이 부분 collision 일어난 뒤에 state 부분에 DeathState 붙어서 가게됨.
 //는 다시 수정.
 
+
 static bool resolve_telesquare(PhysicsBody *body, int flag);          //wraps the body around if they've gone tele square
+
 
 void game_tick(PacmanGame *game)
 {
@@ -96,6 +98,8 @@ void game_tick(PacmanGame *game)
 			// pacman has lost all his lives
 			//it displays "game over" briefly, then goes back to main menu
 			break;
+		case PauseState: //lemonwater 5.29 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
+			break;
 	}
 
 	//
@@ -131,13 +135,9 @@ void game_tick(PacmanGame *game)
 		case GamePlayState: //lemonwater 5.
 
 			//TODO: remove this hacks
-			if (key_held(SDLK_SPACE)) 
+			if (key_pressed(SDLK_SPACE)) 
 			{
-				game_render(game);
-				sleep(10);
-			
-				//draw_pause();
-				//1.sleep을 무한대로 걸고 사진을 팝업시킨다. 2.원하는 키를 입력받으면서 sleep함수를 중단시킨다.
+				enter_state(game, PauseState);
 			}
 			else if (allPelletsEaten) enter_state(game, WinState);
 			else if (collidedWithGhost) enter_state(game, DeathState);//#14 일단 이때. 열로 들어가는데... 현제 스테이트는 GamePlayState고..
@@ -169,6 +169,17 @@ void game_tick(PacmanGame *game)
 				//TODO: go back to main menu
 
 			}
+			break;
+		case PauseState: // lemonwater 5.29 PauseState
+			if (key_pressed(SDLK_SPACE))
+				enter_state(game, GamePlayState);
+			else if (key_pressed(SDLK_BACKSPACE))
+				enter_state(game,GameoverState);
+			else if (key_pressed(SDLK_F1))
+				{
+				enter_state(game, WinState);}
+				
+
 			break;
 	}
 }
@@ -363,14 +374,15 @@ void game_render(PacmanGame *game)
 
 			draw_pacman_static(&game->pacman[0],0);
 			if(game->playMode!=Single) game->gameState=GameoverState;
-			else{
-			if (dt < 2000)
+			else
 			{
-				for (int i = 0; i < ghost_number(game->currentLevel); i++) draw_ghost(&game->ghosts[0][i]);
-				if(game->playMode==Multi_TA)
+				if (dt < 2000)
+				{
+					for (int i = 0; i < ghost_number(game->currentLevel); i++) draw_ghost(&game->ghosts[0][i]);
+					if(game->playMode==Multi_TA)
 					for(int i=0;i<ghost_number(game->currentLevel);i++) draw_ghost(&game->ghosts[1][i]);
-				draw_board(&game->board);
-			}
+					draw_board(&game->board);
+				}
 			else
 			{
 				//stop rendering the pen, and do the flash animation
@@ -456,7 +468,9 @@ void game_render(PacmanGame *game)
 			draw_board(&game->board);
 			draw_credits(num_credits());
 			break;
-
+		case PauseState: // lemonwater 5.29 PauseState 그려주기
+			draw_pause();
+			break;
 	}
 }
 
@@ -548,6 +562,8 @@ static void enter_state(PacmanGame *game, GameState state)
 			break;		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 		case GameoverState:
 			play_sound(GameoverSound);
+			break;
+		case PauseState: // lemonwater 5.29 PauseState
 			break;
 	}
 
@@ -849,7 +865,9 @@ static void process_fruit(PacmanGame *game, int playernum)//#5 Yang : 5. playern
 static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process_object에 playernum 변수 추가
 {
 	int pelletsEaten = game->pelletHolder.totalNum - game->pelletHolder.numLeft;
-	GameObject *o[4];
+
+
+	GameObject *o[5];
 	for(int i=0;i<4;i++){
 		o[i]=&game->gameObject[0][i];
 	}
@@ -874,6 +892,12 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[3]->objectMode = Displaying_obj;
 		regen_object(o[3]);
 	}
+	else if (pelletsEaten >= 100 && game->playMode==Multi && o[4]->objectMode == NotDisplaying_obj) //lemonwater 5.29 thunder를 위해 추가
+	{
+		o[4]->objectMode = Displaying_obj;
+		regen_object(o[4]);
+	}
+	
 
 
 	unsigned int odt[4];
@@ -898,6 +922,10 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	if (o[3]->objectMode == Displaying_obj)
 	{
 		if (odt[3] > o[3]->displayTime) o[3]->objectMode = Displayed_obj; 
+	}
+	if (o[4]->objectMode == Displaying_obj)
+	{
+		if (odt[4] > o[4]->displayTime) o[4]->objectMode = Displayed_obj; //lemonwater 5.29 thunder
 	}
 
 
@@ -939,6 +967,16 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		
 	} 
 
+	if (o[4]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y)) //lemonwater 5.29 thunder
+	{
+		play_sound(objectEatSound);
+		o[4]->objectMode = Displayed_obj;
+		o[4]->eaten = true;
+		o[4]->eatenAt = ticks_game();
+		game_object_function(o[4],game,playernum);
+		
+	} 
+
 
 	//#5 Yang : 4. object 기능 구현
 	//Lemonwater Ice object 기능 추가
@@ -960,6 +998,10 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	if (o[3]->eaten)
 	{
 		if (oet[3] > 5000) {game_object_function_end(o[3],game,playernum);		o[3]->eaten = false;}
+	}
+	if (o[4]->eaten) //lemonwater 5.29 thunder
+	{
+		if (oet[4] > 5000) {game_object_function_end(o[4],game,playernum);		o[4]->eaten = false;}
 	}
 
 
@@ -1184,7 +1226,10 @@ static bool resolve_telesquare(PhysicsBody *body, int flag)//#
 //#5 Yang : 4.각 Object 효과 구현
 //Lemonwater Ice object 효과 구현 : getSlow의 속도를 0으로 설정
 void game_object_function(GameObject *gameObject, PacmanGame *game, int playernum)//#5 Yang : 5. playernum 추가
-{
+{	
+	Pacman *pac = &game->pacman[playernum]; //lemonwater 5.29 thunder를 위한..
+	GameObject *o[5];
+
 	switch(gameObject->object)
 	{
 	case Ghostslow:
@@ -1207,11 +1252,15 @@ void game_object_function(GameObject *gameObject, PacmanGame *game, int playernu
 
 	case Ice:
 		for(int i=0;i<4;i++){
-			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=0;
-			else game->ghosts[0][i].body.velocity=0;
+			//if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=0;
+			game->ghosts[0][i].body.velocity=0;
 		}
 		return;
-
+	case Thunder: //lemonwater 5.29 thunder 먹은 사람이 상대방 멈추기
+		if (collides_obj(&pac->body, o[4]->x, o[4]->y))
+			game->pacman[(playernum+1)%2].body.velocity=0;
+			
+		return;
 
 	default: return;
 	}

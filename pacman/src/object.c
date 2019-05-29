@@ -49,6 +49,7 @@ Object random_object()
 	//#26 Yang: 1.godmode
 	case 2: return God;
 	case 3: return Ice;
+	case 4: return Thunder; //lemonwater 5.29 thunder 추가
 	default : return Ghostslow;
 	}
 }
