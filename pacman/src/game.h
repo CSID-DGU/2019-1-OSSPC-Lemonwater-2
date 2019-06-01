@@ -18,8 +18,8 @@ typedef enum {
 	ReviveState1,//#14 Kim : 이거 추가해서 ...해보자..그..뭐ㅓㅑ...
 	ReviveState2,
 	DeathState2,
-	PauseState // lemonwater 5.24 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
-
+	PauseState, // lemonwater 5.24 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
+	ContinueState // lemonwater 6.1 계속할건지 묻는 상태
 } GameState;
 
 //what you do in current state
@@ -63,7 +63,11 @@ typedef struct {
 	PlayMode playMode;
 	
 	int time;
-	int get_ticks;
+	int get_ticks; // 게임 시작 시점 시간이 가는걸 멈추게 하기 위한 보정 변수. 없으면 게임이 시작하자마자 바로 흘러감.
+
+	int pause_start;
+	int pause_end;
+	int pause_gap;
 } PacmanGame;
 
 //Updates the game 1 tick, or 1/60th of a second.

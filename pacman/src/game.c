@@ -100,6 +100,8 @@ void game_tick(PacmanGame *game)
 			break;
 		case PauseState: //lemonwater 5.29 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
 			break;
+		case ContinueState;
+			break;
 	}
 
 	//
@@ -113,6 +115,7 @@ void game_tick(PacmanGame *game)
 		collidedWithGhost2 = check_pacghost_collision(game,1);
 	int lives1 = game->pacman[0].livesLeft;
 	int lives2 = game->pacman[1].livesLeft;
+	int real_play_time = (game->time-ticks_game()+game->get_ticks + game->pause_gap) / 1000;
 
 	switch (game->gameState)
 	{
@@ -132,11 +135,18 @@ void game_tick(PacmanGame *game)
 			if (dt > 1800) enter_state(game, GamePlayState);
 			//game->pacman[0].godMode = false;// #8 Kim : 1. 흠..
 			break;
-		case GamePlayState: //lemonwater 5.
+		case GamePlayState: 
+
+			if(real_play_time <= 0) 
+				{
+					stop_sound(LevelStartSound); //lemonwater 6.1 시간 종료 후 소리 정지.
+					enter_state(game,GameoverState);
+				}
 
 			//TODO: remove this hacks
-			if (key_pressed(SDLK_SPACE)) 
+			if (key_pressed(SDLK_SPACE)) // lemonwater 5.29 일시정지 구간 구현
 			{
+				game->pause_start = ticks_game(); //lemonwater 6.1 일시정지 시작 시점 측정
 				enter_state(game, PauseState);
 			}
 			else if (allPelletsEaten) enter_state(game, WinState);
@@ -172,14 +182,23 @@ void game_tick(PacmanGame *game)
 			break;
 		case PauseState: // lemonwater 5.29 PauseState
 			if (key_pressed(SDLK_SPACE))
+			{
+				game->pause_gap += (game->pause_end - game-> pause_start);
+				//lemonwater 6.1 시간이 누적해서 쌓이기 때문에 일시정지 시간도 누적해서 계산.
+				game->pause_start = 0; //lemonwater 6.1 매번 시간을 재야하기때문에 초기화.
+				game->pause_end = 0; //lemonwater 6.1 매번 시간을 재야하기때문에 초기화.
 				enter_state(game, GamePlayState);
+			}
 			else if (key_pressed(SDLK_BACKSPACE))
 				enter_state(game,GameoverState);
 			else if (key_pressed(SDLK_F1))
-				{
-				enter_state(game, WinState);}
-				
+				enter_state(game, WinState);
 
+			game->pause_end = ticks_game(); //lemonwater 6.1 일시정지 종료 시점 재기	
+
+			break;
+		case ContinueState : 
+			
 			break;
 	}
 }
@@ -189,21 +208,22 @@ void game_render(PacmanGame *game)
 	unsigned dt = ticks_game() - game->ticksSinceModeChange;
 	static unsigned godDt = 0;
 	static bool godChange = false;
+	int real_play_time = (game->time-ticks_game()+game->get_ticks + game->pause_gap) / 1000;
+	//lemonwater 6.1 식이 너무 길어져서 변수를 하나 생성.
 
 
 	//common stuff that is rendered in every mode:
-	// 1up + score, highscore, base b록oard, lives, small pellets, fruit indicators
+	// 1up + score, highscore, base board, lives, small pellets, fruit indicators
 	draw_common_oneup(true, game->pacman[0].score);// #8 Kim : 1.
 	if(game->playMode==Multi_TA) draw_common_twoup(true, game->pacman[1].score,0);//#37 Yang: 2P UI 추가 - 점수 나오도록
 
 	else if(game->playMode!=Single)draw_common_twoup(true,game->pacman[1].score,1);
+	
 	if(game->playMode!=Multi_TA)draw_common_highscore(game->highscore);
 	
-	/*if(game->playMode==Multi_TA&&(game->time-ticks_game()+game->get_ticks)/1000>0) 
-	draw_game_time((game->time-ticks_game()+game->get_ticks)/1000);*/
-	
-	if(game->playMode==Multi&&(game->time-ticks_game()+game->get_ticks)/1000>0) 
-	draw_game_time((game->time-ticks_game()+game->get_ticks)/1000);
+	if(game->playMode==Multi && real_play_time>0 && game->gameState != PauseState) 
+	// lemonwater 6.1 일시정지 상태일 경우 시간이 보이지 않게 설정.
+	draw_game_time(real_play_time);
 
 	//lemonwater 5.24 score mode 시간추가
 	//if(game->playMode==Multi_TA&&(game->time-ticks_game()+game->get_ticks)/1000<=0) draw_game_time(0);
@@ -224,7 +244,8 @@ void game_render(PacmanGame *game)
 		case GameBeginState:
 			draw_game_playerone_start();
 			draw_game_ready();
-			game->time=10000; //lemonwater 5.24 시간 연장..시작하자마자 시간이 가지 않게 1000 추가
+			game->time=31000;
+			//lemonwater 5.24 시간 연장..시작하자마자 시간이 가지 않게 1000 추가. 이 값은 변하지 않음.
 			game->get_ticks=ticks_game();
 
 			draw_large_pellets(&game->pelletHolder, false);
@@ -265,11 +286,6 @@ void game_render(PacmanGame *game)
 			draw_board(&game->board);
 			break;
 		case GamePlayState:
-
-			if (key_held(SDLK_SPACE)) {
-				draw_pause();
-			}
-
 
 			if(ticks_game()%100==0)game->time--;
 			draw_large_pellets(&game->pelletHolder, true);
@@ -366,28 +382,32 @@ void game_render(PacmanGame *game)
 						}
 					}
 				}
-				if((int)(game->time-ticks_game()+game->get_ticks)<0) game->gameState=GameoverState;
+				
 			}
 
 			break;
 		case WinState:
 
 			draw_pacman_static(&game->pacman[0],0);
-			if(game->playMode!=Single) game->gameState=GameoverState;
+			if(game->playMode!=Single) 
+				game->gameState=GameoverState;
+				//game->gameState=ContinueState;
 			else
 			{
 				if (dt < 2000)
 				{
-					for (int i = 0; i < ghost_number(game->currentLevel); i++) draw_ghost(&game->ghosts[0][i]);
+					for (int i = 0; i < ghost_number(game->currentLevel); i++)
+						draw_ghost(&game->ghosts[0][i]);
 					if(game->playMode==Multi_TA)
-					for(int i=0;i<ghost_number(game->currentLevel);i++) draw_ghost(&game->ghosts[1][i]);
+						for(int i=0;i<ghost_number(game->currentLevel);i++)
+							draw_ghost(&game->ghosts[1][i]);
 					draw_board(&game->board);
 				}
-			else
-			{
-				//stop rendering the pen, and do the flash animation
-				draw_board_flash(&game->board);
-			}
+				else
+				{
+					//stop rendering the pen, and do the flash animation
+					draw_board_flash(&game->board);
+				}
 			}
 			break;
 		case DeathState: // #14 Kim : 2. 여기 통쨰로임 ㅇㅅㅇ
@@ -440,13 +460,20 @@ void game_render(PacmanGame *game)
 			//#31 Yang : 점수로 승부판정모드 - 일단 멀티모드 자체를 점수 높으면 이기는 걸로 수정
 			if(game->playMode!=Single)
 			{
+				draw_board(&game->board);
+				draw_credits(num_credits());
+
 				if (game->pacman[0].livesLeft && game->pacman[1].livesLeft )
-					{
-					if (game->pacman[0].score > game->pacman[1].score) draw_game_playerone_win();
-					else if (game->pacman[0].score < game->pacman[1].score) draw_game_playertwo_win();
-					}
+				{
+					if (game->pacman[0].score > game->pacman[1].score)
+						draw_game_playerone_win();
+					else if (game->pacman[0].score < game->pacman[1].score) 
+						draw_game_playertwo_win();
+				}
 				else if (game->pacman[0].livesLeft==0) draw_game_playertwo_win();
 				else if (game->pacman[1].livesLeft==0) draw_game_playerone_win();
+				
+				
 				break;
 				
 				
@@ -461,16 +488,19 @@ void game_render(PacmanGame *game)
 									
 				else
 					draw_game_playerone_win();*/
-							
 				
 			}
-			draw_game_gameover();
-			draw_board(&game->board);
-			draw_credits(num_credits());
-			break;
+			else // 싱글모드일 때
+			{
+				draw_game_gameover();
+				draw_board(&game->board);
+				draw_credits(num_credits());
+				break;
+			}
 		case PauseState: // lemonwater 5.29 PauseState 그려주기
 			draw_pause();
 			break;
+			
 	}
 }
 

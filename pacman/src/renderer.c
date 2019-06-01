@@ -749,7 +749,7 @@ void draw_pause(void)
 {
 	SDL_Surface *image;
 	image = pause_image();
-	apply_surface(10,8,image);
+	apply_surface(100,100,image);
 }
 
 
