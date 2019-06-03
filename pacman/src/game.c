@@ -100,7 +100,7 @@ void game_tick(PacmanGame *game)
 			break;
 		case PauseState: //lemonwater 5.29 2player mode에서 게임을 종료할 지 다음 스테이지로 갈 지 선택하는 모드
 			break;
-		case ContinueState;
+		case ContinueState:
 			break;
 	}
 
@@ -140,7 +140,7 @@ void game_tick(PacmanGame *game)
 			if(real_play_time <= 0) 
 				{
 					stop_sound(LevelStartSound); //lemonwater 6.1 시간 종료 후 소리 정지.
-					enter_state(game,GameoverState);
+					enter_state(game,ContinueState);
 				}
 
 			//TODO: remove this hacks
@@ -156,21 +156,56 @@ void game_tick(PacmanGame *game)
 			break;
 		case WinState:
 			//if (transitionLevel) //do transition here
-			if (dt > 4000) enter_state(game, LevelBeginState);
-
+			if (dt > 4000) 
+			{
+				if(game->playMode == Multi) //lemonwater 6.1 continue
+					enter_state(game,ContinueState);
+				else	
+					enter_state(game, LevelBeginState);
+			}
 			break;
 		case DeathState:
 			if (dt > 4000)
 			{
-				if (lives1 == 0) enter_state(game, GameoverState);
-				else enter_state(game, ReviveState1);// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				if(game->playMode == Multi) //lemonwater 6.1 continue
+				{
+					if (lives1 == 0)
+						enter_state(game, ContinueState);
+					else 
+						enter_state(game, ReviveState1);
+						// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				}
+				
+				else
+				{
+					if (lives1 == 0)
+						enter_state(game, GameoverState);
+					else 
+						enter_state(game, ReviveState1);
+						// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				}
 			}
 			break;
 		case DeathState2:
 			if (dt > 4000)
 			{
-				if (lives2 == 0) enter_state(game, GameoverState); //#8 Yang : 2p 라이프 0이되도 게임 끝나지 않는 부분 수정
-				else enter_state(game, ReviveState2);// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				if(game->playMode == Multi) //lemonwater 6.1 continue
+				{
+					if (lives2 == 0)
+						enter_state(game, ContinueState);
+					else 
+						enter_state(game, ReviveState2);
+						// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				}
+				
+				else
+				{
+					if (lives2 == 0)
+						enter_state(game, GameoverState);
+					else 
+						enter_state(game, ReviveState2);
+						// #14 Kim : 2. ReviveState라는걸 추가해서 죽었을때 Level BeginState가 아니라 Revive로 가게했음
+				}
 			}
 				break;
 		case GameoverState:
@@ -198,7 +233,12 @@ void game_tick(PacmanGame *game)
 
 			break;
 		case ContinueState : 
-			
+			if (key_pressed(SDLK_BACKSPACE))
+				game->gameState = GameoverState ;
+			else if (key_pressed(SDLK_F1))
+			{
+				enter_state(game, LevelBeginState);
+			}
 			break;
 	}
 }
@@ -221,7 +261,7 @@ void game_render(PacmanGame *game)
 	
 	if(game->playMode!=Multi_TA)draw_common_highscore(game->highscore);
 	
-	if(game->playMode==Multi && real_play_time>0 && game->gameState != PauseState) 
+	if(game->playMode==Multi && real_play_time>0 && game->gameState == GamePlayState) 
 	// lemonwater 6.1 일시정지 상태일 경우 시간이 보이지 않게 설정.
 	draw_game_time(real_play_time);
 
@@ -300,7 +340,7 @@ void game_render(PacmanGame *game)
 			}
 
 			// #5 Yang : 3.object 표시
-			for(int i=0;i<3;i++){
+			for(int i=0;i<5;i++){
 				if (game->gameObject[0][i].objectMode == Displaying_obj) draw_object_game(game->currentLevel, &game->gameObject[0][i]);
 			}
 			// #8 Kim : 1.
@@ -389,11 +429,11 @@ void game_render(PacmanGame *game)
 		case WinState:
 
 			draw_pacman_static(&game->pacman[0],0);
-			if(game->playMode!=Single) 
-				game->gameState=GameoverState;
+			//if(game->playMode!=Single) 
+				//game->gameState=GameoverState;
 				//game->gameState=ContinueState;
-			else
-			{
+			//else
+			//{
 				if (dt < 2000)
 				{
 					for (int i = 0; i < ghost_number(game->currentLevel); i++)
@@ -408,7 +448,7 @@ void game_render(PacmanGame *game)
 					//stop rendering the pen, and do the flash animation
 					draw_board_flash(&game->board);
 				}
-			}
+			//}
 			break;
 		case DeathState: // #14 Kim : 2. 여기 통쨰로임 ㅇㅅㅇ
 			//draw everything the same for 1ish second
@@ -458,7 +498,7 @@ void game_render(PacmanGame *game)
 
 		case GameoverState:
 			//#31 Yang : 점수로 승부판정모드 - 일단 멀티모드 자체를 점수 높으면 이기는 걸로 수정
-			if(game->playMode!=Single)
+			/*if(game->playMode!=Single)
 			{
 				draw_board(&game->board);
 				draw_credits(num_credits());
@@ -475,30 +515,37 @@ void game_render(PacmanGame *game)
 				
 				
 				break;
-				
-				
-				/*if((game->pacman[0].score > game->pacman[1].score) && (game->pacman[0].livesLeft))
-					draw_game_playerone_win();
-				
-				else if(game->pacman[0].score < game->pacman[1].score && game->pacman[1].livesLeft)
-					draw_game_playertwo_win();
-								
-				else if(game->pacman[0].livesLeft==0) 
-					draw_game_playertwo_win();
-									
-				else
-					draw_game_playerone_win();*/
-				
 			}
 			else // 싱글모드일 때
-			{
+			{*/
 				draw_game_gameover();
 				draw_board(&game->board);
 				draw_credits(num_credits());
 				break;
-			}
+			//}
 		case PauseState: // lemonwater 5.29 PauseState 그려주기
 			draw_pause();
+			break;
+
+		case ContinueState:
+			//#31 Yang : 점수로 승부판정모드 - 일단 멀티모드 자체를 점수 높으면 이기는 걸로 수정
+			game->time +=31000;
+
+			draw_board(&game->board);
+			draw_credits(num_credits());
+
+			if (game->pacman[0].livesLeft && game->pacman[1].livesLeft )
+			{
+				if (game->pacman[0].score > game->pacman[1].score)
+					draw_game_playerone_win();
+				else if (game->pacman[0].score < game->pacman[1].score) 
+					draw_game_playertwo_win();
+			}
+			else if (game->pacman[0].livesLeft==0) draw_game_playertwo_win();
+			else if (game->pacman[1].livesLeft==0) draw_game_playerone_win();
+				
+			draw_pause();
+
 			break;
 			
 	}
@@ -519,7 +566,7 @@ static void enter_state(PacmanGame *game, GameState state)
 			//#31 Yang : 점수 승부판정모드
 			if(game->playMode!=Single)
 			{
-				game->gameState=GameoverState;
+				game->gameState=ContinueState;
 			}
 			
 			else{
@@ -594,6 +641,8 @@ static void enter_state(PacmanGame *game, GameState state)
 			play_sound(GameoverSound);
 			break;
 		case PauseState: // lemonwater 5.29 PauseState
+			break;
+		case ContinueState :
 			break;
 	}
 
@@ -898,7 +947,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 
 
 	GameObject *o[5];
-	for(int i=0;i<4;i++){
+	for(int i=0;i<5;i++){
 		o[i]=&game->gameObject[0][i];
 	}
 
@@ -922,7 +971,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		o[3]->objectMode = Displaying_obj;
 		regen_object(o[3]);
 	}
-	else if (pelletsEaten >= 100 && game->playMode==Multi && o[4]->objectMode == NotDisplaying_obj) //lemonwater 5.29 thunder를 위해 추가
+	else if (pelletsEaten >= 250 && game->playMode==Multi && o[4]->objectMode == NotDisplaying_obj) //lemonwater 5.29 thunder를 위해 추가
 	{
 		o[4]->objectMode = Displaying_obj;
 		regen_object(o[4]);
@@ -930,8 +979,8 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	
 
 
-	unsigned int odt[4];
-	for(int i=0;i<4;i++) odt[i] = ticks_game()-o[i]->startedAt;
+	unsigned int odt[5];
+	for(int i=0;i<5;i++) odt[i] = ticks_game()-o[i]->startedAt;
 
 
 	Pacman *pac = &game->pacman[playernum];
@@ -944,7 +993,8 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 	if (o[1]->objectMode == Displaying_obj)
 	{
 		if (odt[1] > o[1]->displayTime) o[1]->objectMode = Displayed_obj;
-	}if (o[2]->objectMode == Displaying_obj)
+	}
+	if (o[2]->objectMode == Displaying_obj)
 	{
 		if (odt[2] > o[2]->displayTime) o[2]->objectMode = Displayed_obj;
 	}
@@ -987,7 +1037,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		game_object_function(o[2],game,playernum);
 		
 	}
-	if (o[3]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y))
+	if (o[3]->objectMode == Displaying_obj && collides_obj(&pac->body, o[3]->x, o[3]->y))
 	{
 		play_sound(objectEatSound);
 		o[3]->objectMode = Displayed_obj;
@@ -997,7 +1047,7 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 		
 	} 
 
-	if (o[4]->objectMode == Displaying_obj && collides_obj(&pac->body, o[2]->x, o[2]->y)) //lemonwater 5.29 thunder
+	if (o[4]->objectMode == Displaying_obj && collides_obj(&pac->body, o[4]->x, o[4]->y)) //lemonwater 5.29 thunder
 	{
 		play_sound(objectEatSound);
 		o[4]->objectMode = Displayed_obj;
@@ -1010,8 +1060,8 @@ static void process_object(PacmanGame *game, int playernum)//#5 Yang : 5.process
 
 	//#5 Yang : 4. object 기능 구현
 	//Lemonwater Ice object 기능 추가
-	unsigned int oet[3];
-	for (int i=0;i<3;i++) oet[i] = ticks_game()-o[i]->eatenAt;
+	unsigned int oet[5];
+	for (int i=0;i<5;i++) oet[i] = ticks_game()-o[i]->eatenAt;
 
 	if (o[0]->eaten)
 	{
@@ -1181,7 +1231,7 @@ void level_init(PacmanGame *game)
 	for(int i=0;i<5;i++) reset_fruit(&game->gameFruit[0][i], &game->board);
 
 	//#5 Yang : 3.object reset
-	for(int i=0;i<3;i++) reset_object(&game->gameObject[0][i], &game->board);
+	for(int i=0;i<5;i++) reset_object(&game->gameObject[0][i], &game->board);
 }
 
 void pacdeath_init(PacmanGame *game,int player_num) //#14 Kim : 2. 이 부분도 어떤 팩맨이 죽었는지 추가해줘야할듯 했지만 사실 필요는 없는듯.. 흠..여기서 점수관련한걸 해줘야하나
@@ -1322,6 +1372,9 @@ void game_object_function_end(GameObject *gameObject, PacmanGame *game, int play
 			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=ghost_speed_normal(game->currentLevel);
 			else game->ghosts[0][i].body.velocity= ghost_speed_normal(game->currentLevel);
 		}
+
+	case Thunder :
+		game->pacman[(playernum+1)%2].body.velocity = 80;
 	
 	default : return;
 	}
