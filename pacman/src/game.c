@@ -1337,8 +1337,7 @@ void game_object_function(GameObject *gameObject, PacmanGame *game, int playernu
 		}
 		return;
 	case Thunder: //lemonwater 5.29 thunder 먹은 사람이 상대방 멈추기
-		if (collides_obj(&pac->body, o[4]->x, o[4]->y))
-			game->pacman[(playernum+1)%2].body.velocity=0;
+		game->pacman[(playernum+1)%2].body.velocity=0;
 			
 		return;
 
@@ -1368,13 +1367,16 @@ void game_object_function_end(GameObject *gameObject, PacmanGame *game, int play
 
 	case Ice:
 
-		for(int i=0;i<4;i++){
+		for(int i=0;i<4;i++)
+		{
 			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=ghost_speed_normal(game->currentLevel);
 			else game->ghosts[0][i].body.velocity= ghost_speed_normal(game->currentLevel);
 		}
+		return;
 
 	case Thunder :
 		game->pacman[(playernum+1)%2].body.velocity = 80;
+		return;
 	
 	default : return;
 	}
