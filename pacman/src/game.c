@@ -284,7 +284,7 @@ void game_render(PacmanGame *game)
 		case GameBeginState:
 			draw_game_playerone_start();
 			draw_game_ready();
-			game->time=31000;
+			game->time=101000;
 			//lemonwater 5.24 시간 연장..시작하자마자 시간이 가지 않게 1000 추가. 이 값은 변하지 않음.
 			game->get_ticks=ticks_game();
 
