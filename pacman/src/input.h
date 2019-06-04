@@ -54,4 +54,5 @@ int Player_keys_array1(int i); //lemonwater 5.15 바뀐배열을 전달해주는
 int Player_keys_array2(int i);
 
 void get_Change_Key(int key,int s_c_num); //lemonwater 5.15 키배열을 바꿔주는 함수
+bool ischangekey(int s_c_num_change); //Lemonwater 6.4 add a function that asks whether keys are changed or not
 

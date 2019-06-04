@@ -13,7 +13,7 @@
 
 #define NUM_CHAR_IMAGES 26
 #define NUM_NUM_IMAGES 10
-#define NUM_SPEC_IMAGES 8 // # 13 Dong : 갯수 수정
+#define NUM_SPEC_IMAGES 9 // # 13 Dong : 갯수 수정 //Lemonwater 6.3 modify the number of special images
 
 
 SDL_Surface* double_corner_image(DiagDirection direction);

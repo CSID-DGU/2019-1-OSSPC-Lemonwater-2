@@ -39,6 +39,8 @@ void pacman_init(Pacman *pacman, int flag);
 
 //Initializes pacman's location. Call at the start of each level.
 void pacman_level_init(Pacman *pacman);
+//Lemonwater 6.4 add 2nd pacman's initial position
+void pacman_level_init2(Pacman *pacman);
 
 //Initializes pacman's location to the starting point (as well as direction and other values).
 void pacman_location_init(Pacman *pacman, int flag);

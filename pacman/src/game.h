@@ -68,6 +68,10 @@ typedef struct {
 	int pause_start;
 	int pause_end;
 	int pause_gap;
+	//Lemonwater 6.4 declare three integer variable to restore time in 2player mode 
+	int nextlevel_start;
+	int nextlevel_end;
+	int nextlevel_gap;
 } PacmanGame;
 
 //Updates the game 1 tick, or 1/60th of a second.

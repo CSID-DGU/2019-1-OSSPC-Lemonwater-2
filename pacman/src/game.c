@@ -5,6 +5,7 @@
 #include "fps.h"
 #include "input.h"
 #include "main.h"
+#include "menu.h"
 #include "pacman.h"
 #include "pellet.h"
 #include "physics.h"
@@ -32,7 +33,7 @@ static void enter_state(PacmanGame *game, GameState state); //transitions to/ fr
 
 
 static bool resolve_telesquare(PhysicsBody *body, int flag);          //wraps the body around if they've gone tele square
-
+int s_c_num_game=0;   //Lemonwater 6.4 declare an integer variable that is used at continuestate
 
 void game_tick(PacmanGame *game)
 {
@@ -116,7 +117,8 @@ void game_tick(PacmanGame *game)
 	int lives1 = game->pacman[0].livesLeft;
 	int lives2 = game->pacman[1].livesLeft;
 	int real_play_time = (game->time-ticks_game()+game->get_ticks + game->pause_gap) / 1000;
-
+	int get= getKey();  //Lemonwater 6.4 declare an integer variable that is at continuestate
+	game->nextlevel_start=0;game->nextlevel_end=0;
 	switch (game->gameState)
 	{
 		case GameBeginState:
@@ -135,12 +137,17 @@ void game_tick(PacmanGame *game)
 			if (dt > 1800) enter_state(game, GamePlayState);
 			//game->pacman[0].godMode = false;// #8 Kim : 1. 흠..
 			break;
-		case GamePlayState: 
-
+		case GamePlayState:
+		/*if (game->playMode!=Single)  {
+			game->nextlevel_gap+=game->nextlevel_end-game->nextlevel_start;
+			game->nextlevel_start=0;
+			game->nextlevel_end = ticks_game();
+		}*/
+		
 			if(real_play_time <= 0) 
 				{
 					stop_sound(LevelStartSound); //lemonwater 6.1 시간 종료 후 소리 정지.
-					enter_state(game,ContinueState);
+					enter_state(game,WinState);
 				}
 
 			//TODO: remove this hacks
@@ -158,10 +165,7 @@ void game_tick(PacmanGame *game)
 			//if (transitionLevel) //do transition here
 			if (dt > 4000) 
 			{
-				if(game->playMode == Multi) //lemonwater 6.1 continue
-					enter_state(game,ContinueState);
-				else	
-					enter_state(game, LevelBeginState);
+				enter_state(game, LevelBeginState);
 			}
 			break;
 		case DeathState:
@@ -226,20 +230,29 @@ void game_tick(PacmanGame *game)
 			}
 			else if (key_pressed(SDLK_BACKSPACE))
 				enter_state(game,GameoverState);
-			else if (key_pressed(SDLK_F1))
-				enter_state(game, WinState);
-
+			else if (key_pressed(SDLK_F1)) {
+				if (game->playMode == Single) enter_state(game, WinState);
+				else if (game->playMode == Multi) {
+					game->pause_gap += (game->pause_end - game-> pause_start);
+					game->pause_start = 0; //lemonwater 6.1 매번 시간을 재야하기때문에 초기화.
+					game->pause_end = 0; //lemonwater 6.1 매번 시간을 재야하기때문에 초기화.
+					enter_state(game, ContinueState);
+				}
+			}
 			game->pause_end = ticks_game(); //lemonwater 6.1 일시정지 종료 시점 재기	
 
 			break;
-		case ContinueState : 
-			if (key_pressed(SDLK_BACKSPACE))
-				game->gameState = GameoverState ;
-			else if (key_pressed(SDLK_F1))
-			{
-				enter_state(game, LevelBeginState);
-			}
-			break;
+		case ContinueState : //Lemonwater 6.4 We can select whether we continue the game or not at 2player mode
+		//game->nextlevel_start = ticks_game();
+		if (s_c_num_game==0) {
+			if (get==SDLK_RIGHT) s_c_num_game=1;
+			else if (get==SDLK_KP_ENTER) enter_state(game, WinState);
+		}
+		else if (s_c_num_game==1) {
+			if (get==SDLK_LEFT) s_c_num_game=0;
+			else if (get==SDLK_KP_ENTER) enter_state(game, GameoverState);
+		}
+		break;
 	}
 }
 
@@ -248,7 +261,7 @@ void game_render(PacmanGame *game)
 	unsigned dt = ticks_game() - game->ticksSinceModeChange;
 	static unsigned godDt = 0;
 	static bool godChange = false;
-	int real_play_time = (game->time-ticks_game()+game->get_ticks + game->pause_gap) / 1000;
+	int real_play_time = (game->time-ticks_game()+game->get_ticks + game->pause_gap + game->nextlevel_gap) / 1000;
 	//lemonwater 6.1 식이 너무 길어져서 변수를 하나 생성.
 
 
@@ -282,12 +295,12 @@ void game_render(PacmanGame *game)
 	switch (game->gameState)
 	{
 		case GameBeginState:
-			draw_game_playerone_start();
+			//draw_game_playerone_start(); Lemonwater 6.3 delete useless words
 			draw_game_ready();
-			game->time=31000;
-			//lemonwater 5.24 시간 연장..시작하자마자 시간이 가지 않게 1000 추가. 이 값은 변하지 않음.
+			if (game->playMode!=Single) {
+			game->time=101000;
 			game->get_ticks=ticks_game();
-
+			}
 			draw_large_pellets(&game->pelletHolder, false);
 			draw_board(&game->board);
 			break;
@@ -326,7 +339,6 @@ void game_render(PacmanGame *game)
 			draw_board(&game->board);
 			break;
 		case GamePlayState:
-
 			if(ticks_game()%100==0)game->time--;
 			draw_large_pellets(&game->pelletHolder, true);
 			draw_board(&game->board);
@@ -429,7 +441,8 @@ void game_render(PacmanGame *game)
 		case WinState:
 
 			draw_pacman_static(&game->pacman[0],0);
-			//if(game->playMode!=Single) 
+			if(game->playMode!=Single)
+				draw_pacman_static(&game->pacman[1],1);
 				//game->gameState=GameoverState;
 				//game->gameState=ContinueState;
 			//else
@@ -529,7 +542,7 @@ void game_render(PacmanGame *game)
 
 		case ContinueState:
 			//#31 Yang : 점수로 승부판정모드 - 일단 멀티모드 자체를 점수 높으면 이기는 걸로 수정
-			game->time +=31000;
+			//game->time =101000;
 
 			draw_board(&game->board);
 			draw_credits(num_credits());
@@ -537,15 +550,12 @@ void game_render(PacmanGame *game)
 			if (game->pacman[0].livesLeft && game->pacman[1].livesLeft )
 			{
 				if (game->pacman[0].score > game->pacman[1].score)
-					draw_game_playerone_win();
+					draw_game_playerone_win(&s_c_num_game);
 				else if (game->pacman[0].score < game->pacman[1].score) 
-					draw_game_playertwo_win();
+					draw_game_playertwo_win(&s_c_num_game);
 			}
-			else if (game->pacman[0].livesLeft==0) draw_game_playertwo_win();
-			else if (game->pacman[1].livesLeft==0) draw_game_playerone_win();
-				
-			draw_pause();
-
+			else if (game->pacman[0].livesLeft==0) draw_game_playertwo_win(&s_c_num_game);
+			else if (game->pacman[1].livesLeft==0) draw_game_playerone_win(&s_c_num_game);
 			break;
 			
 	}
@@ -564,16 +574,9 @@ static void enter_state(PacmanGame *game, GameState state)
 			break;
 		case WinState:
 			//#31 Yang : 점수 승부판정모드
-			if(game->playMode!=Single)
-			{
-				game->gameState=ContinueState;
-			}
-			
-			else{
 			game->currentLevel++;
 			game->gameState = LevelBeginState;
 			level_init(game);
-			}
 			break;
 		case DeathState:
 			// Player died and is starting a new game, subtract a life
@@ -1218,6 +1221,8 @@ void level_init(PacmanGame *game)
 		game_init(game->currentLevel);
 	}
 	pacman_level_init(&game->pacman[0]);
+	// Lemonwater 6.4 We can also check that 2nd pacman in 2player mode resets his position
+	if (game->playMode!=Single) pacman_level_init2(&game->pacman[1]);
 
 	//reset pellets
 	pellets_init(&game->pelletHolder);

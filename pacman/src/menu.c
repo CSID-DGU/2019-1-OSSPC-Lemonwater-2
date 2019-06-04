@@ -20,6 +20,7 @@
 static char tmp[100]={"0.0.0.0"};
 static int index_num=0;
 static int s_c_num = 0;
+//static int s_c_num_change=0;
 
 static void draw_vanity_screen(MenuSystem *menuSystem);
 static void draw_info_screen(void);
@@ -341,14 +342,21 @@ int settings_render(MenuSystem *menuSystem)
 		    
             break;
             case SDLK_KP_ENTER: //Lemonwater 5.10 if you press 'enter', then you can change the direction keys
-                    if (s_c_num>=0 && s_c_num<8)
+            if (s_c_num>=0 && s_c_num<8)
 			s_c_num=s_c_num+8;
 						//lemonwater 5.13 enter쳐서 돌아오기
-        	    else if (s_c_num>=8 && s_c_num<16) 
+        	else if (s_c_num>=8 && s_c_num<16) 
 			{
 			s_c_num = s_c_num-8;
 			}
 			break;
+			/*case SDLK_RIGHT:
+			if (s_c_num_change==0) s_c_num_change=1;
+			else if (s_c_num_change==1) s_c_num_change=2;
+			break;
+			case SDLK_LEFT:
+			if (s_c_num_change==0) s_c_num_change=1;
+			else if (s_c_num_change==1) s_c_num_change=2;*/
 	    default : //lemonwater 5.16 나머지 키가 입력되는 경우를 의미합니다.
 		get_Change_Key(get,s_c_num); //lemonwater 5.16 키를 바꿔줍니다.
 		break;

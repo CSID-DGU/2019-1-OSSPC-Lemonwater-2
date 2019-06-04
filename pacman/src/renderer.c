@@ -255,8 +255,8 @@ void draw_credits(int numCredits)
 //
 // Game-only word rendering
 //
-
-void draw_game_playerone_start(void)
+//Lemonwater 6.3 delete useless words
+/*void draw_game_playerone_start(void)
 {
 	set_text_color(CyanText);
 	draw_text_coord(get_screen(), "PLAYER ONE", 9, 14);
@@ -265,7 +265,7 @@ void draw_game_playerone_start(void)
 void draw_game_playertwo_start(void)
 {
 
-}
+}*/
 
 void draw_game_ready(void)
 {
@@ -279,19 +279,40 @@ void draw_game_gameover(void)
 	draw_text_coord(get_screen(), "GAME  OVER", 9, 20);
 }
 //#30 Yang :winner 표시 뷰
-void draw_game_playerone_win(void)
+//Lemonwater 6.3 add a new words whether you continue a game or not
+void draw_game_playerone_win(int*s_c_num_game)
 {
-
+	set_text_color(RedText);
+	draw_text_coord(get_screen(), "PLAYER 1 WIN!", 7, 20);
+	set_text_color(WhiteText);
+	draw_text_coord(get_screen(), "CONTINUE?", 9, 22);
+	draw_text_coord(get_screen(), "YES", 7, 24);
+	draw_text_coord(get_screen(), "NO", 18, 24);
+	if (*s_c_num_game==0) {
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "PLAYER 1 WIN!", 7, 20);
-	
+		draw_text_coord(get_screen(), "YES", 7, 24);
+	}
+	else if (*s_c_num_game==1) {
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "NO", 18, 24);
+	}
 }
-void draw_game_playertwo_win(void)
+void draw_game_playertwo_win(int*s_c_num_game)
 {
-
+	set_text_color(RedText);
+	draw_text_coord(get_screen(), "PLAYER 2 WIN!", 7, 20);
+	set_text_color(WhiteText);
+	draw_text_coord(get_screen(), "CONTINUE?", 9, 22);
+	draw_text_coord(get_screen(), "YES", 7, 24);
+	draw_text_coord(get_screen(), "NO", 18, 24);
+	if (*s_c_num_game==0) {
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "PLAYER 2 WIN!", 7, 20);
-	
+		draw_text_coord(get_screen(), "YES", 7, 24);
+	}
+	else if (*s_c_num_game==1) {
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "NO", 18, 24);
+	}
 }
 //
 //
@@ -836,17 +857,17 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 {
 	set_text_color(WhiteText);
 
-	draw_text_coord(get_screen(), "1.PRESS ENTER", 1, 5);
-	draw_text_coord(get_screen(), "2.PRESS THE KEY TO CHANGE", 1, 7);
+	draw_text_coord(get_screen(), "1.PRESS ENTER", 1, 2);
+	draw_text_coord(get_screen(), "2.PRESS THE KEY TO CHANGE", 1, 4);
 
-	draw_text_coord(get_screen(), "1P UP KEY", 4, 12);     draw_change_keys(get_screen(), Player_keys_array1(0) ,18,12); 
-	draw_text_coord(get_screen(), "1P DOWN KEY", 4, 14);  draw_change_keys(get_screen(), Player_keys_array1(1) ,18,14); 
-	draw_text_coord(get_screen(), "1P LEFT KEY", 4, 16);  draw_change_keys(get_screen(), Player_keys_array1(2) ,18,16); 
-	draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 18); draw_change_keys(get_screen(), Player_keys_array1(3) ,18,18); 
-	draw_text_coord(get_screen(), "2P UP KEY", 4, 22);    draw_change_keys(get_screen(), Player_keys_array2(0) ,18,22); 
-	draw_text_coord(get_screen(), "2P DOWN KEY", 4, 24);  draw_change_keys(get_screen(), Player_keys_array2(1) ,18,24); 
-	draw_text_coord(get_screen(), "2P LEFT KEY", 4, 26);  draw_change_keys(get_screen(), Player_keys_array2(2) ,18,26); 
-	draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 28); draw_change_keys(get_screen(), Player_keys_array2(3) ,18,28); 
+	draw_text_coord(get_screen(), "1P UP KEY", 4, 8);     draw_change_keys(get_screen(), Player_keys_array1(0) ,18,8); 
+	draw_text_coord(get_screen(), "1P DOWN KEY", 4, 10);  draw_change_keys(get_screen(), Player_keys_array1(1) ,18,10); 
+	draw_text_coord(get_screen(), "1P LEFT KEY", 4, 12);  draw_change_keys(get_screen(), Player_keys_array1(2) ,18,12); 
+	draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 14); draw_change_keys(get_screen(), Player_keys_array1(3) ,18,14); 
+	draw_text_coord(get_screen(), "2P UP KEY", 4, 18);    draw_change_keys(get_screen(), Player_keys_array2(0) ,18,18); 
+	draw_text_coord(get_screen(), "2P DOWN KEY", 4, 20);  draw_change_keys(get_screen(), Player_keys_array2(1) ,18,20); 
+	draw_text_coord(get_screen(), "2P LEFT KEY", 4, 22);  draw_change_keys(get_screen(), Player_keys_array2(2) ,18,22); 
+	draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 24); draw_change_keys(get_screen(), Player_keys_array2(3) ,18,24); 
 	
 	set_text_color(PinkText);
 	draw_text_coord(get_screen(), "PRESS BACKSPACE TO MENU", 3, 33);
@@ -855,101 +876,117 @@ void draw_settings_mode(int *s_c_num) // Lemonwater 5.4 add settings 5.16 글자
 	{
 	case 0:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 12);
-		draw_text_coord(get_screen(), "1P UP KEY", 4, 12);
+		draw_text_coord(get_screen(), "#", 3, 8);
+		draw_text_coord(get_screen(), "1P UP KEY", 4, 8);
 		break;
 	case 1:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 14);
-		draw_text_coord(get_screen(), "1P DOWN KEY", 4, 14);
+		draw_text_coord(get_screen(), "#", 3, 10);
+		draw_text_coord(get_screen(), "1P DOWN KEY", 4, 10);
 		break;
 	case 2:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 16);
-		draw_text_coord(get_screen(), "1P LEFT KEY", 4, 16);
+		draw_text_coord(get_screen(), "#", 3, 12);
+		draw_text_coord(get_screen(), "1P LEFT KEY", 4, 12);
 		break;
 	
 	case 3:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 18);
-		draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 18);
+		draw_text_coord(get_screen(), "#", 3, 14);
+		draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 14);
 		break;
 	
 	case 4:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 22);
-		draw_text_coord(get_screen(), "2P UP KEY", 4, 22);
+		draw_text_coord(get_screen(), "#", 3, 18);
+		draw_text_coord(get_screen(), "2P UP KEY", 4, 18);
 		break;
 	
 	case 5:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 24);
-		draw_text_coord(get_screen(), "2P DOWN KEY", 4, 24);
+		draw_text_coord(get_screen(), "#", 3, 20);
+		draw_text_coord(get_screen(), "2P DOWN KEY", 4, 20);
 		break;
 	case 6:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 26);
-		draw_text_coord(get_screen(), "2P LEFT KEY", 4, 26);
+		draw_text_coord(get_screen(), "#", 3, 22);
+		draw_text_coord(get_screen(), "2P LEFT KEY", 4, 22);
 		break;
 	case 7:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 28);
-		draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 28);
+		draw_text_coord(get_screen(), "#", 3, 24);
+		draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 24);
 		break;
-       case 8:
+    case 8:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 12);
-		draw_text_coord(get_screen(), "1P UP KEY ", 4, 12);
-                draw_change_keys(get_screen(), Player_keys_array1(0) ,18,12);
+		draw_text_coord(get_screen(), "#", 3, 8);
+		draw_text_coord(get_screen(), "1P UP KEY ", 4, 8);
+        draw_change_keys(get_screen(), Player_keys_array1(0) ,18,8);
 		break;
 	case 9:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 14);
-		draw_text_coord(get_screen(), "1P DOWN KEY", 4, 14);
-		draw_change_keys(get_screen(), Player_keys_array1(1) ,18,14);
+		draw_text_coord(get_screen(), "#", 3, 10);
+		draw_text_coord(get_screen(), "1P DOWN KEY", 4, 10);
+		draw_change_keys(get_screen(), Player_keys_array1(1) ,18,10);
 		break;
 	case 10:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 16);
-		draw_text_coord(get_screen(), "1P LEFT KEY", 4, 16);
-                draw_change_keys(get_screen(), Player_keys_array1(2) ,18,16);
+		draw_text_coord(get_screen(), "#", 3, 12);
+		draw_text_coord(get_screen(), "1P LEFT KEY", 4, 12);
+        draw_change_keys(get_screen(), Player_keys_array1(2) ,18,12);
 		break;
 	
 	case 11:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 18);
-		draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 18);
-                draw_change_keys(get_screen(), Player_keys_array1(3) ,18,18);
+		draw_text_coord(get_screen(), "#", 3, 14);
+		draw_text_coord(get_screen(), "1P RIGHT KEY", 4, 14);
+        draw_change_keys(get_screen(), Player_keys_array1(3) ,18,14);
 		break;
 	
 	case 12:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 22);
-		draw_text_coord(get_screen(), "2P UP KEY", 4, 22);
-                draw_change_keys(get_screen(), Player_keys_array2(0) ,18,22);
+		draw_text_coord(get_screen(), "#", 3, 18);
+		draw_text_coord(get_screen(), "2P UP KEY", 4, 18);
+        draw_change_keys(get_screen(), Player_keys_array2(0) ,18,18);
 		break;
 	
 	case 13:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 24);
-		draw_text_coord(get_screen(), "2P DOWN KEY", 4, 24);
-                draw_change_keys(get_screen(), Player_keys_array2(1) ,18,24);
+		draw_text_coord(get_screen(), "#", 3, 20);
+		draw_text_coord(get_screen(), "2P DOWN KEY", 4, 20);
+        draw_change_keys(get_screen(), Player_keys_array2(1) ,18,20);
 		break;
 	case 14:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 26);
-		draw_text_coord(get_screen(), "2P LEFT KEY", 4, 26);
-                draw_change_keys(get_screen(), Player_keys_array2(2) ,18,26);
+		draw_text_coord(get_screen(), "#", 3, 22);
+		draw_text_coord(get_screen(), "2P LEFT KEY", 4, 22);
+        draw_change_keys(get_screen(), Player_keys_array2(2) ,18,22);
 		break;
 	case 15:
 		set_text_color(RedText);
-		draw_text_coord(get_screen(), "#", 3, 28);
-		draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 28);
-                draw_change_keys(get_screen(), Player_keys_array2(3) ,18,28);
+		draw_text_coord(get_screen(), "#", 3, 24);
+		draw_text_coord(get_screen(), "2P RIGHT KEY", 4, 24);
+        draw_change_keys(get_screen(), Player_keys_array2(3) ,18,24);
 		break;
 	}
 }
-
+/*void draw_ischangekey(int *s_c_num_change)
+{
+	set_text_color(RedText);
+	draw_text_coord(get_screen(), "THAT KEY DUPLICATES ANOTHER KEY.", 1, 26);
+	draw_text_coord(get_screen(), "DO YOU CHANGE THEM?", 1, 28);
+	set_text_color(WhiteText);
+	draw_text_coord(get_screen(), "YES", 15, 28);
+	draw_text_coord(get_screen(), "NO", 20, 28);
+	if (*s_c_num_change==0) {
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "YES", 15, 28);
+	}
+	else if (*s_c_num_change==1) {
+		set_text_color(RedText);
+		draw_text_coord(get_screen(), "NO", 20, 28);
+	}
+}*/
 
 
 

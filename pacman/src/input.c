@@ -43,47 +43,63 @@ void get_Change_Key(int key,int s_c_num) //lemonwater 5.15 키값을 받아서 �
 {
 	if(key != 0) //lemonwater 5.16 키가 어느하나 입력되는 경우에 키를 바꿔준다. 0은 붕 떠 있는 경우를 의미.
 	{
-		int temp; //lemonwater 5.17 키값을 저장할 임시 변수
-		
 		if(s_c_num>=8 && s_c_num<=11) //lemonwater 5.16 엔터값을 눌러 키를 변환할 수 있는 상태에서만 받을 수 있도록 조건을 둠. 1p
 		{
-                        for (int i=0;i<4;i++) {  //lemonwater 5.17 키가 중복되었을 경우, 원래 위치한 키값과 바꿔준다.
-                            if (key==player_keys_1[i] && i!=s_c_num-8) {
-                                temp=player_keys_1[s_c_num-8];
-                                player_keys_1[s_c_num-8]=player_keys_1[i];
-                                player_keys_1[i]=temp;
-                            }
-                            else if (key==player_keys_2[i]) {
-                                temp=player_keys_2[s_c_num-8];
-                                player_keys_2[s_c_num-8]=player_keys_1[i];
-                                player_keys_1[i]=temp;
-                            }
-                            else if (i==3) {
-                                player_keys_1[s_c_num-8] = key;
-                            }
-                        }
+            for (int i=0;i<4;i++) {  //lemonwater 5.17 키가 중복되었을 경우, 원래 위치한 키값과 바꿔준다.
+                if (key==player_keys_1[i] && i!=s_c_num-8) {
+					//if (ischangekey(s_c_num_change)) {
+						player_keys_1[i]=player_keys_1[s_c_num-8];
+                    	player_keys_1[s_c_num-8]=key;
+					//}
+					break;
+                }
+                else if (key==player_keys_2[i]) {
+					//if (ischangekey(s_c_num_change)) {
+                    	player_keys_2[i]=player_keys_1[s_c_num-8];
+                    	player_keys_1[s_c_num-8]=key;
+					//}
+					break;
+                }
+                else if (i==3) {
+                    player_keys_1[s_c_num-8] = key;
+                }
+            }
 		}
 		else if(s_c_num>=12 && s_c_num <16) //lemonwater 5.16 2p
 		{
-                        for (int i=0;i<4;i++) {  //lemonwater 5.17 키가 중복되었을 경우, 원래 위치한 키값과 바꿔준다.
-                            if (key==player_keys_1[i]) {
-                                temp=player_keys_1[s_c_num-12];
-                                player_keys_1[s_c_num-12]=player_keys_2[i];
-                                player_keys_2[i]=temp;
-                            }
-                            else if (key==player_keys_2[i] && i!=s_c_num-12) {
-                                temp=player_keys_2[s_c_num-12];
-                                player_keys_2[s_c_num-12]=player_keys_2[i];
-                                player_keys_2[i]=temp;
-                            }
-                            else if (i==3) {
-                                player_keys_2[s_c_num-12] = key;
-                            }
-                        }
+            for (int i=0;i<4;i++) {  //lemonwater 5.17 키가 중복되었을 경우, 원래 위치한 키값과 바꿔준다.
+                if (key==player_keys_1[i]) {
+					//if (ischangekey(s_c_num_change)) {
+                	    player_keys_1[i]=player_keys_2[s_c_num-12];
+                	    player_keys_2[s_c_num-12]=key;
+					//}
+					break;
+                }
+                else if (key==player_keys_2[i] && i!=s_c_num-12) {
+					//if (ischangekey(s_c_num_change)) {
+            	        player_keys_2[i]=player_keys_2[s_c_num-12];
+            	        player_keys_2[s_c_num-12]=key;
+					//}
+					break;
+                }
+                else if (i==3) {
+                    player_keys_2[s_c_num-12] = key;
+                }
+            }
 		}
-   	 }
+   	}
 }
-
+/*bool ischangekey(int s_c_num_change) {
+		draw_ischangekey(&s_c_num_change);
+		if (s_c_num_change==0) {
+			if (key_released(SDLK_RIGHT)) {s_c_num_change=1;continue;}
+			else if (key_released(SDLK_KP_ENTER) || key_released(SDLK_RETURN)) return 1;
+		}
+		else if (s_c_num_change==1) {
+			if (key_released(SDLK_LEFT)) {s_c_num_change=0;continue;}
+			else if (key_released(SDLK_KP_ENTER) || key_released(SDLK_RETURN)) return 0;
+		}
+}*/
 
 void keyevents_finished(void)
 {

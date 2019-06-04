@@ -16,7 +16,11 @@ void pacman_level_init(Pacman *pacman)
 {
 	pacman_location_init(pacman,0);
 }
-
+//Lemonwater 6.4 add 2nd pacman's initial position
+void pacman_level_init2(Pacman *pacman)
+{
+	pacman_location_init(pacman,1);
+}
 void pacman_location_init(Pacman *pacman, int flag)
 {
 	switch(flag){

@@ -54,14 +54,15 @@ void draw_credits(int numCredits);
 // Game-only word rendering
 //
 
-void draw_game_playerone_start(void);
-void draw_game_playertwo_start(void);
+//Lemonwater 6.3 delete useless words
+//void draw_game_playerone_start(void);
+//void draw_game_playertwo_start(void);
 void draw_game_ready(void);
 void draw_game_gameover(void);
 void draw_game_time(int time);
 //#30 Yang :winner 표시 뷰
-void draw_game_playerone_win(void);
-void draw_game_playertwo_win(void);
+void draw_game_playerone_win(int*s_c_num_game);
+void draw_game_playertwo_win(int*s_c_num_game);
 //
 // Fruit renderering
 //
@@ -122,4 +123,5 @@ void draw_input_string(const char tmp[],int x,int y);//#19 Kim : 2. 클라이언
 void draw_multi_mode(int *s_c_num);
 void draw_help_mode(int *s_c_num); //lemonwater 5.8 헤더 추가
 void draw_settings_mode(int *s_c_num);
+//void draw_ischangekey(int *s_c_num_change);
 void draw_pause(void);
