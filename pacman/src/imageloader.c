@@ -140,6 +140,13 @@ SDL_Surface *ThunderImage;
 SDL_Surface *help1image;
 SDL_Surface *help2image;
 SDL_Surface *help3image;
+SDL_Surface *help4image;
+SDL_Surface *help5image;
+SDL_Surface *help6image;
+SDL_Surface *help7image;
+SDL_Surface *help8image;
+
+
 
 SDL_Surface *pauseimage;
 
@@ -586,18 +593,15 @@ void dispose_char_images(void)
 
 
 // Lemonwater 5.7 add help images
-SDL_Surface* help1_image(void)
-{
-    return help1image;
-}
-SDL_Surface* help2_image(void)
-{
-    return help2image;
-}
-SDL_Surface* help3_image(void)
-{
-    return help3image;
-}
+SDL_Surface* help1_image(void) {return help1image;}
+SDL_Surface* help2_image(void) {return help2image;}
+SDL_Surface* help3_image(void) {return help3image;}
+SDL_Surface* help4_image(void) {return help4image;}
+SDL_Surface* help5_image(void) {return help5image;}
+SDL_Surface* help6_image(void) {return help6image;}
+SDL_Surface* help7_image(void) {return help7image;}
+SDL_Surface* help8_image(void) {return help8image;}
+
 //lemonwater 5.20 add pause image
 SDL_Surface* pause_image(void)
 {
@@ -612,12 +616,24 @@ void load_help_images(void)
     help1image = load_image(DIR HELP_DIR "help1.png");
     help2image = load_image(DIR HELP_DIR "help2.png");
     help3image = load_image(DIR HELP_DIR "help3.png");
+	help4image = load_image(DIR HELP_DIR "help4.png");
+    help5image = load_image(DIR HELP_DIR "help5.png");
+    help6image = load_image(DIR HELP_DIR "help6.png");
+	help7image = load_image(DIR HELP_DIR "help7.png");
+    help8image = load_image(DIR HELP_DIR "help8.png");
+    
 }
 void dispose_help_images(void)
 {
     SDL_FreeSurface(help1image);
     SDL_FreeSurface(help2image);
     SDL_FreeSurface(help3image);
+	SDL_FreeSurface(help4image);
+    SDL_FreeSurface(help5image);
+    SDL_FreeSurface(help6image);
+	SDL_FreeSurface(help7image);
+    SDL_FreeSurface(help8image);
+
 }
 
 //lemonwater 5.20 add pause image

@@ -38,12 +38,12 @@ void clear_screen(int r, int g, int b, int a)
 	SDL_FillRect(screen, NULL, col);
 }
 
-void apply_surface(int x, int y, SDL_Surface* source)
+void apply_surface(int x, int y, SDL_Surface* source) //lemonwater 0605 게임 플레이시 맵과 펠렛들 크기 키우기
 {
 	SDL_Rect offset;
 
-	offset.x = x;
-	offset.y = y;
+	offset.x = 2*x;
+	offset.y = 2*y;
 
 	SDL_BlitSurface(source, NULL, screen, &offset);
 }

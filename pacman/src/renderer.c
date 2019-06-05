@@ -32,7 +32,7 @@ static int offset = 3 * 16;
 
 void draw_image_coord(SDL_Surface *surface, int x, int y)
 {
-	draw_image_coord_offset(surface, 2*x, 2*y, 0, 0); //lemonwater 0605 화면 위치 수정
+	draw_image_coord_offset(surface, x, y, 0, 0);
 }
 
 void draw_image_coord_offset(SDL_Surface *surface, int x, int y, int xOffset, int yOffset)
@@ -112,7 +112,7 @@ void draw_vanity_corporate_info(void)
 {
 	set_text_color(PinkText);
 	draw_text_coord(get_screen(), "@      MIDWAY MFG.CO.", 4, 31);
-	draw_numtext_coord(get_screen(), "  1980", 4, 31); //lemonwater 0605 화면크기 키우고 위치 수정
+	draw_numtext_coord(get_screen(), "  1980", 4, 31);
 }
 
 void draw_vanity_pellet_info(bool flashing)
@@ -320,7 +320,7 @@ void draw_game_playertwo_win(int*s_c_num_game)
 //
 //
 
-void draw_fruit_indicators(int currentLevel) // lemonwater 0605 밑에 과일 뜨는 위치 수정
+void draw_fruit_indicators(int currentLevel)
 {
 	if (currentLevel < 1)
 	{
@@ -761,6 +761,26 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
         
 	case 2:
 		image = help3_image();
+		apply_surface(10, 8, image);
+		break;
+	case 3:
+		image = help4_image();
+		apply_surface(10, 8, image);
+		break;
+	case 4:
+		image = help5_image();
+		apply_surface(10, 8, image);
+		break;
+	case 5:
+		image = help6_image();
+		apply_surface(10, 8, image);
+		break;
+	case 6:
+		image = help7_image();
+		apply_surface(10, 8, image);
+		break;
+	case 7:
+		image = help8_image();
 		apply_surface(10, 8, image);
 		break;
 	}
