@@ -14,7 +14,7 @@
 
 ## Description
 
-* 동국대학교 융합소프트웨어공학과 오픈소스소프트웨어프로젝트 2019-1 학기 프로젝트 원격저장소.
+* 동국대학교 융합소프트웨어연계전공 오픈소스소프트웨어프로젝트 2019-1 학기 프로젝트 원격저장소.
   * 리눅스 SDL을 이용한 Pacman Game
   * 소스코드 출처
     * Pacman_original  : <https://github.com/TroyShaw/Pacman>  
@@ -62,17 +62,29 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
   ./game_Debug
   ````
 
+## Menu window
 
+<center>맨 처음 실행시 보이는 화면, 다섯 가지를 선택할 수 있다.</center>
 
-## How to Play Online Mode
+## 1. Single Mode
 
-### 1. Online Mode로 들어간다.
+<center>들어가면 바로 게임이 시작된다.</center>
 
-<img src="https://i.imgur.com/dUnoqcZ.png">
+<center>ㄹ촢허.</center>
 
-<center>맨 처음 실행시 보이는 화면 / ONLINE 에 커서를 두고 ENTER 를 누른다.</center>
+<center>spacebar를 누르면 게임을 일시정지할 수 있다.</center>
 
-### 2. 먼저 방을 만든다.
+## 2. 2player Mode
+
+<center>들어가면 남은 시간을 확인할 수 있다. 시간이 다 되면 게임이 끝난다.</center>
+
+<center>ㅇㅊㄿ호ㅠㅏㅝㅡ.</center>
+
+<center>게임 종료 시 게임을 계속할 지 결정할 수 있다.</center>
+
+## 3. Online Mode
+
+### 먼저 방을 만든다.
 
 <img src="https://i.imgur.com/KIFCRXe.png">
 
@@ -82,13 +94,29 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>MAKE ROOM 선택 후 보이는 화면</center>
 
-### 3.방을 만든 PC의 IP를 입력하고 다른 사람이 접속을 한다.
+### 방을 만든 PC의 IP를 입력하고 다른 사람이 접속을 한다.
 
 <img src="https://i.imgur.com/P9jAkpH.png">
 
 <center>커서를 JOIN ROOM 에 두고 IP 를 입력한다. </center>
 
+### 게임 방식은 2player와 같다.
 
+## 4. Help
+
+<center>Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
+
+## 5. Settings(환경설정)
+
+<center>본인이 조작키를 바꾸고 싶다면 여기서 바꾸면 된다. </center>
+
+<center>바꾸고 싶은 키를 선택한다. </center>
+
+<center>Enter를 누르고 바꾸고자 하는 키를 입력한다. </center>
+
+<center>하지만, 바꾼 키가 다른 키랑 중복이 되면, 키가 서로 바뀌게 된다. </center>
+
+<center>조작키를 바꿨다면 backspace를 눌러 메인화면으로 갈 수 있다. </center>
 
 ## License
 
