@@ -4,8 +4,8 @@
 #define SCREEN_TITLE "Tphakumahn"
 //#define SCREEN_WIDTH 896
 //#define SCREEN_HEIGHT 1142
-#define SCREEN_WIDTH 448
-#define SCREEN_HEIGHT 576
+#define SCREEN_WIDTH 896//448
+#define SCREEN_HEIGHT 1152//576
 
 //Defines the main states the program can be in.
 typedef enum

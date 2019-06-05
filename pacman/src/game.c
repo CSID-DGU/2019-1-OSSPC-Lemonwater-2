@@ -641,6 +641,7 @@ static void enter_state(PacmanGame *game, GameState state)
 		case ReviveState2:
 			break;		//	pacdeath_init(game); //#14 Kim : 2. 해보잣!
 		case GameoverState:
+			stop_sound(LevelStartSound);
 			play_sound(GameoverSound);
 			break;
 		case PauseState: // lemonwater 5.29 PauseState
