@@ -7,7 +7,7 @@ SDL_Surface* clone_image(SDL_Surface* src)
 	return SDL_ConvertSurface(src, src->format, SDL_SWSURFACE);
 }
 
-void replace_pixel(SDL_Surface *image, SDL_Color newColor)
+void replace_pixel(SDL_Surface *image, SDL_Color newColor) //lemonwater 0605 깨진 색깔 다시 채우기
 {
 	for (int y = 0; y < image->h; y++)
 	{
@@ -17,7 +17,7 @@ void replace_pixel(SDL_Surface *image, SDL_Color newColor)
 			SDL_Color c;
 			SDL_GetRGBA(pixel, image->format, &c.r, &c.g, &c.b, &c.unused);
 
-			if (c.unused == 255) pixelRGBA(image, x, y, newColor.r, newColor.g, newColor.b, newColor.unused);
+			if (c.unused >= 100 && c.unused <=255 ) pixelRGBA(image, x, y, newColor.r, newColor.g, newColor.b, newColor.unused);
 		}
 	}
 }

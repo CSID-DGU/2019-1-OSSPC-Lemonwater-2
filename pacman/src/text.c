@@ -141,12 +141,12 @@ void draw_numtext_coord(SDL_Surface *surface, const char *text, int x, int y)
 {
 	//a text square is 2 actual pixels out of alignment with number squares
 	//do an offset when drawing
-	draw_text(surface, text, x * 16, y * 16 - 2);
+	draw_text(surface, text, 2*x * 16, 2*y * 16 - 2); //lemonwater 0605 화면 위치 수정
 }
 
 void draw_text_coord(SDL_Surface *surface, const char *text, int x, int y)
 {
-	draw_text(surface, text, x * 16, y * 16);
+	draw_text(surface, text, 2*x * 16, 2*y * 16); //lemonwater 0605 화면 사이즈 키우기
 }
 
 static void set_fontimage_color(SDL_Surface *image, TextColor color)
