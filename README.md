@@ -23,16 +23,6 @@
     
 
 
-## 협업 홈페이지
-
-* http://13.125.138.114
-
-<img src="https://i.imgur.com/RmcJZ05.png">
-
-
-
-
-
 ## Getting Started
 
 ### 1. Install SDL
