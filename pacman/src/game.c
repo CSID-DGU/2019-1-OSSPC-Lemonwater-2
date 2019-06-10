@@ -156,6 +156,7 @@ void game_tick(PacmanGame *game)
 				game->pause_start = ticks_game(); //lemonwater 6.1 일시정지 시작 시점 측정
 				enter_state(game, PauseState);
 			}
+			else if (key_pressed(SDLK_F12)) enter_state(game, WinState);
 			else if (allPelletsEaten) enter_state(game, WinState);
 			else if (collidedWithGhost) enter_state(game, DeathState);//#14 일단 이때. 열로 들어가는데... 현제 스테이트는 GamePlayState고..
 			if(game->playMode!=Single&&collidedWithGhost2) enter_state(game,DeathState2);//#14 Kim : 2. 2p가 죽었을때는 DeathState2로 간다.
