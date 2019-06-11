@@ -66,7 +66,7 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>맨 처음 실행시 보이는 화면, 다섯 가지를 선택할 수 있다.</center>
 
-<img src="https://i.imgur.com/KIFCRXe.png">
+![menuwindow](https://user-images.githubusercontent.com/46588549/59299457-9fddbb00-8cc7-11e9-94b7-f3230dc19976.png)
 
 ## 1. Single Mode
 
