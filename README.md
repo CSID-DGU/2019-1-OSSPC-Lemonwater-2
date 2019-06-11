@@ -124,15 +124,21 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
 
+![헬프움짤](https://user-images.githubusercontent.com/46588549/59302641-60b36800-8ccf-11e9-826a-f366ee6c2f44.gif)
+
 ## 5. Settings(환경설정)
 
-### 바꾸고 싶은 키를 선택한다. </center>
+### 바꾸고 싶은 키를 선택하고 Enter를 누른다. </center>
 
-### Enter를 누르고 바꾸고자 하는 키를 입력한다. </center>
+![ㄷㄱㅎㄹ](https://user-images.githubusercontent.com/46588549/59302901-fe0e9c00-8ccf-11e9-98d4-697374f05d00.png)
 
-### 하지만, 바꾼 키가 다른 키랑 중복이 되면, 키가 서로 바뀌게 된다. </center>
+### 바꾸고자 하는 키를 입력한다. </center>
 
-### 조작키를 바꿨다면 backspace를 눌러 메인화면으로 갈 수 있다. </center>
+![ㄷㅎㄴㅅㄱ](https://user-images.githubusercontent.com/46588549/59302916-05ce4080-8cd0-11e9-897a-18de42c634f8.png)
+
+### 입력을 했으면, Enter를 누르고 위 아래 방향키로 바꾸고자 하는 키를 선택할 수 있다. </center>
+
+![ㅏㅑㅕㅛ](https://user-images.githubusercontent.com/46588549/59302931-0cf54e80-8cd0-11e9-9a78-805a9324a8f6.png)
 
 ## License
 
