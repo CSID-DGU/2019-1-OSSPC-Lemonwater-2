@@ -66,6 +66,8 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>맨 처음 실행시 보이는 화면, 다섯 가지를 선택할 수 있다.</center>
 
+<img src="https://i.imgur.com/KIFCRXe.png">
+
 ## 1. Single Mode
 
 <center>들어가면 바로 게임이 시작된다.</center>
