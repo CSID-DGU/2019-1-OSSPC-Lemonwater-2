@@ -72,33 +72,33 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ### 들어가면 바로 게임이 시작된다.
 
-![스크린샷, 2019-06-12 04-39-05](https://user-images.githubusercontent.com/46588549/59302344-bafff900-8cce-11e9-85fd-e7615ec702f0.png)
+![자](https://user-images.githubusercontent.com/46588549/59303407-1f23bc80-8cd1-11e9-83d4-c5613f621716.png)
 
 ### 모든 pellet을 먹으면 다음 스테이지로 넘어간다.
 
-![스크린샷, 2019-06-12 04-45-51](https://user-images.githubusercontent.com/46588549/59302366-cc490580-8cce-11e9-9dfd-9189a19d783d.png)
+![아](https://user-images.githubusercontent.com/46588549/59303416-20ed8000-8cd1-11e9-9e70-cd572c62b24f.png)
 
-![스크린샷, 2019-06-12 04-45-55](https://user-images.githubusercontent.com/46588549/59302394-dec33f00-8cce-11e9-816c-ae6cd5aae134.png)
+![사](https://user-images.githubusercontent.com/46588549/59303414-20ed8000-8cd1-11e9-8e37-aca6ee1da330.png)
 
 ### 목숨을 다 쓰면 게임이 끝난다.
 
-![스크린샷, 2019-06-12 04-47-33](https://user-images.githubusercontent.com/46588549/59302446-f3073c00-8cce-11e9-8fa1-dc09f8249846.png)
+![바](https://user-images.githubusercontent.com/46588549/59303413-2054e980-8cd1-11e9-9a8c-6937ccbd142e.png)
 
 ### spacebar를 누르면 게임을 일시정지할 수 있다.
 
-![스크린샷, 2019-06-12 04-47-59](https://user-images.githubusercontent.com/46588549/59302466-fac6e080-8cce-11e9-9f3e-db880405d9f5.png)
+![라](https://user-images.githubusercontent.com/46588549/59303411-2054e980-8cd1-11e9-863c-d739d48ebca8.png)
 
 ## 2. 2player Mode
 
 ### 들어가면 남은 시간을 확인할 수 있다.
 
-![스크린샷, 2019-06-12 04-49-11](https://user-images.githubusercontent.com/46588549/59302477-03b7b200-8ccf-11e9-9daf-7e70b411b0ac.png)
+![다](https://user-images.githubusercontent.com/46588549/59303410-1fbc5300-8cd1-11e9-8fa7-fe42ba136d77.png)
 
 ### 시간이 다 되거나 모든 pellet을 먹거나 한 쪽이 목숨을 다 쓰면 게임이 끝나며,
 
 ### 게임 종료 시 게임을 계속할 지 결정할 수 있다.
 
-![스크린샷, 2019-06-12 04-49-36](https://user-images.githubusercontent.com/46588549/59302499-103c0a80-8ccf-11e9-924e-f54b5d104a42.png)
+![나](https://user-images.githubusercontent.com/46588549/59303409-1fbc5300-8cd1-11e9-9f86-4a7b6faa2796.png)
 
 ## 3. Online Mode
 
