@@ -124,7 +124,7 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
 
-![헬프움짤](https://user-images.githubusercontent.com/46588549/59303110-77a68a00-8cd0-11e9-83cd-f4f70ed47319.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/46588549/59305520-5dbb7600-8cd5-11e9-805e-02f2c6efaf15.gif)
 
 ## 5. Settings(환경설정)
 
