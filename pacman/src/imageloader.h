@@ -69,5 +69,13 @@ SDL_Surface* get_fruit_score_image(Fruit fruit);
 SDL_Surface* help1_image(void);
 SDL_Surface* help2_image(void);
 SDL_Surface* help3_image(void);
+SDL_Surface* help4_image(void);
+SDL_Surface* help5_image(void);
+SDL_Surface* help6_image(void);
+SDL_Surface* help7_image(void);
+SDL_Surface* help8_image(void);
+SDL_Surface* help9_image(void);
+SDL_Surface* help10_image(void);
+
 
 SDL_Surface* pause_image(void);

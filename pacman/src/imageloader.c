@@ -145,6 +145,8 @@ SDL_Surface *help5image;
 SDL_Surface *help6image;
 SDL_Surface *help7image;
 SDL_Surface *help8image;
+SDL_Surface *help9image;
+SDL_Surface *help10image;
 
 
 
@@ -181,7 +183,7 @@ void load_images(void)
 	load_char_images();
 	load_fruit_images();
 	load_object_images();
-	load_help_images(); //lemonwater 5.8 모든 이미지를 로딩할 때 help이미지 3가지도 추가한다.
+	load_help_images(); //lemonwater 5.8 모든 이미지를 로딩할 때 help이미지 10가지도 추가한다.
 	load_pause_images();
 }
 
@@ -601,6 +603,8 @@ SDL_Surface* help5_image(void) {return help5image;}
 SDL_Surface* help6_image(void) {return help6image;}
 SDL_Surface* help7_image(void) {return help7image;}
 SDL_Surface* help8_image(void) {return help8image;}
+SDL_Surface* help9_image(void) {return help9image;}
+SDL_Surface* help10_image(void) {return help10image;}
 
 //lemonwater 5.20 add pause image
 SDL_Surface* pause_image(void)
@@ -621,6 +625,8 @@ void load_help_images(void)
     help6image = load_image(DIR HELP_DIR "help6.png");
 	help7image = load_image(DIR HELP_DIR "help7.png");
     help8image = load_image(DIR HELP_DIR "help8.png");
+	help9image = load_image(DIR HELP_DIR "help9.png");
+	help10image = load_image(DIR HELP_DIR "help10.png");
     
 }
 void dispose_help_images(void)
@@ -633,6 +639,8 @@ void dispose_help_images(void)
     SDL_FreeSurface(help6image);
 	SDL_FreeSurface(help7image);
     SDL_FreeSurface(help8image);
+	SDL_FreeSurface(help9image);
+	SDL_FreeSurface(help10image);
 
 }
 

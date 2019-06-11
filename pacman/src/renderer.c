@@ -783,6 +783,15 @@ void draw_help_mode(int *s_c_num) // Lemonwater 5.4 add help, 실제로 help1,2,
 		image = help8_image();
 		apply_surface(10, 8, image);
 		break;
+	case 8:
+		image = help9_image();
+		apply_surface(10, 8, image);
+		break;
+	case 9:
+		image = help10_image();
+		apply_surface(10, 8, image);
+		break;
+
 	}
 }
 

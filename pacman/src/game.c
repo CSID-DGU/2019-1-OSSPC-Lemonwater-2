@@ -1321,8 +1321,8 @@ void game_object_function(GameObject *gameObject, PacmanGame *game, int playernu
 	{
 	case Ghostslow:
 		for(int i=0;i<4;i++){
-			if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=50;
-			else game->ghosts[0][i].body.velocity=50;
+			//if(game->playMode==Multi_TA)game->ghosts[playernum][i].body.velocity=50;
+			game->ghosts[0][i].body.velocity=50;
 		}
 		return;
 	//#15 Yang : 1.생명추가 object 추가
@@ -1344,7 +1344,7 @@ void game_object_function(GameObject *gameObject, PacmanGame *game, int playernu
 		}
 		return;
 	case Thunder: //lemonwater 5.29 thunder 먹은 사람이 상대방 멈추기
-		if (collides_obj(&pac->body, o[4]->x, o[4]->y))
+		//if (collides_obj(&pac->body, o[4]->x, o[4]->y))
 			game->pacman[(playernum+1)%2].body.velocity=0;
 			
 		return;

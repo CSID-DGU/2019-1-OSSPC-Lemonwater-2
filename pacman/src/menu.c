@@ -289,8 +289,8 @@ int help_render(MenuSystem *menuSystem)
 
 	//lemonwater 5.7 s_c_num은 원래 0, 현재 help1창
 	
-	if(get==SDLK_RIGHT && (s_c_num >=0 && s_c_num <=6)) s_c_num += 1;
-	else if (get==SDLK_LEFT && (s_c_num >=1 && s_c_num <=7)) s_c_num -=1;
+	if(get==SDLK_RIGHT && (s_c_num >=0 && s_c_num <=8)) s_c_num += 1;
+	else if (get==SDLK_LEFT && (s_c_num >=1 && s_c_num <=9)) s_c_num -=1;
 
     draw_help_mode(&s_c_num);
     return 0;

@@ -42,6 +42,7 @@ Object object_for_level(int level)
 //Lemonwater Ice object case 3번으로 랜덤출현 추가
 Object random_object()
 {
+	
 	int random = rand()%NUM_OBJECT;
 	switch(random){
 	case 0: return Ghostslow;
@@ -49,7 +50,7 @@ Object random_object()
 	//#26 Yang: 1.godmode
 	case 2: return God;
 	case 3: return Ice;
-	case 4: return Thunder; //lemonwater 5.29 thunder 추가
+	case 4: return Thunder;//lemonwater 5.29 thunder 추가
 	default : return Ghostslow;
 	}
 }
