@@ -70,21 +70,35 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ## 1. Single Mode
 
-<center>들어가면 바로 게임이 시작된다.</center>
+### 들어가면 바로 게임이 시작된다.
 
-<center>모든 pellet을 먹으면 다음 스테이지로 넘어간다.</center>
+![스크린샷, 2019-06-12 04-39-05](https://user-images.githubusercontent.com/46588549/59302344-bafff900-8cce-11e9-85fd-e7615ec702f0.png)
 
-<center>목숨을 다 쓰면 게임이 끝난다.</center>
+### 모든 pellet을 먹으면 다음 스테이지로 넘어간다.
 
-<center>spacebar를 누르면 게임을 일시정지할 수 있다.</center>
+![스크린샷, 2019-06-12 04-45-51](https://user-images.githubusercontent.com/46588549/59302366-cc490580-8cce-11e9-9dfd-9189a19d783d.png)
+
+![스크린샷, 2019-06-12 04-45-55](https://user-images.githubusercontent.com/46588549/59302394-dec33f00-8cce-11e9-816c-ae6cd5aae134.png)
+
+### 목숨을 다 쓰면 게임이 끝난다.
+
+![스크린샷, 2019-06-12 04-47-33](https://user-images.githubusercontent.com/46588549/59302446-f3073c00-8cce-11e9-8fa1-dc09f8249846.png)
+
+### spacebar를 누르면 게임을 일시정지할 수 있다.
+
+![스크린샷, 2019-06-12 04-47-59](https://user-images.githubusercontent.com/46588549/59302466-fac6e080-8cce-11e9-9f3e-db880405d9f5.png)
 
 ## 2. 2player Mode
 
-<center>들어가면 남은 시간을 확인할 수 있다.</center>
+### 들어가면 남은 시간을 확인할 수 있다.
 
-<center>시간이 다 되거나 모든 pellet을 먹거나 한 쪽이 목숨을 다 쓰 게임이 끝난다.</center>
+![스크린샷, 2019-06-12 04-49-11](https://user-images.githubusercontent.com/46588549/59302477-03b7b200-8ccf-11e9-9daf-7e70b411b0ac.png)
 
-<center>게임 종료 시 게임을 계속할 지 결정할 수 있다.</center>
+### 시간이 다 되거나 모든 pellet을 먹거나 한 쪽이 목숨을 다 쓰면 게임이 끝나며,
+
+### 게임 종료 시 게임을 계속할 지 결정할 수 있다.
+
+![스크린샷, 2019-06-12 04-49-36](https://user-images.githubusercontent.com/46588549/59302499-103c0a80-8ccf-11e9-924e-f54b5d104a42.png)
 
 ## 3. Online Mode
 
@@ -106,21 +120,19 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ### 게임 방식은 2player와 같다.
 
-## 4. Help
+## 4. Help(도움말)
 
-<center>Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
+### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
 
 ## 5. Settings(환경설정)
 
-<center>본인이 조작키를 바꾸고 싶다면 여기서 바꾸면 된다. </center>
+### 바꾸고 싶은 키를 선택한다. </center>
 
-<center>바꾸고 싶은 키를 선택한다. </center>
+### Enter를 누르고 바꾸고자 하는 키를 입력한다. </center>
 
-<center>Enter를 누르고 바꾸고자 하는 키를 입력한다. </center>
+### 하지만, 바꾼 키가 다른 키랑 중복이 되면, 키가 서로 바뀌게 된다. </center>
 
-<center>하지만, 바꾼 키가 다른 키랑 중복이 되면, 키가 서로 바뀌게 된다. </center>
-
-<center>조작키를 바꿨다면 backspace를 눌러 메인화면으로 갈 수 있다. </center>
+### 조작키를 바꿨다면 backspace를 눌러 메인화면으로 갈 수 있다. </center>
 
 ## License
 
