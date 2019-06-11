@@ -72,15 +72,17 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>들어가면 바로 게임이 시작된다.</center>
 
-<center>ㄹ촢허.</center>
+<center>모든 pellet을 먹으면 다음 스테이지로 넘어간다.</center>
+
+<center>목숨을 다 쓰면 게임이 끝난다.</center>
 
 <center>spacebar를 누르면 게임을 일시정지할 수 있다.</center>
 
 ## 2. 2player Mode
 
-<center>들어가면 남은 시간을 확인할 수 있다. 시간이 다 되면 게임이 끝난다.</center>
+<center>들어가면 남은 시간을 확인할 수 있다.</center>
 
-<center>ㅇㅊㄿ호ㅠㅏㅝㅡ.</center>
+<center>시간이 다 되거나 모든 pellet을 먹거나 한 쪽이 목숨을 다 쓰 게임이 끝난다.</center>
 
 <center>게임 종료 시 게임을 계속할 지 결정할 수 있다.</center>
 
