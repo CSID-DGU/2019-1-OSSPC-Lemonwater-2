@@ -84,11 +84,12 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 ![바](https://user-images.githubusercontent.com/46588549/59303413-2054e980-8cd1-11e9-9a8c-6937ccbd142e.png)
 
-### spacebar를 누르면 게임을 일시정지할 수 있다.
+### spacebar를 누르면 게임을 일시정지할 수 있다.(추가)
 
 ![라](https://user-images.githubusercontent.com/46588549/59303411-2054e980-8cd1-11e9-863c-d739d48ebca8.png)
+<center>게임을 하다보면 잠시 중지하고 싶은 경우가 있기 마련이다. 그래서 우리는 일시정지 기능을 추가해 게임을 계속할지 결정할 수 있도록 했다.</center>
 
-## 2. 2player Mode
+## 2. 2player Mode(기존 코드에서 수정)
 
 ### 들어가면 남은 시간을 확인할 수 있다.
 
@@ -99,6 +100,10 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 ### 게임 종료 시 게임을 계속할 지 결정할 수 있다.
 
 ![나](https://user-images.githubusercontent.com/46588549/59303409-1fbc5300-8cd1-11e9-9f86-4a7b6faa2796.png)
+
+<center>기존에는 결과만 보여줬지만, 우리는 게임을 계속할 지에 대한 결정을 할 수 있게 구현했다.</center>
+
+### 마찬가지로 spacebar를 누르면 게임을 일시정지할 수 있다.
 
 ## 3. Online Mode
 
@@ -118,13 +123,17 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>커서를 JOIN ROOM 에 두고 IP 를 입력한다. </center>
 
-### 게임 방식은 2player와 같다.
+### 게임 방식은 2player와 같다. 단, 일시정지 기능은 넣지 않았다.
+
+### 왜냐하면 online모드는 컴퓨터 두 대로 하는 모드인데, 한 명이 일시중지하면 다른 사람이 못하는 경우가 발생하기 때문이다.
 
 ## 4. Help(도움말)
 
-### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다. </center>
+### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다.
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/46588549/59305520-5dbb7600-8cd5-11e9-805e-02f2c6efaf15.gif)
+
+<center>커서를 JOIN ROOM 에 두고 IP 를 입력한다. </center>
 
 ## 5. Settings(환경설정)
 
