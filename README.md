@@ -123,29 +123,31 @@ sudo apt-get install libsdl-image1.2 libsdl-gfx1.2-5 libsdl1.2-dev
 
 <center>커서를 JOIN ROOM 에 두고 IP 를 입력한다. </center>
 
-### 게임 방식은 2player와 같다. 단, 일시정지 기능은 넣지 않았다.
+<center>게임 방식은 2player와 같다. 단, 일시정지 기능은 넣지 않았다.</center>
 
-### 왜냐하면 online모드는 컴퓨터 두 대로 하는 모드인데, 한 명이 일시중지하면 다른 사람이 못하는 경우가 발생하기 때문이다.
+<center>왜냐하면 online모드는 컴퓨터 두 대로 하는 모드인데, 한 명이 일시중지하면 다른 사람이 못하는 경우가 발생하기 때문이다.</center>
 
-## 4. Help(도움말)
+## 4. Help(도움말, 추가한 부분)
 
 ### Help창에는 게임의 역사 및 조작법, 아이템 등에 대한 정보를 확인할 수 있다.
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/46588549/59305520-5dbb7600-8cd5-11e9-805e-02f2c6efaf15.gif)
 
-<center>커서를 JOIN ROOM 에 두고 IP 를 입력한다. </center>
+<center>아무리 pacman이 유명한 게임이라 해도 여전히 이 게임을 낯설어 하는 사람이 있다. 그래서, 우리는 그런 사람들을 위해 도움말을 직접 만들었다. 이를 통해 초보자도 누구나 쉽게 게임을 할 수 있기 바란다. </center>
 
-## 5. Settings(환경설정)
+## 5. Settings(환경설정, 추가한 부분)
 
-### 바꾸고 싶은 키를 선택하고 Enter를 누른다. </center>
+<center>환경설정은 사용자가 원하는 방향키로 바꿀 수 있게 도와준다. 키를 바꿈으로써 사용자만의 방향키로 편리한 게임을 즐겨보자.</center>
+
+### 바꾸고 싶은 키를 선택하고 Enter를 누른다.
 
 ![ㄷㄱㅎㄹ](https://user-images.githubusercontent.com/46588549/59302901-fe0e9c00-8ccf-11e9-98d4-697374f05d00.png)
 
-### 바꾸고자 하는 키를 입력한다. </center>
+### 바꾸고자 하는 키를 입력한다.
 
 ![ㄷㅎㄴㅅㄱ](https://user-images.githubusercontent.com/46588549/59302916-05ce4080-8cd0-11e9-897a-18de42c634f8.png)
 
-### 입력을 했으면, Enter를 누르고 위 아래 방향키로 바꾸고자 하는 키를 선택할 수 있다. </center>
+### 입력을 했으면, Enter를 누르고 위 아래 방향키로 바꾸고자 하는 키를 선택할 수 있다.
 
 ![ㅏㅑㅕㅛ](https://user-images.githubusercontent.com/46588549/59302931-0cf54e80-8cd0-11e9-9a78-805a9324a8f6.png)
 
